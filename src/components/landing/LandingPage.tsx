@@ -134,7 +134,7 @@ export default function LandingPage() {
                   Watch live fights. Buy tickets. Follow champions. Discover the future of professional boxing in one premium digital arena.
                 </p>
                 <div className="mt-10 flex flex-col gap-4 sm:flex-row">
-                  <Button className="rounded-full bg-[#E10600] px-8 py-4 text-sm font-semibold tracking-[0.16em] uppercase shadow-[0_18px_50px_rgba(225,16,0,0.18)] hover:bg-[#c30600]" size="lg">
+                  <Button className="rounded-full bg-[#E10600] px-8 py-4 text-sm font-semibold tracking-[0.16em] uppercase hover:bg-[#c30600]" size="lg">
                     Watch Live
                   </Button>
                   <Button variant="outline" className="rounded-full border-white/15 px-8 py-4 text-sm font-semibold uppercase tracking-[0.16em] text-white shadow-[0_18px_50px_rgba(0,0,0,0.18)] hover:border-[#E10600]/30 hover:bg-white/5" size="lg">
@@ -236,7 +236,7 @@ export default function LandingPage() {
                   Follow every round in premium quality, with rich commentary, live scorecards, and curated highlights for the moments that move the sport forward.
                 </p>
                 <div className="mt-10 flex flex-col gap-4 sm:flex-row">
-                  <Button className="rounded-full bg-[#E10600] px-8 py-4 text-sm font-semibold uppercase tracking-[0.16em] shadow-[0_18px_50px_rgba(225,16,0,0.18)]">
+                  <Button className="rounded-full bg-[#E10600] px-8 py-4 text-sm font-semibold uppercase tracking-[0.16em]">
                     Watch live
                   </Button>
                   <Button variant="outline" className="rounded-full border-white/15 px-8 py-4 text-sm font-semibold uppercase tracking-[0.16em] hover:bg-white/5">

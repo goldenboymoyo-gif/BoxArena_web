@@ -10,7 +10,9 @@ interface VideoCardProps {
 }
 
 export function VideoCard({ video, variant = "default" }: VideoCardProps) {
-  const img = resolveImage(video.image);
+  const img = video.youtubeId
+    ? `https://i.ytimg.com/vi/${video.youtubeId}/hqdefault.jpg`
+    : resolveImage(video.image);
 
   if (variant === "horizontal") {
     return (
@@ -54,7 +56,7 @@ export function VideoCard({ video, variant = "default" }: VideoCardProps) {
           <Clock3 className="size-3" /> {video.duration}
         </span>
         <div className="absolute inset-0 grid place-items-center">
-          <span className="grid size-14 place-items-center rounded-full bg-[#e31b23] text-white shadow-[0_0_0_8px_rgba(227,27,35,0.25)] transition group-hover:scale-110">
+          <span className="grid size-14 place-items-center rounded-full bg-[#e31b23] text-white transition group-hover:scale-110">
             <Play className="ml-0.5 size-6 fill-current" />
           </span>
         </div>

@@ -24,7 +24,20 @@ export type CountryCode =
   | "RO"
   | "IE"
   | "NI"
-  | "TH";
+  | "TH"
+  | "NG"
+  | "GH"
+  | "KE"
+  | "EG"
+  | "SO"
+  | "SN"
+  | "CM"
+  | "TZ"
+  | "ZM"
+  | "ZW"
+  | "UG"
+  | "ET"
+  | "MA";
 
 export interface FighterRecord {
   wins: number;
@@ -180,6 +193,7 @@ export interface VideoItem {
   featured?: boolean;
   category: string;
   image: string;
+  youtubeId?: string;
   tags: string[];
 }
 

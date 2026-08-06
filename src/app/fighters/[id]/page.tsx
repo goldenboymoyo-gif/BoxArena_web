@@ -85,7 +85,7 @@ export default async function FighterProfilePage({
               <img
                 src={fighter.image}
                 alt={fighter.name}
-                className="size-36 rounded-3xl border-2 border-[#e31b23] object-cover object-top shadow-[0_20px_60px_rgba(227,27,35,0.35)] sm:size-44"
+                className="size-36 rounded-3xl border-2 border-[#e31b23] object-cover object-top sm:size-44"
               />
               <div>
                 <div className="flex flex-wrap items-center gap-3">
@@ -122,10 +122,10 @@ export default async function FighterProfilePage({
               </div>
             </div>
             <div className="flex gap-3 lg:flex-col">
-              <Button className="rounded-full bg-[#e31b23] px-6 py-3 text-xs font-bold uppercase tracking-[0.16em] text-white hover:bg-[#c3161d]">
+              <Button size="lg" className="rounded-full bg-[#e31b23] px-6 text-xs font-bold uppercase tracking-[0.16em] text-white hover:bg-[#c3161d]">
                 Follow fighter
               </Button>
-              <Button variant="outline" className="rounded-full border-white/15 px-6 py-3 text-xs font-bold uppercase tracking-[0.16em] text-white/80">
+              <Button variant="outline" size="lg" className="rounded-full border-white/15 px-6 text-xs font-bold uppercase tracking-[0.16em] text-white/80">
                 <Swords className="size-4 text-[#e31b23]" /> Bet on next fight
               </Button>
             </div>

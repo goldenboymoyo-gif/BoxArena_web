@@ -23,10 +23,19 @@ export function Countdown({ date, timezone, compact }: CountdownProps) {
   const [time, setTime] = useState(() => getRemaining(date));
 
   useEffect(() => {
-    setMounted(true);
-    setTime(getRemaining(date));
+    let active = true;
+    const timer = setTimeout(() => {
+      if (active) {
+        setMounted(true);
+        setTime(getRemaining(date));
+      }
+    }, 0);
     const id = setInterval(() => setTime(getRemaining(date)), 1000);
-    return () => clearInterval(id);
+    return () => {
+      active = false;
+      clearTimeout(timer);
+      clearInterval(id);
+    };
   }, [date]);
 
   const units = [

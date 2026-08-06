@@ -18,6 +18,7 @@ import { Button } from "@/components/ui/button";
 import { Countdown } from "@/components/site/Countdown";
 import { TaleOfTheTape } from "@/components/cards/TaleOfTheTape";
 import { EventCard } from "@/components/cards/EventCard";
+import { FightCard } from "@/components/cards/FightCard";
 import { events, getEvent } from "@/data/events";
 import { getFighterByName } from "@/data/fighters";
 import { flagEmoji } from "@/lib/country";
@@ -173,8 +174,8 @@ export default async function EventDetailPage({
                 </div>
               </div>
               <Link
-                href="/tickets"
-                className="mt-5 flex items-center justify-center gap-2 rounded-full bg-[#e31b23] px-6 py-3.5 text-xs font-bold uppercase tracking-[0.18em] text-white shadow-[0_18px_50px_rgba(227,27,35,0.35)] transition hover:bg-[#c3161d]"
+                href={`/tickets?event=${event.id}`}
+                className="mt-5 flex items-center justify-center gap-2 rounded-full bg-[#e31b23] px-6 py-3.5 text-xs font-bold uppercase tracking-[0.18em] text-white transition hover:bg-[#c3161d]"
               >
                 <Ticket className="size-4" /> Buy tickets
               </Link>
@@ -220,35 +221,7 @@ export default async function EventDetailPage({
             <h2 className="mt-3 font-display text-3xl font-semibold uppercase tracking-wide text-white">
               Full Undercard
             </h2>
-            <div className="mt-6 space-y-3">
-              {event.card.map((bout, i) => (
-                <div
-                  key={bout.fighters + i}
-                  className="rounded-2xl border border-white/10 bg-[#111111] p-5 transition hover:border-[#e31b23]/40"
-                >
-                  <div className="flex flex-wrap items-center justify-between gap-2">
-                    <span className="text-xs font-bold uppercase tracking-[0.18em] text-white/45">
-                      {bout.bout}
-                    </span>
-                    <span className="rounded-full bg-white/5 px-2.5 py-1 text-[10px] font-bold uppercase tracking-[0.14em] text-[#e31b23]">
-                      {bout.status ?? "Undercard"}
-                    </span>
-                  </div>
-                  <h3 className="mt-2 font-display text-lg font-semibold uppercase tracking-wide text-white">
-                    {bout.fighters}
-                  </h3>
-                  <div className="mt-1.5 flex items-center gap-2 text-xs text-white/45">
-                    <span>{bout.division}</span>
-                    {bout.titles && (
-                      <>
-                        <span className="text-white/25">·</span>
-                        <span className="text-white/60">{bout.titles}</span>
-                      </>
-                    )}
-                  </div>
-                </div>
-              ))}
-            </div>
+            <FightCard card={event.card} className="mt-6" />
           </div>
         </div>
       </section>
@@ -294,12 +267,15 @@ export default async function EventDetailPage({
               </div>
             </div>
             <div className="flex flex-col gap-3 sm:flex-row">
-              <Button variant="outline" className="rounded-full border-white/15 text-white/85 hover:border-[#e31b23]/50">
+              <Button variant="outline" size="lg" className="rounded-full border-white/15 text-white/85 hover:border-[#e31b23]/50">
                 Add to calendar
               </Button>
-              <Button className="rounded-full bg-[#e31b23] px-6 hover:bg-[#c3161d]">
+              <Link
+                href={`/tickets?event=${event.id}`}
+                className="rounded-full bg-[#e31b23] px-6 py-3.5 text-xs font-bold uppercase tracking-[0.18em] text-white transition hover:bg-[#c3161d]"
+              >
                 <Ticket className="size-4" /> Get tickets
-              </Button>
+              </Link>
             </div>
           </div>
         </div>

@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="600" height="600" viewBox="0 0 600 600">
+  <defs>
+    <radialGradient id="glow" cx="0.5" cy="0.35" r="0.65">
+      <stop offset="0%" stop-color="#e31b23" stop-opacity="0.28"/>
+      <stop offset="100%" stop-color="#e31b23" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#171717"/>
+      <stop offset="100%" stop-color="#0a0a0a"/>
+    </linearGradient>
+  </defs>
+  <rect width="600" height="600" fill="url(#bg)"/>
+  <rect width="600" height="600" fill="url(#glow)"/>
+  <rect y="524" width="600" height="76" fill="#e31b23" opacity="0.12"/>
+  <circle cx="300" cy="268" r="122" fill="none" stroke="#e31b23" stroke-width="3"/>
+  <circle cx="300" cy="268" r="152" fill="none" stroke="#ffffff" stroke-opacity="0.1" stroke-width="1.5"/>
+  <text x="300" y="300" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="96" font-weight="700" fill="#ffffff">DT</text>
+  <text x="300" y="386" text-anchor="middle" font-family="'Arial Black', Arial, sans-serif" font-size="22" letter-spacing="8" fill="#e31b23" font-weight="700">BOXARENA</text>
+  <text x="300" y="448" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="34" font-weight="600" fill="#ffffff">Dingaan Thobela</text>
+  <text x="300" y="484" text-anchor="middle" font-family="'Segoe UI', Arial, sans-serif" font-size="16" letter-spacing="4" fill="#ffffff" fill-opacity="0.55">SOUTH AFRICA</text>
+</svg>

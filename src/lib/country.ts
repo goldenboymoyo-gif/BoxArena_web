@@ -27,6 +27,19 @@ const names: Record<CountryCode, string> = {
   IE: "Ireland",
   NI: "Nicaragua",
   TH: "Thailand",
+  NG: "Nigeria",
+  GH: "Ghana",
+  KE: "Kenya",
+  EG: "Egypt",
+  SO: "Somalia",
+  SN: "Senegal",
+  CM: "Cameroon",
+  TZ: "Tanzania",
+  ZM: "Zambia",
+  ZW: "Zimbabwe",
+  UG: "Uganda",
+  ET: "Ethiopia",
+  MA: "Morocco",
 };
 
 export function flagEmoji(code: CountryCode | string): string {

@@ -5,6 +5,7 @@ import "./globals.css";
 import { SiteHeader } from "@/components/site/SiteHeader";
 import { SiteFooter } from "@/components/site/SiteFooter";
 import { LiveTicker } from "@/components/site/LiveTicker";
+import { AuthProvider } from "@/lib/auth";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -34,10 +35,12 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       className={`${inter.variable} ${oswald.variable} h-full scroll-smooth dark`}
     >
       <body className="min-h-full bg-[#080808] text-white antialiased">
-        <SiteHeader />
-        <LiveTicker />
-        <main className="flex min-h-screen flex-col">{children}</main>
-        <SiteFooter />
+        <AuthProvider>
+          <SiteHeader />
+          <LiveTicker />
+          <main className="flex min-h-screen flex-col">{children}</main>
+          <SiteFooter />
+        </AuthProvider>
       </body>
     </html>
   );

@@ -2,10 +2,21 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { Bell, ChevronDown, Menu, Search, X } from "lucide-react";
+import { usePathname, useRouter } from "next/navigation";
+import {
+  Bell,
+  ChevronDown,
+  LayoutDashboard,
+  LogOut,
+  Menu,
+  Search,
+  UserRound,
+  X,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { useAuth, initialsOf } from "@/lib/auth";
+import { AuthDialog, type AuthMode } from "@/components/site/AuthDialog";
 
 const nav = [
   { label: "Home", href: "/" },
@@ -18,78 +29,79 @@ const nav = [
   { label: "Live", href: "/live" },
 ];
 
-const moreLinks = [
-  { label: "My Dashboard", href: "/dashboard" },
-  { label: "Pound-for-Pound", href: "/rankings" },
-  { label: "The Legends", href: "/fighters#legends" },
-  { label: "About BoxArena", href: "/news" },
-  { label: "Help & Support", href: "/tickets" },
-];
-
 export function SiteHeader() {
   const pathname = usePathname();
+  const router = useRouter();
+  const { user, hydrated, signOut } = useAuth();
   const [menuOpen, setMenuOpen] = useState(false);
-  const [moreOpen, setMoreOpen] = useState(false);
+  const [userMenuOpen, setUserMenuOpen] = useState(false);
+  const [authOpen, setAuthOpen] = useState(false);
+  const [authMode, setAuthMode] = useState<AuthMode>("signin");
+
+  const signedIn = hydrated && Boolean(user);
+
+  function openAuth(mode: AuthMode) {
+    setAuthMode(mode);
+    setMenuOpen(false);
+    setUserMenuOpen(false);
+    setAuthOpen(true);
+  }
+
+  function handleBell() {
+    if (signedIn) {
+      setMenuOpen(false);
+      router.push("/dashboard");
+    } else {
+      openAuth("signin");
+    }
+  }
+
+  function handleSignOut() {
+    signOut();
+    setUserMenuOpen(false);
+    setMenuOpen(false);
+    if (pathname === "/dashboard") router.push("/");
+  }
+
+  const navLinks = signedIn
+    ? [...nav, { label: "Dashboard", href: "/dashboard" }]
+    : nav;
 
   return (
     <header className="sticky top-0 z-50 border-b border-white/10 bg-[#080808]/95 backdrop-blur-xl">
       <div className="mx-auto flex h-16 max-w-[1440px] items-center gap-6 px-4 sm:px-6 lg:px-8">
-        <Link href="/" className="flex items-center gap-3">
-          <div className="grid size-10 place-items-center rounded-xl bg-[#e31b23] font-display text-lg font-bold tracking-[0.12em] text-white shadow-[0_10px_30px_rgba(227,27,35,0.4)]">
-            B
-          </div>
-          <div className="hidden flex-col md:flex">
-            <span className="font-display text-sm font-semibold uppercase tracking-[0.24em] text-white">
-              BoxArena
-            </span>
-            <span className="text-[10px] uppercase tracking-[0.2em] text-white/45">
-              The Home of Boxing
-            </span>
-          </div>
+        <Link href="/" className="flex items-center">
+          <img
+            src="/logo.png"
+            alt="BoxArena — The Home of Boxing"
+            className="h-9 w-auto mix-blend-screen sm:h-10"
+          />
         </Link>
 
         <nav className="hidden items-center gap-1 xl:flex">
-          {nav.map((item) => {
+          {navLinks.map((item) => {
             const active =
               item.href === "/" ? pathname === "/" : pathname.startsWith(item.href);
+            const isDashboard = item.href === "/dashboard";
             return (
               <Link
                 key={item.href}
                 href={item.href}
                 className={cn(
-                  "rounded-lg px-3 py-2 text-sm font-medium text-white/65 transition hover:text-white",
-                  active && "bg-white/5 text-white"
+                  "rounded-lg px-3 py-2 text-sm font-medium transition",
+                  isDashboard
+                    ? "flex items-center gap-1.5 rounded-full border border-[#e31b23]/40 bg-[#e31b23]/10 font-semibold text-white hover:bg-[#e31b23]"
+                    : cn(
+                        "text-white/65 hover:text-white",
+                        active && "bg-white/5 text-white"
+                      )
                 )}
               >
+                {isDashboard && <LayoutDashboard className="size-3.5" />}
                 {item.label}
               </Link>
             );
           })}
-          <div className="relative">
-            <button
-              onClick={() => setMoreOpen((v) => !v)}
-              className="flex items-center gap-1 rounded-lg px-3 py-2 text-sm font-medium text-white/65 transition hover:text-white"
-            >
-              More
-              <ChevronDown
-                className={cn("size-3.5 transition-transform", moreOpen && "rotate-180")}
-              />
-            </button>
-            {moreOpen && (
-              <div className="absolute right-0 top-full mt-2 w-56 rounded-xl border border-white/10 bg-[#111111] p-2 shadow-2xl">
-                {moreLinks.map((link) => (
-                  <Link
-                    key={link.href}
-                    href={link.href}
-                    onClick={() => setMoreOpen(false)}
-                    className="block rounded-lg px-3 py-2.5 text-sm text-white/75 transition hover:bg-white/5 hover:text-white"
-                  >
-                    {link.label}
-                  </Link>
-                ))}
-              </div>
-            )}
-          </div>
         </nav>
 
         <div className="ml-auto flex flex-1 items-center justify-end gap-2 sm:gap-3">
@@ -101,26 +113,89 @@ export function SiteHeader() {
               className="ml-2.5 w-44 bg-transparent text-sm text-white outline-none placeholder:text-white/40 focus:w-56 transition-all"
             />
           </div>
-          <Button variant="ghost" size="icon" className="relative hidden sm:inline-flex">
+
+          <Button
+            variant="ghost"
+            size="icon"
+            className="relative hidden sm:inline-flex"
+            onClick={handleBell}
+            aria-label="Notifications"
+          >
             <Bell className="size-4.5 text-white/80" />
             <span className="absolute -top-0.5 -right-0.5 grid size-4 place-items-center rounded-full bg-[#e31b23] text-[9px] font-bold text-white">
               3
             </span>
           </Button>
-          <Button
-            variant="ghost"
-            className="hidden rounded-full px-4 text-sm font-semibold uppercase tracking-[0.14em] text-white/80 sm:inline-flex"
-          >
-            Log in
-          </Button>
-          <Button className="hidden rounded-full bg-[#e31b23] px-5 text-sm font-semibold uppercase tracking-[0.14em] text-white shadow-[0_14px_34px_rgba(227,27,35,0.35)] transition hover:bg-[#c3161d] sm:inline-flex">
-            Sign up
-          </Button>
+
+          {signedIn && user ? (
+            <div className="relative">
+              <button
+                onClick={() => setUserMenuOpen((v) => !v)}
+                className="flex items-center gap-2 rounded-full border border-white/10 bg-white/5 py-1.5 pl-1.5 pr-3 transition hover:border-white/20 hover:bg-white/10"
+              >
+                <span className="grid size-8 place-items-center rounded-full bg-[#e31b23] text-xs font-bold text-white">
+                  {initialsOf(user.name)}
+                </span>
+                <span className="hidden max-w-28 truncate text-sm font-medium text-white/85 sm:block">
+                  {user.name.split(" ")[0]}
+                </span>
+                <ChevronDown
+                  className={cn("size-3.5 text-white/50 transition-transform", userMenuOpen && "rotate-180")}
+                />
+              </button>
+              {userMenuOpen && (
+                <>
+                  <button
+                    aria-label="Close menu"
+                    className="fixed inset-0 z-10 cursor-default"
+                    onClick={() => setUserMenuOpen(false)}
+                  />
+                  <div className="absolute right-0 top-full z-20 mt-2 w-56 rounded-xl border border-white/10 bg-[#111111] p-2 shadow-2xl">
+                    <div className="border-b border-white/10 px-3 pb-2.5 pt-1.5">
+                      <p className="truncate text-sm font-semibold text-white">{user.name}</p>
+                      <p className="truncate text-xs text-white/45">{user.email}</p>
+                    </div>
+                    <Link
+                      href="/dashboard"
+                      onClick={() => setUserMenuOpen(false)}
+                      className="mt-1 flex items-center gap-2 rounded-lg px-3 py-2.5 text-sm text-white/75 transition hover:bg-white/5 hover:text-white"
+                    >
+                      <LayoutDashboard className="size-4 text-[#e31b23]" /> My Dashboard
+                    </Link>
+                    <button
+                      onClick={handleSignOut}
+                      className="flex w-full items-center gap-2 rounded-lg px-3 py-2.5 text-sm text-white/75 transition hover:bg-white/5 hover:text-white"
+                    >
+                      <LogOut className="size-4 text-white/50" /> Sign out
+                    </button>
+                  </div>
+                </>
+              )}
+            </div>
+          ) : (
+            <>
+              <Button
+                variant="ghost"
+                className="hidden rounded-full px-4 text-sm font-semibold uppercase tracking-[0.14em] text-white/80 hover:bg-white/10 hover:text-white sm:inline-flex"
+                onClick={() => openAuth("signin")}
+              >
+                Log in
+              </Button>
+              <Button
+                className="hidden rounded-full bg-[#e31b23] px-5 text-sm font-semibold uppercase tracking-[0.14em] text-white transition hover:bg-[#c3161d] sm:inline-flex"
+                onClick={() => openAuth("signup")}
+              >
+                Sign up
+              </Button>
+            </>
+          )}
+
           <Button
             variant="ghost"
             size="icon"
             className="xl:hidden"
             onClick={() => setMenuOpen((v) => !v)}
+            aria-label="Toggle menu"
           >
             {menuOpen ? <X className="size-5" /> : <Menu className="size-5" />}
           </Button>
@@ -138,28 +213,76 @@ export function SiteHeader() {
             />
           </div>
           <nav className="grid grid-cols-2 gap-1">
-            {[...nav, { label: "More", href: "/#" }].map((item) => (
+            {navLinks.map((item) => (
               <Link
                 key={item.href}
                 href={item.href}
                 onClick={() => setMenuOpen(false)}
                 className={cn(
                   "rounded-lg px-3 py-3 text-sm font-medium text-white/70 transition hover:bg-white/5 hover:text-white",
-                  pathname.startsWith(item.href) && "bg-white/5 text-white"
+                  item.href === "/dashboard"
+                    ? "flex items-center gap-1.5 border border-[#e31b23]/40 bg-[#e31b23]/10 font-semibold text-white"
+                    : cn(
+                        "text-white/70 hover:bg-white/5 hover:text-white",
+                        (item.href === "/"
+                          ? pathname === "/"
+                          : pathname.startsWith(item.href)) && "bg-white/5 text-white"
+                      )
                 )}
               >
+                {item.href === "/dashboard" && <LayoutDashboard className="size-3.5 text-[#e31b23]" />}
                 {item.label}
               </Link>
             ))}
           </nav>
-          <div className="mt-4 flex gap-3">
-            <Button variant="outline" className="flex-1 rounded-full">
-              Log in
-            </Button>
-            <Button className="flex-1 rounded-full bg-[#e31b23]">Sign up</Button>
+          <div className="mt-4">
+            {signedIn && user ? (
+              <div className="flex items-center justify-between gap-3 rounded-2xl border border-white/10 bg-white/5 p-3">
+                <div className="flex min-w-0 items-center gap-3">
+                  <span className="grid size-10 shrink-0 place-items-center rounded-full bg-[#e31b23] text-sm font-bold text-white">
+                    {initialsOf(user.name)}
+                  </span>
+                  <div className="min-w-0">
+                    <p className="truncate text-sm font-semibold text-white">{user.name}</p>
+                    <p className="truncate text-xs text-white/45">{user.email}</p>
+                  </div>
+                </div>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  className="shrink-0 rounded-full border-white/15 text-white/80"
+                  onClick={handleSignOut}
+                >
+                  <LogOut className="size-3.5" /> Sign out
+                </Button>
+              </div>
+            ) : (
+              <div className="flex gap-3">
+                <Button
+                  variant="outline"
+                  className="flex-1 rounded-full border-white/15 text-white/85"
+                  onClick={() => openAuth("signin")}
+                >
+                  <UserRound className="size-4" /> Log in
+                </Button>
+                <Button
+                  className="flex-1 rounded-full bg-[#e31b23] hover:bg-[#c3161d]"
+                  onClick={() => openAuth("signup")}
+                >
+                  Sign up
+                </Button>
+              </div>
+            )}
           </div>
         </div>
       )}
+
+      <AuthDialog
+        key={authMode}
+        open={authOpen}
+        onOpenChange={setAuthOpen}
+        initialMode={authMode}
+      />
     </header>
   );
 }

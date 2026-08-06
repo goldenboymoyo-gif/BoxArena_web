@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowRight, Mail, MapPin, Send } from "lucide-react";
+import { ArrowRight, Mail, MapPin } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const footerColumns = [
@@ -115,7 +115,7 @@ export function SiteFooter() {
                 to your inbox.
               </p>
             </div>
-            <form className="flex w-full max-w-md gap-2">
+            <form className="flex w-full max-w-md flex-col gap-2 sm:flex-row">
               <div className="relative flex-1">
                 <Mail className="absolute left-3.5 top-1/2 size-4 -translate-y-1/2 text-white/40" />
                 <input
@@ -124,8 +124,12 @@ export function SiteFooter() {
                   className="w-full rounded-full border border-white/10 bg-white/5 py-3 pl-10 pr-4 text-sm text-white outline-none placeholder:text-white/40 focus:border-[#e31b23]/60"
                 />
               </div>
-              <Button type="submit" className="shrink-0 rounded-full bg-[#e31b23] px-5 text-sm font-semibold uppercase tracking-[0.12em] text-white hover:bg-[#c3161d]">
-                <Send className="size-4" />
+              <Button
+                type="submit"
+                size="lg"
+                className="shrink-0 rounded-full bg-[#e31b23] px-6 text-sm font-semibold uppercase tracking-[0.12em] text-white transition hover:bg-[#c3161d]"
+              >
+                Subscribe
               </Button>
             </form>
           </div>

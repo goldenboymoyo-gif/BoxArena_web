@@ -103,7 +103,7 @@ export default function DashboardPage() {
             <p className="mt-2 text-sm leading-6 text-white/55">
               Share BoxArena with friends and get $25 fight credit for every signup.
             </p>
-            <Button className="mt-4 w-full rounded-full bg-[#e31b23] hover:bg-[#c3161d]">
+            <Button size="lg" className="mt-4 w-full rounded-full bg-[#e31b23] hover:bg-[#c3161d]">
               Invite friends
             </Button>
           </div>

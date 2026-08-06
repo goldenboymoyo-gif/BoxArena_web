@@ -46,7 +46,11 @@ export default function VideosPage() {
               className="group relative block overflow-hidden rounded-3xl border border-white/10"
             >
               <img
-                src={resolveImage(lead.image)}
+                src={
+                  lead.youtubeId
+                    ? `https://i.ytimg.com/vi/${lead.youtubeId}/hqdefault.jpg`
+                    : resolveImage(lead.image)
+                }
                 alt={lead.title}
                 className="img-zoom aspect-video w-full object-cover"
               />
@@ -58,7 +62,7 @@ export default function VideosPage() {
                 {lead.duration}
               </span>
               <div className="absolute inset-0 grid place-items-center">
-                <span className="grid size-16 place-items-center rounded-full bg-[#e31b23] text-white shadow-[0_0_0_8px_rgba(227,27,35,0.25)] transition group-hover:scale-110">
+                <span className="grid size-16 place-items-center rounded-full bg-[#e31b23] text-white transition group-hover:scale-110">
                   <Play className="ml-0.5 size-7 fill-current" />
                 </span>
               </div>

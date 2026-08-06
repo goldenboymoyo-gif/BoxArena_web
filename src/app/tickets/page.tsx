@@ -1,6 +1,5 @@
 import Link from "next/link";
 import {
-  ArrowRight,
   Banknote,
   CalendarDays,
   CreditCard,
@@ -12,7 +11,8 @@ import {
 } from "lucide-react";
 import { SectionHeading } from "@/components/site/SectionHeading";
 import { EventCard } from "@/components/cards/EventCard";
-import { events, heroEvent } from "@/data/events";
+import { BuyTicketsCard } from "@/components/tickets/BuyTicketsCard";
+import { events, getEvent, heroEvent } from "@/data/events";
 
 export const metadata = {
   title: "Tickets",
@@ -29,8 +29,13 @@ function formatDate(iso: string) {
   });
 }
 
-export default function TicketsPage() {
-  const featured = heroEvent;
+export default async function TicketsPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ event?: string }>;
+}) {
+  const { event } = await searchParams;
+  const featured = (event ? getEvent(event) : undefined) ?? heroEvent;
   const onSale = events.filter((e) => e.status !== "Sellout");
 
   return (
@@ -95,46 +100,7 @@ export default function TicketsPage() {
             </div>
           </div>
 
-          <div className="rounded-3xl border border-white/10 bg-[#111111] p-8">
-            <h3 className="font-display text-2xl font-semibold uppercase tracking-wide text-white">
-              Ticket Tiers
-            </h3>
-            <p className="mt-2 text-xs text-white/45">
-              {featured.ticketStatus} · Broadcast on {featured.broadcaster}
-            </p>
-            <div className="mt-6 space-y-3">
-              {[
-                { name: "Ringside", desc: "Rows A–F · Meet & greet pass", price: "$4,950" },
-                { name: "Floor", desc: "Floor seating near the action", price: "$1,850" },
-                { name: "Lower Tier", desc: "Great views · standard entry", price: "$620" },
-                { name: "Upper Tier", desc: "Best value · full access", price: "$89" },
-              ].map((tier) => (
-                <div
-                  key={tier.name}
-                  className="group flex items-center justify-between gap-3 rounded-2xl border border-white/10 bg-white/[0.03] p-4 transition hover:border-[#e31b23]/50"
-                >
-                  <div>
-                    <p className="font-display text-base font-semibold uppercase text-white">
-                      {tier.name}
-                    </p>
-                    <p className="text-xs text-white/45">{tier.desc}</p>
-                  </div>
-                  <div className="flex items-center gap-3">
-                    <span className="font-display text-xl font-bold text-white">{tier.price}</span>
-                    <span className="grid size-8 place-items-center rounded-full bg-[#e31b23] text-white transition group-hover:bg-[#c3161d]">
-                      <ArrowRight className="size-4" />
-                    </span>
-                  </div>
-                </div>
-              ))}
-            </div>
-            <button className="mt-6 w-full rounded-full bg-[#e31b23] py-4 font-display text-sm font-bold uppercase tracking-[0.18em] text-white shadow-[0_18px_50px_rgba(227,27,35,0.35)] transition hover:bg-[#c3161d]">
-              Buy tickets now
-            </button>
-            <p className="mt-3 text-center text-[11px] text-white/35">
-              Secure checkout · Instant QR delivery · 24/7 support
-            </p>
-          </div>
+          <BuyTicketsCard event={featured} />
         </div>
       </section>
 

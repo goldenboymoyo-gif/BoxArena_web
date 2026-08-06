@@ -139,7 +139,7 @@ export default function FightersPage() {
           </p>
           <Link
             href="/events"
-            className="group flex items-center gap-2 rounded-full bg-[#e31b23] px-7 py-3.5 text-xs font-bold uppercase tracking-[0.18em] text-white shadow-[0_18px_50px_rgba(227,27,35,0.35)] transition hover:bg-[#c3161d]"
+            className="group flex items-center gap-2 rounded-full bg-[#e31b23] px-7 py-3.5 text-xs font-bold uppercase tracking-[0.18em] text-white transition hover:bg-[#c3161d]"
           >
             Browse events <ArrowRight className="size-4 transition group-hover:translate-x-1" />
           </Link>

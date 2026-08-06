@@ -161,3 +161,17 @@ export const ticketStatusLabels: Record<TicketItem["status"], string> = {
   pending: "Pending",
   refunded: "Refunded",
 };
+
+export interface TicketTier {
+  name: string;
+  desc: string;
+  price: number;
+  section: string;
+}
+
+export const ticketTiers: TicketTier[] = [
+  { name: "Ringside", desc: "Rows A–F · Meet & greet pass", price: 4950, section: "Ringside" },
+  { name: "Floor", desc: "Floor seating near the action", price: 1850, section: "Floor 1" },
+  { name: "Lower Tier", desc: "Great views · standard entry", price: 620, section: "Lower Tier 1" },
+  { name: "Upper Tier", desc: "Best value · full access", price: 89, section: "Upper Tier 3" },
+];
