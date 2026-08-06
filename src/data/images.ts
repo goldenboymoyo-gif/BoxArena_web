@@ -1,0 +1,56 @@
+const w = (path: string) =>
+  `https://upload.wikimedia.org/wikipedia/commons/${path}`;
+
+export const IMAGES = {
+  fighters: {
+    usyk: w("thumb/4/48/Oleksandr_Usyk_at_TIFF_2025.jpg/960px-Oleksandr_Usyk_at_TIFF_2025.jpg"),
+    usykAlt: w("thumb/9/90/Oleksandr_Usyk_training_-_20150409_-_19.jpg/960px-Oleksandr_Usyk_training_-_20150409_-_19.jpg"),
+    fury: w("8/8d/Tyson_Fury_at_Place_Bell%2C_Laval_Quebec%2C_Canada_-_Dec_16_2017_%28cropped%29.jpg"),
+    furyAlt: w("thumb/4/4a/Tyson_Fury_-_2016-04-30.jpg/500px-Tyson_Fury_-_2016-04-30.jpg"),
+    joshua: w("thumb/9/98/Anthony_Joshua_Press_Conference_%28cropped%29.jpg/960px-Anthony_Joshua_Press_Conference_%28cropped%29.jpg"),
+    crawford: w("2/2e/Terence_Crawford_during_a_podcast_in_2023.png"),
+    inoue: w("4/49/Naoya_Inoue_20230302suports_03.jpg"),
+    bivol: w("c/c5/Dmitry_Bivol_in_2023.jpg"),
+    beterbiev: w("6/64/Artur_Beterbiev%2C_December_2019.jpg"),
+    davis: w("5/52/Gervonta_Tank_Davis.jpg"),
+    haney: w("e/e0/Devin_Haney.jpg"),
+    canelo: w("8/82/Sa%C3%BAl_%C3%81lvarez.png"),
+    caneloAlt: w("thumb/7/77/Sa%C3%BAl_%C3%81lvarez_2013.jpg/514px-Sa%C3%BAl_%C3%81lvarez_2013.jpg"),
+    stevenson: w("thumb/3/34/Jesus_vs_Stevenson_2016_Rio_8cr.jpg/1280px-Jesus_vs_Stevenson_2016_Rio_8cr.jpg"),
+    spence: w("thumb/3/3c/Errol_Spence%2C_Jr.jpg/960px-Errol_Spence%2C_Jr.jpg"),
+    zhang: w("a/ab/Zhilei_Zhang_2021.jpg"),
+    dubois: w("thumb/b/b9/Daniel_Dubois_walkout_%28cropped%29.jpg/960px-Daniel_Dubois_walkout_%28cropped%29.jpg"),
+    parker: w("c/cb/Joseph_Parker_2016.jpg"),
+    lomachenko: w("thumb/4/41/Vasyl_Lomachenko_portrait_3%C3%974.jpg/960px-Vasyl_Lomachenko_portrait_3%C3%974.jpg"),
+    garcia: w("thumb/5/51/RYAN_GARCIA.jpg/1280px-RYAN_GARCIA.jpg"),
+    lopez: w("d/d6/Teofimo_Lopez.jpg"),
+    inoueNakatani: w("thumb/b/bf/INOUEvsNAKATANI.png/960px-INOUEvsNAKATANI.png"),
+  },
+  legends: {
+    tyson: w("e/ee/Mike_Tyson_Photo_Op_GalaxyCon_Austin_2023.jpg"),
+    ali: w("thumb/8/89/Muhammad_Ali_NYWTS.jpg/960px-Muhammad_Ali_NYWTS.jpg"),
+    mayweather: w("d/d9/Floyd_Mayweather_Jr_2011.jpg"),
+    pacquiao: w("6/69/Former_senator_Manny_Pacquiao_speaks_in_event_%2810-01-2025%29_%28cropped%29.jpg"),
+    foreman: w("thumb/c/cb/George_Foreman_%281973%29.jpg/1280px-George_Foreman_%281973%29.jpg"),
+    leonard: w("4/4f/Sugar_Ray_Leonard.jpg"),
+    deLaHoya: w("c/ca/Oscar_de_la_Hoya_2014_%28cropped%29.jpg"),
+  },
+  venues: {
+    msg: w("thumb/4/4b/Madison_Square_Garden_%28MSG%29_-_Full_%2848124330357%29.jpg/1280px-Madison_Square_Garden_%28MSG%29_-_Full_%2848124330357%29.jpg"),
+    wembley: w("thumb/d/d2/London_Wembley.jpg/1280px-London_Wembley.jpg"),
+    o2: w("c/c9/O2_Arena_-_geograph.org.uk_-_5617237.jpg"),
+    tmobile: w("thumb/6/6e/T_Mobile_Arena_The_Strip_Las_Vegas_%2829798246202%29.jpg/1280px-T_Mobile_Arena_The_Strip_Las_Vegas_%2829798246202%29.jpg"),
+    crypto: w("thumb/f/fd/Crypto.com_Arena_exterior_2023.jpg/1280px-Crypto.com_Arena_exterior_2023.jpg"),
+    tottenham: w("thumb/b/be/London_Tottenham_Hotspur_Stadium.jpg/1280px-London_Tottenham_Hotspur_Stadium.jpg"),
+    allegiant: w("thumb/8/87/Allegiant_Stadium_Street_View_on_Super_Bowl_LVIII.jpg/1280px-Allegiant_Stadium_Street_View_on_Super_Bowl_LVIII.jpg"),
+    caesars: w("thumb/e/ea/Caesars_Palace_-_South_East_-_2010-12-12.jpg/1280px-Caesars_Palace_-_South_East_-_2010-12-12.jpg"),
+    riyadh: w("thumb/2/20/Riyadh_Skyline.jpg/1280px-Riyadh_Skyline.jpg"),
+    tokyoDome: w("thumb/4/40/Tokyo_Dome_%2852480559907%29.jpg/1280px-Tokyo_Dome_%2852480559907%29.jpg"),
+    ariake: w("thumb/a/a4/Tokyo_Ariake_Arena.jpg/1280px-Tokyo_Ariake_Arena.jpg"),
+    prudential: w("thumb/5/51/Prudential_Center_%2855183935068%29.jpg/1280px-Prudential_Center_%2855183935068%29.jpg"),
+    yankee: w("thumb/a/af/Yankee_Stadium_overhead_2010.jpg/1280px-Yankee_Stadium_overhead_2010.jpg"),
+    mgm: w("thumb/6/67/MGMGRANDGARDEN1.JPG/1280px-MGMGRANDGARDEN1.JPG"),
+  },
+} as const;
+
+export type ImageKey = keyof typeof IMAGES;
