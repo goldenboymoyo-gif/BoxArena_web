@@ -9,7 +9,6 @@ import {
   LayoutDashboard,
   LogOut,
   Menu,
-  Search,
   UserRound,
   X,
 } from "lucide-react";
@@ -17,6 +16,7 @@ import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { useAuth, initialsOf } from "@/lib/auth";
 import { AuthDialog, type AuthMode } from "@/components/site/AuthDialog";
+import { SearchForm } from "@/components/site/SearchForm";
 
 const nav = [
   { label: "Home", href: "/" },
@@ -69,7 +69,7 @@ export function SiteHeader() {
 
   return (
     <header className="sticky top-0 z-50 border-b border-white/10 bg-[#0a0a0a]/70 backdrop-blur-xl">
-      <div className="mx-auto flex h-20 max-w-[1440px] items-center gap-6 px-4 sm:px-6 lg:px-8">
+      <div className="mx-auto flex h-20 max-w-[1440px] items-center gap-3 px-4 sm:gap-6 sm:px-6 lg:px-8">
         <Link href="/" className="flex shrink-0 items-center">
           <img
             src="/logo.png"
@@ -104,16 +104,18 @@ export function SiteHeader() {
           })}
         </nav>
 
-        {/* Centered search */}
+        {/* Centered search (desktop) */}
         <div className="ml-auto hidden min-w-0 flex-1 justify-center px-4 lg:flex">
-          <div className="flex w-full max-w-md items-center rounded-full border border-white/10 bg-white/5 px-4 py-2.5 transition focus-within:border-[#e31b23]/60 focus-within:bg-white/[0.07]">
-            <Search className="size-4 shrink-0 text-white/50" />
-            <input
-              type="text"
-              placeholder="Search fights, fighters, events..."
-              className="ml-3 w-full min-w-0 bg-transparent text-sm text-white outline-none placeholder:text-white/40"
-            />
-          </div>
+          <SearchForm className="flex w-full max-w-md items-center rounded-full border border-white/10 bg-white/5 px-4 py-2.5 transition focus-within:border-[#e31b23]/60 focus-within:bg-white/[0.07]" />
+        </div>
+
+        {/* Search (mobile / tablet) */}
+        <div className="min-w-0 flex-1 lg:hidden">
+          <SearchForm
+            placeholder="Search BoxArena"
+            onSubmitted={() => setMenuOpen(false)}
+            className="h-10 items-center rounded-full border border-white/10 bg-white/5 px-3.5 transition focus-within:border-[#e31b23]/60 focus-within:bg-white/[0.07]"
+          />
         </div>
 
         <div className="flex shrink-0 items-center justify-end gap-2 sm:gap-3">
@@ -135,7 +137,7 @@ export function SiteHeader() {
             <div className="relative">
               <button
                 onClick={() => setUserMenuOpen((v) => !v)}
-                className="flex items-center gap-2 rounded-full border border-white/10 bg-white/5 py-1.5 pl-1.5 pr-3 transition hover:border-white/20 hover:bg-white/10"
+                className="flex items-center gap-2 rounded-full border border-white/10 bg-white/5 py-1.5 pl-1.5 pr-1.5 transition hover:border-white/20 hover:bg-white/10 sm:pr-3"
               >
                 <span className="grid size-8 place-items-center rounded-full bg-[#e31b23] text-xs font-bold text-white">
                   {initialsOf(user.name)}
@@ -144,7 +146,7 @@ export function SiteHeader() {
                   {user.name.split(" ")[0]}
                 </span>
                 <ChevronDown
-                  className={cn("size-3.5 text-white/50 transition-transform", userMenuOpen && "rotate-180")}
+                  className={cn("hidden size-3.5 text-white/50 transition-transform sm:block", userMenuOpen && "rotate-180")}
                 />
               </button>
               {userMenuOpen && (
@@ -208,14 +210,6 @@ export function SiteHeader() {
 
       {menuOpen && (
         <div className="border-t border-white/10 bg-[#0b0b0b] px-4 pb-6 pt-3 xl:hidden">
-          <div className="relative mb-3 flex items-center rounded-full border border-white/10 bg-white/5 px-3.5 py-2 lg:hidden">
-            <Search className="size-4 text-white/50" />
-            <input
-              type="text"
-              placeholder="Search fights, fighters, events"
-              className="ml-2.5 w-full bg-transparent text-sm text-white outline-none placeholder:text-white/40"
-            />
-          </div>
           <nav className="grid grid-cols-2 gap-1">
             {navLinks.map((item) => (
               <Link

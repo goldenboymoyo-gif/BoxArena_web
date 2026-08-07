@@ -3,7 +3,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import Link from "next/link";
-import { ChevronRight, Play, Ticket } from "lucide-react";
+import { ChevronRight, MapPin, Play, Ticket } from "lucide-react";
 import { Countdown } from "@/components/site/Countdown";
 import { events } from "@/data/events";
 import { getFighterByName } from "@/data/fighters";
@@ -43,6 +43,13 @@ function formatLongDate(iso: string) {
 
 function shortName(full: string) {
   return full.split(" ").slice(-1)[0];
+}
+
+function recordString(name: string) {
+  const f = getFighterByName(name);
+  if (!f) return "";
+  const { wins, losses, draws, kos } = f.record;
+  return `${wins}-${losses}-${draws} (${kos} KO)`;
 }
 
 const fade = { duration: 0.5, ease: "easeOut" as const };
@@ -144,6 +151,11 @@ export function Hero() {
   const imageB = overrideB?.src ?? fighterB?.image ?? event.imageB;
   const nameA = shortName(event.fighterA);
   const nameB = shortName(event.fighterB);
+  const recordA = recordString(event.fighterA);
+  const recordB = recordString(event.fighterB);
+  const divShort =
+    event.weightClass.match(/\(([^)]+)\)/)?.[1] ??
+    event.weightClass.split(" (")[0];
   const bgSrc = HERO_BACKGROUND_OVERRIDES[event.id] ?? event.posterImage;
 
   return (
@@ -173,19 +185,85 @@ export function Hero() {
       <div className="absolute inset-0 bg-[radial-gradient(55%_50%_at_50%_48%,rgba(227,27,35,0.16),transparent_62%)]" />
       <div className="absolute inset-0 bg-gradient-to-b from-[#0a0a0a]/70 via-transparent to-[#0a0a0a]" />
 
-      {/* Mobile / tablet: fighters stacked behind the title */}
-      <img
-        src={imageA}
-        alt=""
-        className="pointer-events-none absolute -left-16 bottom-0 z-0 h-[48vh] w-[65vw] object-cover object-top opacity-15 blur-[1px] xl:hidden"
-      />
-      <img
-        src={imageB}
-        alt=""
-        className="pointer-events-none absolute -right-16 bottom-0 z-0 h-[48vh] w-[65vw] object-cover object-top opacity-15 blur-[1px] xl:hidden"
-      />
+      {/* ================= MOBILE APP HERO ================= */}
+      <div className="relative z-[2] mx-auto flex min-h-[calc(100dvh-7rem)] max-w-xl flex-col justify-center px-5 pb-36 pt-6 lg:hidden">
+        <div className="flex items-center justify-between">
+          <span className="inline-flex items-center gap-1.5 rounded-full border border-[#e31b23]/40 bg-[#e31b23]/15 px-3 py-1.5 text-[10px] font-bold uppercase tracking-[0.2em] text-[#ff6b6b]">
+            <span className="size-1.5 rounded-full bg-[#e31b23]" />
+            Next Event
+          </span>
+          <span className="text-[11px] font-bold uppercase tracking-[0.18em] text-white/50">
+            {formatLongDate(event.date)}
+          </span>
+        </div>
 
-      {/* ---------- Main hero ---------- */}
+        {/* Matchup card */}
+        <div className="mt-5 overflow-hidden rounded-3xl border border-white/10 bg-black/50 backdrop-blur-2xl">
+          <div className="flex items-stretch gap-2 p-4">
+            <div className="flex min-w-0 flex-1 flex-col items-center text-center">
+              <img
+                src={imageA}
+                alt={event.fighterA}
+                className="size-20 rounded-2xl border border-white/15 object-cover object-top shadow-lg"
+              />
+              <p className="mt-2.5 w-full truncate font-display text-xl font-bold uppercase leading-tight text-white">
+                {nameA}
+              </p>
+              <p className="mt-1 text-[10px] font-semibold uppercase tracking-[0.16em] text-white/45">
+                {recordA}
+              </p>
+            </div>
+            <div className="flex shrink-0 flex-col items-center justify-center px-1">
+              <span className="font-display text-2xl font-black text-[#e31b23]">VS</span>
+              <span className="mt-1.5 rounded-full bg-[#e31b23] px-2 py-0.5 text-[9px] font-bold uppercase tracking-[0.14em] text-white">
+                {divShort}
+              </span>
+            </div>
+            <div className="flex min-w-0 flex-1 flex-col items-center text-center">
+              <img
+                src={imageB}
+                alt={event.fighterB}
+                className="size-20 rounded-2xl border border-white/15 object-cover object-top shadow-lg"
+              />
+              <p className="mt-2.5 w-full truncate font-display text-xl font-bold uppercase leading-tight text-white">
+                {nameB}
+              </p>
+              <p className="mt-1 text-[10px] font-semibold uppercase tracking-[0.16em] text-white/45">
+                {recordB}
+              </p>
+            </div>
+          </div>
+        </div>
+
+        {/* Countdown */}
+        <div className="mt-5 flex justify-center">
+          <Countdown date={`${event.date}T${hour}:00:00`} timezone={event.timezone} pill />
+        </div>
+
+        {/* Meta */}
+        <p className="mt-4 flex items-center justify-center gap-1.5 text-center text-[11px] font-semibold uppercase tracking-[0.16em] text-white/55">
+          <MapPin className="size-3.5 shrink-0 text-[#e31b23]" />
+          {event.venue}, {event.city.split(",")[0]}
+        </p>
+
+        {/* CTAs */}
+        <div className="mt-6 flex flex-col gap-3">
+          <Link
+            href={`/events/${event.id}`}
+            className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-white px-6 py-4 font-display text-sm font-bold uppercase tracking-[0.18em] text-black transition active:scale-[0.98]"
+          >
+            <Ticket className="size-4 text-[#e31b23]" /> Get Tickets
+          </Link>
+          <Link
+            href="/live"
+            className="inline-flex w-full items-center justify-center gap-2 rounded-full border border-white/25 bg-white/5 px-6 py-4 font-display text-sm font-bold uppercase tracking-[0.18em] text-white backdrop-blur-md transition active:scale-[0.98]"
+          >
+            <Play className="size-4 fill-current text-[#e31b23]" /> Watch Live
+          </Link>
+        </div>
+      </div>
+
+      {/* ================= DESKTOP HERO ================= */}
       {/* Flanking fighters, anchored to the bottom behind the typography */}
       <div className="pointer-events-none absolute inset-x-0 -bottom-10 z-[1] hidden h-[88vh] xl:block">
         {/* LEFT fighter */}
@@ -236,7 +314,7 @@ export function Hero() {
       </div>
 
       {/* CENTER: the focal point */}
-      <div className="relative z-[2] flex min-h-[88vh] items-center justify-center px-6 pb-40 pt-10 lg:px-8 lg:pt-12">
+      <div className="relative z-[2] hidden min-h-[88vh] items-center justify-center px-6 pb-40 pt-10 lg:flex lg:px-8 lg:pt-12">
         <AnimatePresence mode="wait">
           <motion.div
             key={`center-${event.id}`}
@@ -292,11 +370,11 @@ export function Hero() {
               </Link>
             </div>
           </motion.div>
-          </AnimatePresence>
+        </AnimatePresence>
       </div>
 
       {/* ---------- Bottom fight carousel, overlapping the hero ---------- */}
-      <div className="relative z-10 mx-auto -mt-24 max-w-[1600px] px-6 lg:-mt-28 lg:px-8">
+      <div className="relative z-10 mx-auto -mt-24 max-w-[1600px] px-6 pb-4 lg:-mt-28 lg:px-8">
         <FightCarousel fights={heroEvents} active={index} onSelect={setIndex} />
       </div>
     </section>

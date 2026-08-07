@@ -118,6 +118,11 @@
   html {
     @apply scroll-smooth;
   }
+  html,
+  body {
+    overflow-x: clip;
+    max-width: 100%;
+  }
   ::selection {
     background: rgb(227 27 35 / 35%);
     color: #fff;

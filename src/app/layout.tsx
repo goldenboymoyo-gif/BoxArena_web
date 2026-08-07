@@ -4,6 +4,7 @@ import { Inter, Oswald } from "next/font/google";
 import "./globals.css";
 import { SiteHeader } from "@/components/site/SiteHeader";
 import { SiteFooter } from "@/components/site/SiteFooter";
+import { MobileNav } from "@/components/site/MobileNav";
 import { LiveTicker } from "@/components/site/LiveTicker";
 import { AuthProvider } from "@/lib/auth";
 
@@ -40,6 +41,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
           <LiveTicker />
           <main className="flex min-h-screen flex-col">{children}</main>
           <SiteFooter />
+          <MobileNav />
         </AuthProvider>
       </body>
     </html>
