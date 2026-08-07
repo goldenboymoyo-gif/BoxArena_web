@@ -1,5 +1,11 @@
 import Link from "next/link";
-import { ArrowRight, Mail, MapPin } from "lucide-react";
+import { Mail, MapPin } from "lucide-react";
+import {
+  FaFacebookF,
+  FaInstagram,
+  FaXTwitter,
+  FaYoutube,
+} from "react-icons/fa6";
 
 const footerColumns = [
   {
@@ -44,80 +50,105 @@ const footerColumns = [
   },
 ];
 
+const socials = [
+  { label: "Facebook", href: "https://facebook.com", Icon: FaFacebookF },
+  { label: "Instagram", href: "https://instagram.com", Icon: FaInstagram },
+  { label: "X (Twitter)", href: "https://x.com", Icon: FaXTwitter },
+  { label: "YouTube", href: "https://youtube.com", Icon: FaYoutube },
+];
+
+const legalLinks = [
+  { label: "Privacy Policy", href: "#" },
+  { label: "Terms of Service", href: "#" },
+  { label: "Cookies", href: "#" },
+  { label: "Accessibility", href: "#" },
+];
+
 export function SiteFooter() {
   return (
     <footer className="border-t border-white/10 bg-[#050505] text-[#E5E7EB]">
-      <div className="mx-auto max-w-[1440px] px-6 py-16 lg:px-8">
-        <div className="grid gap-12 lg:grid-cols-[1.3fr_2fr]">
-          <div className="space-y-6">
-            <div className="flex items-center gap-3">
-              <div className="grid size-10 place-items-center rounded-xl bg-[#e31b23] font-display text-lg font-bold tracking-[0.12em] text-white">
-                B
-              </div>
-              <div className="flex flex-col">
-                <span className="font-display text-sm font-semibold uppercase tracking-[0.24em] text-white">
-                  BoxArena
-                </span>
-                <span className="text-[10px] uppercase tracking-[0.2em] text-white/45">
-                  The Home of Boxing
-                </span>
-              </div>
-            </div>
-            <p className="max-w-sm text-sm leading-7 text-white/55">
-              The premium digital ecosystem for professional boxing — live fights,
-              tickets, rankings, news and highlights, all in one arena built for the
-              fight fan.
+      <div className="mx-auto max-w-[1440px] px-6 pt-24 pb-20 lg:px-8">
+        <div className="grid gap-14 lg:grid-cols-[2.6fr_1fr_1fr_1fr_1fr] lg:gap-12">
+          {/* Logo & company */}
+          <div className="max-w-sm">
+            <Link href="/" className="inline-flex items-center">
+              <img
+                src="/logo.png"
+                alt="BoxArena — The Home of Boxing"
+                className="h-10 w-auto mix-blend-screen"
+              />
+            </Link>
+            <p className="mt-7 text-sm leading-7 text-white/55">
+              The premium digital platform for professional boxing. Discover
+              events, rankings, fighters, live results, tickets, and exclusive
+              content from around the world.
             </p>
-            <div className="space-y-2.5 text-sm text-white/55">
-              <p className="flex items-center gap-2.5">
-                <MapPin className="size-4 text-[#e31b23]" />
+            <div className="mt-9 space-y-4 text-sm text-white/55">
+              <p className="flex items-center gap-3">
+                <MapPin className="size-4 shrink-0 text-[#e31b23]" />
                 Madison Square Garden, New York, USA
               </p>
-              <p className="flex items-center gap-2.5">
-                <Mail className="size-4 text-[#e31b23]" />
+              <a
+                href="mailto:hello@boxarena.com"
+                className="flex items-center gap-3 transition-colors hover:text-white"
+              >
+                <Mail className="size-4 shrink-0 text-[#e31b23]" />
                 hello@boxarena.com
-              </p>
+              </a>
+            </div>
+            <div className="mt-10 flex items-center gap-3">
+              {socials.map(({ label, href, Icon }) => (
+                <a
+                  key={label}
+                  href={href}
+                  target="_blank"
+                  rel="noreferrer"
+                  aria-label={label}
+                  className="grid size-10 place-items-center rounded-full border border-white/10 bg-white/5 text-white/60 transition-all duration-200 hover:-translate-y-0.5 hover:border-[#e31b23]/60 hover:bg-[#e31b23]/10 hover:text-[#e31b23]"
+                >
+                  <Icon className="size-4" />
+                </a>
+              ))}
             </div>
           </div>
 
-          <div className="grid grid-cols-2 gap-8 sm:grid-cols-4">
-            {footerColumns.map((col) => (
-              <div key={col.title}>
-                <h4 className="text-xs font-bold uppercase tracking-[0.24em] text-white">
-                  {col.title}
-                </h4>
-                <ul className="mt-5 space-y-3">
-                  {col.links.map((link) => (
-                    <li key={link.label}>
-                      <Link
-                        href={link.href}
-                        className="text-sm text-white/50 transition hover:text-white"
-                      >
-                        {link.label}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
-          </div>
+          {/* Link columns */}
+          {footerColumns.map((col) => (
+            <div key={col.title}>
+              <h4 className="text-sm font-bold uppercase tracking-[0.3em] text-white">
+                {col.title}
+              </h4>
+              <ul className="mt-10 space-y-[18px]">
+                {col.links.map((link) => (
+                  <li key={link.label}>
+                    <Link
+                      href={link.href}
+                      className="text-[13px] leading-relaxed text-white/50 transition-colors duration-200 hover:text-[#e31b23]"
+                    >
+                      {link.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
         </div>
 
-        <div className="mt-14 flex flex-col gap-4 border-t border-white/10 pt-8 sm:flex-row sm:items-center sm:justify-between">
+        {/* Bottom bar */}
+        <div className="mt-16 flex flex-col items-center gap-5 border-t border-white/10 pt-9 sm:flex-row sm:justify-between">
           <p className="text-xs text-white/40">
-            © 2026 BoxArena. All rights reserved. Not affiliated with any sanctioning
-            body.
+            © 2026 BoxArena. All rights reserved.
           </p>
-          <div className="flex items-center gap-6 text-xs text-white/40">
-            <a href="#" className="transition hover:text-white">
-              Terms of Service
-            </a>
-            <a href="#" className="transition hover:text-white">
-              Privacy Policy
-            </a>
-            <Link href="/events" className="flex items-center gap-1 text-white/60 transition hover:text-white">
-              View schedule <ArrowRight className="size-3.5" />
-            </Link>
+          <div className="flex flex-wrap items-center justify-center gap-x-7 gap-y-3">
+            {legalLinks.map((link) => (
+              <a
+                key={link.label}
+                href={link.href}
+                className="text-xs text-white/40 transition-colors duration-200 hover:text-[#e31b23]"
+              >
+                {link.label}
+              </a>
+            ))}
           </div>
         </div>
       </div>

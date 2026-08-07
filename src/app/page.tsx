@@ -1,10 +1,5 @@
 import Link from "next/link";
-import {
-  ArrowRight,
-  Play,
-  Star,
-} from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { ArrowRight, Play } from "lucide-react";
 import { SectionHeading } from "@/components/site/SectionHeading";
 import { Hero } from "@/components/landing/Hero";
 import { StatsBand } from "@/components/landing/StatsBand";
@@ -231,37 +226,6 @@ export default function Home() {
               </div>
             ))}
           </div>
-        </div>
-      </section>
-
-      {/* ---------------- NEWSLETTER CTA ---------------- */}
-      <section className="relative overflow-hidden">
-        <div className="absolute inset-0 bg-[radial-gradient(80%_100%_at_50%_0%,rgba(227,27,35,0.22),transparent_60%)]" />
-        <div className="relative mx-auto flex max-w-[1440px] flex-col items-center gap-6 px-6 py-24 text-center lg:px-8">
-          <span className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-4 py-1.5 text-xs font-bold uppercase tracking-[0.24em] text-white/70">
-            <Star className="size-4 text-[#e31b23] fill-[#e31b23]" />
-            Join the inner circle
-          </span>
-          <h2 className="max-w-3xl font-display text-4xl font-semibold uppercase tracking-wide text-white sm:text-5xl">
-            Get fight night alerts before anyone else
-          </h2>
-          <p className="max-w-xl text-sm leading-7 text-white/55">
-            Breaking news, presale codes, and exclusive fight-night content. Zero
-            spam, unsubscribe anytime.
-          </p>
-          <form className="flex w-full max-w-md gap-2">
-            <input
-              type="email"
-              placeholder="Enter your email address"
-              className="w-full rounded-full border border-white/15 bg-white/5 px-5 py-3.5 text-sm text-white outline-none placeholder:text-white/40 focus:border-[#e31b23]/60"
-            />
-            <Button className="shrink-0 rounded-full bg-[#e31b23] px-7 font-display text-sm font-bold uppercase tracking-[0.16em] text-white hover:bg-[#c3161d]" size="lg">
-              Subscribe
-            </Button>
-          </form>
-          <p className="text-xs text-white/35">
-            128,000+ fans already subscribed. Trusted by fight fans worldwide.
-          </p>
         </div>
       </section>
     </div>

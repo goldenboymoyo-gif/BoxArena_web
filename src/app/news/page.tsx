@@ -81,7 +81,7 @@ export default function NewsPage() {
 
       {/* Most read */}
       <section className="mx-auto max-w-[1440px] px-6 py-16 lg:px-8">
-        <div className="grid gap-10 lg:grid-cols-[1fr_360px]">
+        <div className="grid gap-10">
           <div>
             <div className="flex items-center gap-2">
               <span className="h-6 w-1 rounded-full bg-[#e31b23]" />
@@ -125,29 +125,6 @@ export default function NewsPage() {
                   </Link>
                 ))}
             </div>
-          </div>
-
-          <div className="rounded-3xl border border-white/10 bg-[#111111] p-8 lg:sticky lg:top-24 lg:self-start">
-            <h3 className="font-display text-xl font-semibold uppercase tracking-wide text-white">
-              Newsletter
-            </h3>
-            <p className="mt-3 text-sm leading-6 text-white/55">
-              The biggest stories and fight announcements, delivered to your inbox
-              every week.
-            </p>
-            <form className="mt-5 space-y-3">
-              <input
-                type="email"
-                placeholder="Your email address"
-                className="w-full rounded-full border border-white/10 bg-white/5 px-5 py-3 text-sm text-white outline-none placeholder:text-white/40 focus:border-[#e31b23]/60"
-              />
-              <button className="w-full rounded-full bg-[#e31b23] py-3 text-xs font-bold uppercase tracking-[0.18em] text-white transition hover:bg-[#c3161d]">
-                Subscribe free
-              </button>
-            </form>
-            <p className="mt-3 text-[11px] text-white/35">
-              128,000+ readers. No spam, unsubscribe anytime.
-            </p>
           </div>
         </div>
       </section>
