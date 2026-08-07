@@ -1,15 +1,14 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState } from "react";
-import { AnimatePresence, motion, useInView } from "framer-motion";
+import { useEffect, useMemo, useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
 import Link from "next/link";
-import { ArrowRight, CalendarDays, MapPin, Play, Ticket } from "lucide-react";
+import { ChevronRight, Play, Ticket } from "lucide-react";
 import { Countdown } from "@/components/site/Countdown";
-import { FightCard } from "@/components/cards/FightCard";
 import { events } from "@/data/events";
-import { divisions } from "@/data/rankings";
 import { getFighterByName } from "@/data/fighters";
 import { IMAGES } from "@/data/images";
+import { cn } from "@/lib/utils";
 import type { BoxingEvent } from "@/data/types";
 
 const HERO_IDS = [
@@ -29,23 +28,6 @@ const HERO_IMAGE_OVERRIDES: Record<string, { src: string; position: string }> = 
   "tyson-fury": { src: IMAGES.fighters.furyFight, position: "object-top" },
 };
 
-const HERO_BLURBS: Record<string, string> = {
-  "fury-vs-joshua-2":
-    "The rivalry reaches its final chapter. Anthony Joshua and Tyson Fury collide for the biggest night in British boxing history — a 90,000 crowd at Wembley, every title the sport has to offer, and one winner.",
-  "canelo-vs-crawford":
-    "The two best pound-for-pound fighters of this era finally share a ring. Canelo's power against Crawford's switch-hitting genius in the biggest super fight the sport has ever made.",
-  "usyk-vs-zhang":
-    "Two heavyweight champions meet in the desert. Usyk's ring craft against Zhang's one-punch power — unification night in Riyadh.",
-  "dubois-vs-parker":
-    "The IBF world title is on the line as the division's hardest puncher meets one of its toughest operators. London, live on Sky Sports.",
-  "bivol-vs-beterbiev-3":
-    "The trilogy decider. Undisputed champion Dmitry Bivol and the knockout king Artur Beterbiev settle the light heavyweight rivalry once and for all.",
-  "shakur-vs-davis":
-    "Speed against dynamite at 135 pounds. WBC champion Shakur Stevenson and WBA king Gervonta Davis meet for lightweight supremacy in Newark.",
-  "lopez-vs-haney":
-    "The most personal rivalry in boxing boils over at Madison Square Garden. Teofimo Lopez and Devin Haney unify the super lightweight division.",
-};
-
 function formatLongDate(iso: string) {
   return new Date(iso).toLocaleDateString("en-US", {
     weekday: "long",
@@ -60,70 +42,58 @@ function shortName(full: string) {
 
 const fade = { duration: 0.5, ease: "easeOut" as const };
 
-interface Stat {
-  label: string;
-  value: number;
-  sub: string;
+interface FightCarouselProps {
+  fights: BoxingEvent[];
+  active: number;
+  onSelect: (index: number) => void;
 }
 
-function StatCell({ stat, inView }: { stat: Stat; inView: boolean }) {
-  const [count, setCount] = useState(0);
-
-  useEffect(() => {
-    if (!inView) return;
-    let raf = 0;
-    const start = performance.now();
-    const duration = 1100;
-    const tick = (now: number) => {
-      const p = Math.min(1, (now - start) / duration);
-      const eased = 1 - Math.pow(1 - p, 3);
-      setCount(Math.round(eased * stat.value));
-      if (p < 1) raf = requestAnimationFrame(tick);
-    };
-    raf = requestAnimationFrame(tick);
-    return () => cancelAnimationFrame(raf);
-  }, [inView, stat.value]);
-
+function FightCarousel({ fights, active, onSelect }: FightCarouselProps) {
   return (
-    <div className="flex flex-col items-center justify-center px-2 py-5">
-      <span className="font-display text-5xl font-bold leading-none tabular-nums text-white">
-        {count}
-      </span>
-      <span className="mt-2 text-[10px] font-bold uppercase tracking-[0.24em] text-[#e31b23]">
-        {stat.label}
-      </span>
-      <span className="mt-1 text-[10px] text-white/35">{stat.sub}</span>
-    </div>
-  );
-}
-
-function StatsBand() {
-  const ref = useRef<HTMLDivElement>(null);
-  const inView = useInView(ref, { once: true, margin: "-80px" });
-  const stats: Stat[] = useMemo(
-    () => [
-      { label: "Upcoming Events", value: events.length, sub: "Live schedule" },
-      { label: "Divisions Ranked", value: divisions.length, sub: "Full tables" },
-      {
-        label: "Ranked Fighters",
-        value: divisions.reduce((n, d) => n + d.rows.length, 0),
-        sub: "World class",
-      },
-      { label: "World Champions", value: divisions.length, sub: "Across divisions" },
-    ],
-    []
-  );
-
-  return (
-    <div
-      ref={ref}
-      className="grid grid-cols-2 gap-px overflow-hidden rounded-2xl border border-white/10 bg-white/10 sm:grid-cols-4"
-    >
-      {stats.map((s) => (
-        <div key={s.label} className="bg-[#0d0d0d]">
-          <StatCell stat={s} inView={inView} />
-        </div>
-      ))}
+    <div className="overflow-hidden rounded-3xl border border-white/10 bg-black/50 shadow-[0_30px_80px_rgba(0,0,0,0.6)] backdrop-blur-2xl">
+      <div className="flex items-center justify-between gap-4 border-b border-white/10 px-5 py-3">
+        <p className="flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.26em] text-white/70">
+          <span className="size-1.5 rounded-full bg-[#e31b23]" /> Upcoming Fights
+        </p>
+        <span className="hidden items-center gap-1 text-[10px] font-bold uppercase tracking-[0.2em] text-white/35 sm:flex">
+          Scroll <ChevronRight className="size-3.5" />
+        </span>
+      </div>
+      <div className="no-scrollbar flex gap-3 overflow-x-auto p-3">
+        {fights.map((f, i) => {
+          const fa = getFighterByName(f.fighterA);
+          const isActive = i === active;
+          return (
+            <button
+              key={f.id}
+              type="button"
+              onClick={() => onSelect(i)}
+              className={cn(
+                "group flex shrink-0 cursor-pointer items-center gap-3 rounded-2xl border p-2.5 pr-5 text-left transition",
+                isActive
+                  ? "border-[#e31b23]/70 bg-[#e31b23]/10 shadow-[0_0_28px_rgba(227,27,35,0.35)]"
+                  : "border-white/10 bg-white/5 hover:border-white/25 hover:bg-white/10"
+              )}
+            >
+              <img
+                src={fa?.image ?? f.imageA}
+                alt=""
+                className="h-11 w-11 rounded-xl object-cover object-top"
+              />
+              <span className="min-w-0">
+                <span className="flex items-center gap-1.5 font-display text-sm font-bold uppercase tracking-wide text-white">
+                  <span className="truncate">{shortName(f.fighterA)}</span>
+                  <span className="shrink-0 text-xs font-black text-[#e31b23]">VS</span>
+                  <span className="truncate text-white/75">{shortName(f.fighterB)}</span>
+                </span>
+                <span className="mt-0.5 block truncate text-[10px] uppercase tracking-[0.16em] text-white/40">
+                  {formatLongDate(f.date)}
+                </span>
+              </span>
+            </button>
+          );
+        })}
+      </div>
     </div>
   );
 }
@@ -149,195 +119,167 @@ export function Hero() {
   }, [heroEvents.length, paused]);
 
   const event = heroEvents[index];
-  const fighterA = event ? getFighterByName(event.fighterA) : undefined;
-
   if (!event) return null;
 
-  const overrideA = fighterA ? HERO_IMAGE_OVERRIDES[fighterA.id] : undefined;
-  const imageA = overrideA?.src ?? fighterA?.image ?? event.imageA;
   const hour = event.time.split(":")[0];
+  const fighterA = getFighterByName(event.fighterA);
+  const fighterB = getFighterByName(event.fighterB);
+  const overrideA = fighterA ? HERO_IMAGE_OVERRIDES[fighterA.id] : undefined;
+  const overrideB = fighterB ? HERO_IMAGE_OVERRIDES[fighterB.id] : undefined;
+  const imageA = overrideA?.src ?? fighterA?.image ?? event.imageA;
+  const imageB = overrideB?.src ?? fighterB?.image ?? event.imageB;
+  const nameA = shortName(event.fighterA);
+  const nameB = shortName(event.fighterB);
 
   return (
     <section
-      className="relative overflow-hidden border-b border-white/10"
+      className="relative border-b border-white/10"
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
     >
-      {/* Backdrop: the headline fighter, deep in the dark */}
-      <AnimatePresence>
-        <motion.img
-          key={`bg-${event.id}`}
-          src={imageA}
-          alt=""
-          className="absolute inset-0 h-full w-full object-cover object-top opacity-40"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 0.4 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 1.1, ease: "easeInOut" }}
-        />
-      </AnimatePresence>
-      <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(7,7,7,0.82),rgba(7,7,7,0.55)_55%,#080808_97%)]" />
-      <div className="absolute inset-0 bg-[radial-gradient(70%_55%_at_50%_10%,rgba(227,27,35,0.16),transparent_65%)]" />
+      {/* ---------- Arena backdrop with slow zoom ---------- */}
+      <div className="absolute inset-0 overflow-hidden">
+        <AnimatePresence>
+          <motion.img
+            key={`bg-${event.id}`}
+            src={event.posterImage}
+            alt=""
+            className="h-full w-full object-cover object-center opacity-85"
+            animate={{ scale: [1, 1.08, 1] }}
+            transition={{ duration: 40, repeat: Infinity, ease: "easeInOut" }}
+          />
+        </AnimatePresence>
+      </div>
 
-      <div className="relative mx-auto max-w-[1440px] px-6 py-16 lg:px-8 lg:py-24">
-        <div className="grid items-center gap-14 lg:grid-cols-[1.1fr_0.9fr] lg:gap-20">
-          {/* ---------- LEFT: one story, in order ---------- */}
+      {/* Dark overlay + spotlights + red glow */}
+      <div className="absolute inset-0 bg-[#0a0a0a]/60" />
+      <div className="absolute inset-0 bg-[radial-gradient(45%_38%_at_16%_22%,rgba(90,150,255,0.22),transparent_60%)]" />
+      <div className="absolute inset-0 bg-[radial-gradient(45%_38%_at_84%_22%,rgba(235,240,255,0.14),transparent_60%)]" />
+      <div className="absolute inset-0 bg-[radial-gradient(55%_50%_at_50%_48%,rgba(227,27,35,0.16),transparent_62%)]" />
+      <div className="absolute inset-0 bg-gradient-to-b from-[#0a0a0a]/70 via-transparent to-[#0a0a0a]" />
+
+      {/* Mobile / tablet: fighters stacked behind the title */}
+      <img
+        src={imageA}
+        alt=""
+        className="pointer-events-none absolute -left-16 bottom-0 z-0 h-[48vh] w-[65vw] object-cover object-top opacity-15 blur-[1px] xl:hidden"
+      />
+      <img
+        src={imageB}
+        alt=""
+        className="pointer-events-none absolute -right-16 bottom-0 z-0 h-[48vh] w-[65vw] object-cover object-top opacity-15 blur-[1px] xl:hidden"
+      />
+
+      {/* ---------- Main hero ---------- */}
+      <div className="relative mx-auto flex min-h-[88vh] max-w-[1600px] flex-col px-6 pb-36 pt-10 lg:px-8 lg:pb-32 lg:pt-12">
+        <div className="flex flex-1 items-center gap-2 xl:gap-6">
+          {/* LEFT fighter */}
+          <div className="relative hidden h-[72vh] flex-1 xl:block">
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={`fa-${event.id}`}
+                className="absolute inset-x-0 -top-10 -bottom-10 [mask-image:linear-gradient(90deg,transparent_0%,black_40%)]"
+                initial={{ opacity: 0, x: -24 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: -24 }}
+                transition={fade}
+              >
+                <motion.img
+                  src={imageA}
+                  alt={event.fighterA}
+                  className="h-full w-full object-cover object-top drop-shadow-[0_24px_40px_rgba(0,0,0,0.7)]"
+                  animate={{ y: [0, -10, 0] }}
+                  transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
+                />
+              </motion.div>
+            </AnimatePresence>
+          </div>
+
+          {/* CENTER: the focal point */}
           <AnimatePresence mode="wait">
             <motion.div
-              key={`left-${event.id}`}
-              initial={{ opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -16 }}
-              transition={fade}
-              className="max-w-2xl"
-            >
-              <span className="inline-flex items-center gap-2.5 rounded-full border border-[#e31b23]/40 bg-[#e31b23]/10 px-4 py-2 text-[11px] font-bold uppercase tracking-[0.3em] text-[#e31b23]">
-                <span className="size-1.5 animate-pulse rounded-full bg-[#e31b23]" />
-                {event.headline}
-              </span>
-
-              <h1 className="mt-7 font-display font-bold uppercase leading-[0.9] tracking-tight text-white">
-                <span className="block text-6xl sm:text-7xl xl:text-8xl">
-                  {shortName(event.fighterA)}
-                </span>
-                <span className="my-3 flex items-center gap-5 text-xl text-[#e31b23] sm:text-2xl">
-                  <span className="h-px flex-1 bg-gradient-to-r from-transparent to-[#e31b23]/70" />
-                  VS
-                  <span className="h-px flex-1 bg-gradient-to-l from-transparent to-[#e31b23]/70" />
-                </span>
-                <span className="block text-6xl text-stroke sm:text-7xl xl:text-8xl">
-                  {shortName(event.fighterB)}
-                </span>
-              </h1>
-
-              <p className="mt-7 flex flex-wrap items-center gap-x-3 gap-y-1 font-display text-lg font-semibold uppercase tracking-wide text-white">
-                <span className="inline-flex items-center gap-2 text-white">
-                  <CalendarDays className="size-5 text-[#e31b23]" />
-                  {formatLongDate(event.date)}
-                </span>
-                <span className="text-white/35">·</span>
-                <span className="inline-flex items-center gap-2 text-white/70">
-                  <MapPin className="size-5 text-[#e31b23]" />
-                  {event.venue}, {event.city}
-                </span>
-              </p>
-
-              <p className="mt-6 hidden max-w-xl text-base leading-7 text-white/60 sm:block">
-                {HERO_BLURBS[event.id]}
-              </p>
-
-              <div className="mt-9">
-                <p className="text-[11px] font-bold uppercase tracking-[0.3em] text-white/45">
-                  Fight night in
-                </p>
-                <div className="mt-3">
-                  <Countdown
-                    date={`${event.date}T${hour}:00:00`}
-                    timezone={event.timezone}
-                  />
-                </div>
-              </div>
-
-              <div className="mt-10 flex flex-col gap-4 sm:flex-row">
-                <Link
-                  href={`/events/${event.id}`}
-                  className="inline-flex items-center justify-center gap-2.5 rounded-full bg-[#e31b23] px-10 py-5 font-display text-base font-bold text-white shadow-[0_12px_44px_-12px_rgba(227,27,35,0.75)] transition hover:bg-[#c3161d]"
-                >
-                  <Ticket className="size-5" /> Get Tickets
-                </Link>
-                <Link
-                  href="/live"
-                  className="inline-flex items-center justify-center gap-2.5 rounded-full border border-white/25 bg-black/40 px-10 py-5 font-display text-base font-bold text-white backdrop-blur-md transition hover:border-[#e31b23]/60 hover:bg-white/10"
-                >
-                  <Play className="size-5 fill-current text-[#e31b23]" /> Watch Live
-                </Link>
-              </div>
-            </motion.div>
-          </AnimatePresence>
-
-          {/* ---------- RIGHT: single large poster ---------- */}
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={`poster-${event.id}`}
+              key={`center-${event.id}`}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
               transition={fade}
-              className="relative hidden lg:block"
+              className="relative z-10 flex w-full max-w-3xl shrink-0 flex-col items-center px-2 text-center"
             >
-              <div className="relative overflow-hidden rounded-3xl border border-white/10">
-                <img
-                  src={imageA}
-                  alt={event.title}
-                  className={`img-zoom h-[520px] w-full object-cover xl:h-[580px] ${
-                    overrideA?.position ?? "object-top"
-                  }`}
+              {/* Countdown panel */}
+              <div className="rounded-full border border-white/10 bg-black/45 px-6 py-3.5 backdrop-blur-xl sm:px-8 sm:py-4">
+                <Countdown
+                  date={`${event.date}T${hour}:00:00`}
+                  timezone={event.timezone}
+                  pill
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/10 to-black/20" />
-                <div className="absolute inset-x-0 bottom-0 p-7">
-                  <p className="text-[10px] font-bold uppercase tracking-[0.3em] text-white/55">
-                    {event.weightClass} · {event.titles.join(" · ")}
-                  </p>
-                  <h3 className="mt-2 font-display text-3xl font-bold uppercase tracking-wide text-white">
-                    {shortName(event.fighterA)}{" "}
-                    <span className="text-[#e31b23]">vs</span>{" "}
-                    {shortName(event.fighterB)}
-                  </h3>
-                  <p className="mt-1 text-sm text-white/55">
-                    {event.venue} · {formatLongDate(event.date)}
-                  </p>
-                  <Link
-                    href={`/events/${event.id}`}
-                    className="group mt-5 inline-flex items-center gap-2 rounded-full bg-[#e31b23] px-7 py-3.5 font-display text-sm font-bold text-white transition hover:bg-[#c3161d]"
-                  >
-                    Get Tickets{" "}
-                    <ArrowRight className="size-4 transition group-hover:translate-x-0.5" />
-                  </Link>
-                </div>
+              </div>
+
+              {/* Fight title */}
+              <h1 className="mt-9 font-display font-black uppercase leading-[0.88] tracking-tight">
+                <span className="block bg-gradient-to-b from-white via-white/90 to-white/35 bg-clip-text text-6xl text-transparent sm:text-7xl xl:text-8xl">
+                  {nameA}
+                </span>
+                <span className="my-1 block bg-gradient-to-b from-[#ff4d52] via-[#e31b23] to-[#8f0e13] bg-clip-text text-7xl leading-none text-transparent sm:text-8xl xl:text-[9rem]">
+                  VS
+                </span>
+                <span className="block bg-gradient-to-b from-white via-white/90 to-white/35 bg-clip-text text-6xl text-transparent sm:text-7xl xl:text-8xl">
+                  {nameB}
+                </span>
+              </h1>
+
+              {/* Event info */}
+              <p className="mt-8 font-display text-lg font-semibold uppercase tracking-[0.18em] text-white sm:text-xl">
+                {formatLongDate(event.date)}
+              </p>
+              <p className="mt-1.5 text-xs font-bold uppercase tracking-[0.3em] text-white/50">
+                {event.venue}, {event.city} · {event.weightClass}
+              </p>
+
+              {/* CTAs */}
+              <div className="mt-9 flex flex-col items-center gap-3 sm:flex-row">
+                <Link
+                  href={`/events/${event.id}`}
+                  className="inline-flex items-center gap-2.5 rounded-full bg-white px-9 py-4 font-display text-sm font-bold uppercase tracking-[0.18em] text-black transition hover:-translate-y-0.5 hover:bg-white/90 hover:shadow-[0_16px_44px_rgba(255,255,255,0.28)]"
+                >
+                  <Ticket className="size-4 text-[#e31b23]" /> Get Tickets
+                </Link>
+                <Link
+                  href="/live"
+                  className="inline-flex items-center gap-2.5 rounded-full border border-white/25 bg-white/5 px-9 py-4 font-display text-sm font-bold uppercase tracking-[0.18em] text-white backdrop-blur-md transition hover:-translate-y-0.5 hover:border-[#e31b23]/60 hover:bg-white/10"
+                >
+                  <Play className="size-4 fill-current text-[#e31b23]" /> Watch Live
+                </Link>
               </div>
             </motion.div>
           </AnimatePresence>
-        </div>
 
-        {/* ---------- FULL FIGHT CARD ---------- */}
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={`card-${event.id}`}
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -16 }}
-            transition={fade}
-            className="mt-14"
-          >
-            <FightCard
-              card={event.card}
-              eventId={event.id}
-              eventTitle={event.title}
-            />
-          </motion.div>
-        </AnimatePresence>
-
-        {/* Fight selector */}
-        <div className="mt-10 flex items-center justify-center gap-2">
-          {heroEvents.map((e, i) => (
-            <button
-              key={e.id}
-              type="button"
-              onClick={() => setIndex(i)}
-              aria-label={`Show ${e.title}`}
-              className={
-                i === index
-                  ? "h-1.5 w-8 rounded-full bg-[#e31b23] transition-all duration-300"
-                  : "h-1.5 w-1.5 rounded-full bg-white/25 transition-all duration-300 hover:bg-white/60"
-              }
-            />
-          ))}
+          {/* RIGHT fighter */}
+          <div className="relative hidden h-[72vh] flex-1 xl:block">
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={`fb-${event.id}`}
+                className="absolute inset-x-0 -top-10 -bottom-10 [mask-image:linear-gradient(90deg,black_60%,transparent_100%)]"
+                initial={{ opacity: 0, x: 24 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: 24 }}
+                transition={fade}
+              >
+                <motion.img
+                  src={imageB}
+                  alt={event.fighterB}
+                  className="h-full w-full object-cover object-top drop-shadow-[0_24px_40px_rgba(0,0,0,0.7)]"
+                  animate={{ y: [0, -10, 0] }}
+                  transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
+                />
+              </motion.div>
+            </AnimatePresence>
+          </div>
         </div>
+      </div>
 
-        {/* Real, data-backed metrics */}
-        <div className="mt-10 hidden sm:block">
-          <StatsBand />
-        </div>
+      {/* ---------- Bottom fight carousel, overlapping the hero ---------- */}
+      <div className="relative z-10 mx-auto -mt-24 max-w-[1600px] px-6 lg:-mt-28 lg:px-8">
+        <FightCarousel fights={heroEvents} active={index} onSelect={setIndex} />
       </div>
     </section>
   );

@@ -7,6 +7,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { SectionHeading } from "@/components/site/SectionHeading";
 import { Hero } from "@/components/landing/Hero";
+import { StatsBand } from "@/components/landing/StatsBand";
 import { FighterCard } from "@/components/cards/FighterCard";
 import { EventCard } from "@/components/cards/EventCard";
 import { NewsCard } from "@/components/cards/NewsCard";
@@ -33,6 +34,9 @@ export default function Home() {
     <div className="text-white">
       {/* ---------------- HERO ---------------- */}
       <Hero />
+
+      {/* ---------------- PLATFORM STATISTICS ---------------- */}
+      <StatsBand />
 
       {/* ---------------- UPCOMING EVENTS ---------------- */}
       <section className="mx-auto max-w-[1440px] px-6 py-20 lg:px-8">

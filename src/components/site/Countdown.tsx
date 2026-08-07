@@ -1,11 +1,12 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 
 interface CountdownProps {
   date: string;
   timezone?: string;
   compact?: boolean;
+  pill?: boolean;
 }
 
 function getRemaining(target: string) {
@@ -18,7 +19,7 @@ function getRemaining(target: string) {
   return { days, hours, minutes, seconds };
 }
 
-export function Countdown({ date, timezone, compact }: CountdownProps) {
+export function Countdown({ date, timezone, compact, pill }: CountdownProps) {
   const [mounted, setMounted] = useState(false);
   const [time, setTime] = useState(() => getRemaining(date));
 
@@ -53,6 +54,35 @@ export function Countdown({ date, timezone, compact }: CountdownProps) {
         { label: "Mins", value: "--" },
         { label: "Secs", value: "--" },
       ];
+
+  if (pill) {
+    return (
+      <div className="flex items-center gap-4 sm:gap-5">
+        {rendered.map((u, i) => (
+          <Fragment key={u.label}>
+            <span className="flex items-baseline gap-2">
+              <span className="font-display text-3xl font-bold leading-none tabular-nums text-white sm:text-4xl lg:text-[44px]">
+                {String(u.value).padStart(2, "0")}
+              </span>
+              <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-white/45 sm:text-[11px]">
+                {u.label}
+              </span>
+            </span>
+            {i < rendered.length - 1 && (
+              <span className="font-display text-2xl font-bold text-[#e31b23] sm:text-3xl">
+                :
+              </span>
+            )}
+          </Fragment>
+        ))}
+        {timezone && (
+          <span className="hidden text-[11px] font-bold uppercase tracking-[0.2em] text-white/35 md:inline">
+            · {timezone}
+          </span>
+        )}
+      </div>
+    );
+  }
 
   if (compact) {
     return (

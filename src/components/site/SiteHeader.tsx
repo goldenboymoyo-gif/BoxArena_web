@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import {
@@ -17,7 +17,7 @@ import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { useAuth, initialsOf } from "@/lib/auth";
 import { AuthDialog, type AuthMode } from "@/components/site/AuthDialog";
-import { heroEvent } from "@/data/events";
+import { events } from "@/data/events";
 
 const nav = [
   { label: "Home", href: "/" },
@@ -68,31 +68,45 @@ export function SiteHeader() {
     ? [...nav, { label: "Dashboard", href: "/dashboard" }]
     : nav;
 
+  const tickerItems = useMemo(() => {
+    const fights = events
+      .filter((e) => e.status !== "Completed")
+      .slice(0, 5)
+      .map(
+        (e) =>
+          `${e.fighterA} vs ${e.fighterB} — ${new Date(e.date).toLocaleDateString(
+            "en-US",
+            { month: "short", day: "numeric" }
+          )}`
+      );
+    return ["Lopez defeated Haney — MSG", ...fights];
+  }, []);
+
   return (
-    <header className="sticky top-0 z-50 border-b border-white/10 bg-[#080808]/95 backdrop-blur-xl">
-      {/* Eyebrow: next fight strip */}
-      <div className="border-b border-white/5 bg-[#0c0c0c]">
-        <div className="mx-auto flex max-w-[1440px] items-center justify-center gap-2.5 px-6 py-2 text-[10px] font-bold uppercase tracking-[0.22em] text-white/45 lg:px-8">
-          <span className="flex items-center gap-1.5 text-[#e31b23]">
-            <span className="size-1.5 animate-pulse rounded-full bg-[#e31b23]" />
-            Fight Night
-          </span>
-          <span className="text-white/75">
-            {heroEvent.fighterA} vs {heroEvent.fighterB}
-          </span>
-          <span className="text-white/25">·</span>
-          <span className="hidden sm:inline">{heroEvent.city}</span>
-          <Link
-            href={`/events/${heroEvent.id}`}
-            className="text-[#e31b23] transition hover:text-white"
-          >
-            Get Tickets
-          </Link>
+    <header className="sticky top-0 z-50 border-b border-white/10 bg-[#0a0a0a]/70 backdrop-blur-xl">
+      {/* Live news ticker */}
+      <div className="flex items-stretch border-b border-white/5 bg-[#0b0b0b]">
+        <div className="relative z-10 flex shrink-0 items-center gap-2 bg-[#e31b23] px-4 py-1.5 text-[10px] font-bold uppercase tracking-[0.24em] text-white sm:px-5">
+          <span className="live-dot inline-flex size-1.5 rounded-full bg-white" />
+          Live
+        </div>
+        <div className="flex-1 overflow-hidden">
+          <div className="animate-ticker flex w-max items-center gap-10 whitespace-nowrap py-2 pl-8">
+            {[...tickerItems, ...tickerItems].map((item, i) => (
+              <span
+                key={i}
+                className="flex items-center gap-10 text-[11px] font-medium uppercase tracking-[0.18em] text-white/60"
+              >
+                {item}
+                <span className="text-[#e31b23]">◆</span>
+              </span>
+            ))}
+          </div>
         </div>
       </div>
 
-      <div className="mx-auto flex h-20 max-w-[1440px] items-center gap-8 px-4 sm:px-6 lg:px-8">
-        <Link href="/" className="flex items-center">
+      <div className="mx-auto flex h-20 max-w-[1440px] items-center gap-6 px-4 sm:px-6 lg:px-8">
+        <Link href="/" className="flex shrink-0 items-center">
           <img
             src="/logo.png"
             alt="BoxArena — The Home of Boxing"
@@ -100,7 +114,7 @@ export function SiteHeader() {
           />
         </Link>
 
-        <nav className="hidden items-center gap-1 xl:flex">
+        <nav className="hidden shrink-0 items-center gap-1 xl:flex">
           {navLinks.map((item) => {
             const active =
               item.href === "/" ? pathname === "/" : pathname.startsWith(item.href);
@@ -126,15 +140,22 @@ export function SiteHeader() {
           })}
         </nav>
 
-        <div className="ml-auto flex flex-1 items-center justify-end gap-2 sm:gap-3">
-          <div className="relative hidden items-center rounded-full border border-white/10 bg-white/5 px-3.5 py-2 lg:flex">
-            <Search className="size-4 text-white/50" />
+        {/* Centered search */}
+        <div className="ml-auto hidden min-w-0 flex-1 justify-center px-4 lg:flex">
+          <div className="flex w-full max-w-md items-center rounded-full border border-white/10 bg-white/5 px-4 py-2.5 transition focus-within:border-[#e31b23]/60 focus-within:bg-white/[0.07]">
+            <Search className="size-4 shrink-0 text-white/50" />
             <input
               type="search"
-              placeholder="Search fights, fighters, events"
-              className="ml-2.5 w-44 bg-transparent text-sm text-white outline-none placeholder:text-white/40 focus:w-56 transition-all"
+              placeholder="Search fights, fighters, events..."
+              className="ml-3 w-full min-w-0 bg-transparent text-sm text-white outline-none placeholder:text-white/40"
             />
+            <kbd className="ml-2 hidden shrink-0 rounded-md border border-white/10 bg-white/5 px-1.5 py-0.5 text-[10px] font-semibold text-white/35 md:block">
+              /
+            </kbd>
           </div>
+        </div>
+
+        <div className="flex shrink-0 items-center justify-end gap-2 sm:gap-3">
 
           <Button
             variant="ghost"
