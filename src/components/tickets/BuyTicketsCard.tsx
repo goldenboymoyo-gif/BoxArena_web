@@ -3,11 +3,13 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import {
+  Apple,
   ArrowRight,
   BadgeCheck,
   Banknote,
   CalendarDays,
   Check,
+  CreditCard,
   Loader2,
   MapPin,
   Minus,
@@ -15,7 +17,9 @@ import {
   QrCode,
   Receipt,
   ShieldCheck,
+  Smartphone,
   Ticket,
+  Wallet,
 } from "lucide-react";
 import type { BoxingEvent, TicketItem } from "@/data/types";
 import { ticketTiers } from "@/data/tickets";
@@ -30,6 +34,22 @@ interface BuyTicketsCardProps {
 }
 
 type PurchaseStatus = "idle" | "processing" | "done";
+
+type PaymentMethodId = "card" | "paypal" | "applepay" | "googlepay";
+
+const paymentMethods: {
+  id: PaymentMethodId;
+  label: string;
+  caption: string;
+  icon: typeof CreditCard;
+}[] = [
+  { id: "card", label: "Card", caption: "Visa · Mastercard · Amex", icon: CreditCard },
+  { id: "paypal", label: "PayPal", caption: "Pay with balance", icon: Wallet },
+  { id: "applepay", label: "Apple Pay", caption: "Touch / Face ID", icon: Apple },
+  { id: "googlepay", label: "Google Pay", caption: "Tap to pay", icon: Smartphone },
+];
+
+const cardBadges = ["VISA", "MASTERCARD", "AMEX"];
 
 function formatDate(iso: string) {
   return new Date(iso).toLocaleDateString("en-US", {
@@ -47,11 +67,14 @@ export function BuyTicketsCard({ event }: BuyTicketsCardProps) {
   const [status, setStatus] = useState<PurchaseStatus>("idle");
   const [purchased, setPurchased] = useState<TicketItem[]>([]);
   const [authOpen, setAuthOpen] = useState(false);
+  const [paymentMethod, setPaymentMethod] = useState<PaymentMethodId>("card");
 
   const signedIn = hydrated && Boolean(user);
   const soldOut = event.status === "Sellout";
   const tier = ticketTiers[selected];
   const total = tier.price * qty;
+  const paymentMethodLabel =
+    paymentMethods.find((p) => p.id === paymentMethod)?.label ?? "Card";
 
   function handlePurchase() {
     if (soldOut || status !== "idle") return;
@@ -86,6 +109,7 @@ export function BuyTicketsCard({ event }: BuyTicketsCardProps) {
           qr: `BA${eventCode}-${Math.floor(Math.random() * 9999)}`,
           status: "active",
           purchasedAt: new Date().toISOString(),
+          paidWith: paymentMethodLabel,
         });
       }
       tickets.forEach(addPurchasedTicket);
@@ -114,7 +138,7 @@ export function BuyTicketsCard({ event }: BuyTicketsCardProps) {
             </div>
           </div>
           <span className="rounded-full border border-emerald-500/30 bg-emerald-500/15 px-3 py-1 text-[11px] font-bold uppercase tracking-[0.16em] text-emerald-400">
-            Paid
+            Paid · {paymentMethodLabel}
           </span>
         </div>
 
@@ -167,6 +191,24 @@ export function BuyTicketsCard({ event }: BuyTicketsCardProps) {
             <span className="text-white/75">Taxes &amp; fees</span>
             <span className="text-emerald-400">Included</span>
           </div>
+          <div className="mt-1 flex items-center justify-between gap-3 text-sm">
+            <span className="text-white/75">Paid with</span>
+            <span className="flex items-center gap-1.5 text-white/80">
+              {paymentMethod === "card" && (
+                <CreditCard className="size-3.5 text-[#e31b23]" />
+              )}
+              {paymentMethod === "paypal" && (
+                <Wallet className="size-3.5 text-[#e31b23]" />
+              )}
+              {paymentMethod === "applepay" && (
+                <Apple className="size-3.5 text-[#e31b23]" />
+              )}
+              {paymentMethod === "googlepay" && (
+                <Smartphone className="size-3.5 text-[#e31b23]" />
+              )}
+              {paymentMethodLabel}
+            </span>
+          </div>
           <div className="mt-3 flex items-center justify-between gap-3 rounded-2xl bg-[#e31b23]/10 px-4 py-3">
             <span className="font-display text-base font-bold uppercase tracking-wide text-white">
               Total paid
@@ -217,6 +259,7 @@ export function BuyTicketsCard({ event }: BuyTicketsCardProps) {
               onClick={() => {
                 setQty(1);
                 setPurchased([]);
+                setPaymentMethod("card");
                 setStatus("idle");
               }}
               className="w-full cursor-pointer rounded-full border border-white/15 bg-white/5 py-3.5 text-xs font-bold uppercase tracking-[0.18em] text-white/80 transition hover:border-[#e31b23]/50 hover:text-white"
@@ -318,6 +361,69 @@ export function BuyTicketsCard({ event }: BuyTicketsCardProps) {
             {formatMoney(total)}
           </p>
         </div>
+      </div>
+
+      <div className="mt-6">
+        <div className="flex items-center justify-between">
+          <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-white/40">
+            Payment method
+          </p>
+          {paymentMethod === "card" && (
+            <span className="flex items-center gap-1">
+              {cardBadges.map((b) => (
+                <span
+                  key={b}
+                  className="rounded border border-white/15 bg-white/5 px-1.5 py-0.5 text-[9px] font-black tracking-wider text-white/55"
+                >
+                  {b}
+                </span>
+              ))}
+            </span>
+          )}
+        </div>
+        <div className="mt-2 grid grid-cols-2 gap-2">
+          {paymentMethods.map((m) => {
+            const isSelected = paymentMethod === m.id;
+            return (
+              <button
+                key={m.id}
+                type="button"
+                onClick={() => {
+                  setPaymentMethod(m.id);
+                  setStatus("idle");
+                }}
+                disabled={soldOut}
+                className={`flex cursor-pointer items-center gap-2.5 rounded-2xl border p-3 text-left transition disabled:cursor-not-allowed disabled:opacity-50 ${
+                  isSelected
+                    ? "border-[#e31b23] bg-[#e31b23]/10"
+                    : "border-white/10 bg-white/[0.03] hover:border-[#e31b23]/50"
+                }`}
+              >
+                <span
+                  className={`grid size-9 shrink-0 place-items-center rounded-xl border transition ${
+                    isSelected
+                      ? "border-[#e31b23] bg-[#e31b23]/15 text-white"
+                      : "border-white/10 bg-white/5 text-white/60"
+                  }`}
+                >
+                  <m.icon className="size-4" />
+                </span>
+                <span className="min-w-0">
+                  <span className="block truncate text-sm font-semibold text-white">
+                    {m.label}
+                  </span>
+                  <span className="block truncate text-[11px] text-white/45">
+                    {m.caption}
+                  </span>
+                </span>
+              </button>
+            );
+          })}
+        </div>
+        <p className="mt-2 flex items-center gap-1.5 text-[11px] text-white/40">
+          <ShieldCheck className="size-3.5 text-emerald-400" /> Your payment
+          details are encrypted and never stored.
+        </p>
       </div>
 
       <button

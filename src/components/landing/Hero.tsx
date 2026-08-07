@@ -3,20 +3,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import Link from "next/link";
-import {
-  CalendarDays,
-  Crown,
-  Flag,
-  Gauge,
-  MapPin,
-  Play,
-  Ruler,
-  ShieldCheck,
-  Ticket,
-  Trophy,
-  Tv,
-  Weight,
-} from "lucide-react";
+import { Flag, Play, Ticket, Trophy } from "lucide-react";
 import { Countdown } from "@/components/site/Countdown";
 import { FightCard } from "@/components/cards/FightCard";
 import { events } from "@/data/events";
@@ -58,15 +45,6 @@ const HERO_BLURBS: Record<string, string> = {
   "lopez-vs-haney":
     "The most personal rivalry in boxing boils over at Madison Square Garden. Teofimo Lopez and Devin Haney unify the super lightweight division.",
 };
-
-function formatDate(iso: string) {
-  return new Date(iso).toLocaleDateString("en-US", {
-    weekday: "long",
-    month: "long",
-    day: "numeric",
-    year: "numeric",
-  });
-}
 
 function formatShortDate(iso: string) {
   return new Date(iso).toLocaleDateString("en-US", {
@@ -154,7 +132,7 @@ export function Hero() {
       <div className="absolute inset-0 bg-[radial-gradient(70%_55%_at_50%_15%,rgba(227,27,35,0.16),transparent_65%)]" />
 
       <div className="relative mx-auto max-w-[1440px] px-6 py-14 lg:px-8 lg:py-20">
-        <div className="grid items-center gap-10 lg:grid-cols-[1.05fr_auto_1fr] lg:gap-14">
+        <div className="grid items-center gap-12 lg:grid-cols-[1.05fr_1fr] lg:gap-16">
           {/* ---------- LEFT: headline, story, countdown, CTAs ---------- */}
           <AnimatePresence mode="wait">
             <motion.div
@@ -306,103 +284,9 @@ export function Hero() {
               </motion.div>
             </AnimatePresence>
           </div>
-
-          {/* ---------- RIGHT: fight information card ---------- */}
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={`info-${event.id}`}
-              initial={{ opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -16 }}
-              transition={fade}
-              className="hidden lg:block"
-            >
-              <div className="rounded-3xl border border-white/12 bg-[#0d0d0d]/85 p-6 backdrop-blur-md">
-                <div className="flex items-center justify-between gap-3">
-                  <p className="text-[11px] font-bold uppercase tracking-[0.28em] text-white/60">
-                    Fight Info
-                  </p>
-                  <span className="rounded-full border border-emerald-400/40 bg-emerald-500/15 px-3 py-1 text-[10px] font-bold uppercase tracking-[0.16em] text-emerald-400">
-                    {event.status}
-                  </span>
-                </div>
-
-                {event.titles.length > 0 && (
-                  <div className="mt-4 flex flex-wrap gap-1.5">
-                    {event.titles.map((t) => (
-                      <span
-                        key={t}
-                        className="flex items-center gap-1.5 rounded-full border border-[#f5c518]/35 bg-black/60 px-3 py-1 text-[10px] font-bold uppercase tracking-[0.16em] text-[#f5c518] backdrop-blur-md"
-                      >
-                        <Crown className="size-3.5" /> {t}
-                      </span>
-                    ))}
-                  </div>
-                )}
-
-                <div className="mt-5 space-y-3.5">
-                  {[
-                    { icon: CalendarDays, label: "Date", value: `${formatDate(event.date)} · ${event.time}` },
-                    { icon: MapPin, label: "Venue", value: `${event.venue} · ${event.city}` },
-                    { icon: Tv, label: "Broadcast", value: event.broadcaster },
-                    { icon: Weight, label: "Weight Class", value: event.weightClass },
-                    { icon: Gauge, label: "Rankings", value: `#${fighterA?.rank ?? "—"} vs #${fighterB?.rank ?? "—"}` },
-                    { icon: ShieldCheck, label: "Co-Main", value: event.coMain ?? "—" },
-                  ].map((row) => (
-                    <div key={row.label} className="flex items-start gap-3">
-                      <span className="mt-0.5 grid size-9 shrink-0 place-items-center rounded-xl border border-white/10 bg-white/5">
-                        <row.icon className="size-4 text-[#e31b23]" />
-                      </span>
-                      <div className="min-w-0">
-                        <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-white/40">
-                          {row.label}
-                        </p>
-                        <p className="mt-0.5 text-sm font-medium text-white/85">{row.value}</p>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-
-                {/* Tale of the tape */}
-                <div className="mt-5 border-t border-white/10 pt-4">
-                  <p className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.26em] text-white/40">
-                    <Ruler className="size-3.5 text-[#e31b23]" /> Tale of the Tape
-                  </p>
-                  <div className="mt-3 space-y-2">
-                    {[
-                      {
-                        label: "Record",
-                        a: recA ? `${recA.wins}-${recA.losses}-${recA.draws}` : "—",
-                        b: recB ? `${recB.wins}-${recB.losses}-${recB.draws}` : "—",
-                      },
-                      { label: "KOs", a: recA ? String(recA.kos) : "—", b: recB ? String(recB.kos) : "—" },
-                      { label: "Height", a: fighterA?.heightFt ?? "—", b: fighterB?.heightFt ?? "—" },
-                      { label: "Reach", a: fighterA?.reachIn ?? "—", b: fighterB?.reachIn ?? "—" },
-                      { label: "Stance", a: fighterA?.stance ?? "—", b: fighterB?.stance ?? "—" },
-                    ].map((row) => (
-                      <div key={row.label} className="grid grid-cols-[1fr_auto_1fr] items-center gap-3 text-sm">
-                        <span className="text-right font-semibold text-white">{row.a}</span>
-                        <span className="text-center text-[9px] font-bold uppercase tracking-[0.2em] text-white/35">
-                          {row.label}
-                        </span>
-                        <span className="font-semibold text-white">{row.b}</span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-
-                <Link
-                  href={`/events/${event.id}`}
-                  className="mt-5 flex w-full items-center justify-center rounded-full border border-[#e31b23]/50 bg-[#e31b23]/10 py-3 text-xs font-bold uppercase tracking-[0.2em] text-white transition hover:bg-[#e31b23]"
-                >
-                  View fight card
-                </Link>
-              </div>
-            </motion.div>
-          </AnimatePresence>
         </div>
 
-        {/* Full fight card */}
+        {/* ---------- FULL FIGHT CARD ---------- */}
         <AnimatePresence mode="wait">
           <motion.div
             key={`card-${event.id}`}

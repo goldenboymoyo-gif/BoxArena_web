@@ -1,6 +1,5 @@
 import Link from "next/link";
 import { ArrowRight, Mail, MapPin } from "lucide-react";
-import { Button } from "@/components/ui/button";
 
 const footerColumns = [
   {
@@ -104,38 +103,7 @@ export function SiteFooter() {
           </div>
         </div>
 
-        <div className="mt-14 rounded-2xl border border-white/10 bg-[#0d0d0d] p-6 sm:p-8">
-          <div className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
-            <div>
-              <h3 className="font-display text-xl font-semibold uppercase tracking-[0.08em] text-white">
-                Never miss a fight night
-              </h3>
-              <p className="mt-1.5 text-sm text-white/55">
-                Fight announcements, presale codes and exclusive highlights — straight
-                to your inbox.
-              </p>
-            </div>
-            <form className="flex w-full max-w-md flex-col gap-2 sm:flex-row">
-              <div className="relative flex-1">
-                <Mail className="absolute left-3.5 top-1/2 size-4 -translate-y-1/2 text-white/40" />
-                <input
-                  type="email"
-                  placeholder="Enter your email"
-                  className="w-full rounded-full border border-white/10 bg-white/5 py-3 pl-10 pr-4 text-sm text-white outline-none placeholder:text-white/40 focus:border-[#e31b23]/60"
-                />
-              </div>
-              <Button
-                type="submit"
-                size="lg"
-                className="shrink-0 rounded-full bg-[#e31b23] px-6 text-sm font-semibold uppercase tracking-[0.12em] text-white transition hover:bg-[#c3161d]"
-              >
-                Subscribe
-              </Button>
-            </form>
-          </div>
-        </div>
-
-        <div className="mt-12 flex flex-col gap-4 border-t border-white/10 pt-8 sm:flex-row sm:items-center sm:justify-between">
+        <div className="mt-14 flex flex-col gap-4 border-t border-white/10 pt-8 sm:flex-row sm:items-center sm:justify-between">
           <p className="text-xs text-white/40">
             © 2026 BoxArena. All rights reserved. Not affiliated with any sanctioning
             body.

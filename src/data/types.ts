@@ -217,6 +217,7 @@ export interface TicketItem {
   qr: string;
   status: TicketStatus;
   purchasedAt: string;
+  paidWith?: string;
 }
 
 export interface Legend {
