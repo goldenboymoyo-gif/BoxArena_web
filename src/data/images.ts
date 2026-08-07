@@ -3,7 +3,7 @@ const w = (path: string) =>
 
 export const IMAGES = {
   fighters: {
-    usyk: w("thumb/4/48/Oleksandr_Usyk_at_TIFF_2025.jpg/960px-Oleksandr_Usyk_at_TIFF_2025.jpg"),
+    usyk: w("thumb/6/6e/Usyk_-_Knyazev_-_0393.jpg/1280px-Usyk_-_Knyazev_-_0393.jpg"),
     usykAlt: w("thumb/9/90/Oleksandr_Usyk_training_-_20150409_-_19.jpg/960px-Oleksandr_Usyk_training_-_20150409_-_19.jpg"),
     fury: w("8/8d/Tyson_Fury_at_Place_Bell%2C_Laval_Quebec%2C_Canada_-_Dec_16_2017_%28cropped%29.jpg"),
     furyAlt: w("thumb/4/4a/Tyson_Fury_-_2016-04-30.jpg/500px-Tyson_Fury_-_2016-04-30.jpg"),
@@ -14,15 +14,15 @@ export const IMAGES = {
     inoue: w("4/49/Naoya_Inoue_20230302suports_03.jpg"),
     bivol: w("c/c5/Dmitry_Bivol_in_2023.jpg"),
     beterbiev: w("6/64/Artur_Beterbiev%2C_December_2019.jpg"),
-    davis: w("5/52/Gervonta_Tank_Davis.jpg"),
+    davis: w("thumb/e/e8/Gervonta_Davis_vs_Frank_Martin_%28cropped%29.jpg/1280px-Gervonta_Davis_vs_Frank_Martin_%28cropped%29.jpg"),
     haney: w("e/e0/Devin_Haney.jpg"),
-    canelo: w("8/82/Sa%C3%BAl_%C3%81lvarez.png"),
+    canelo: w("a/ad/Canelo_%C3%81lvarez%27s_cross_2017.png"),
     caneloAlt: w("thumb/7/77/Sa%C3%BAl_%C3%81lvarez_2013.jpg/514px-Sa%C3%BAl_%C3%81lvarez_2013.jpg"),
     stevenson: w("thumb/3/34/Jesus_vs_Stevenson_2016_Rio_8cr.jpg/1280px-Jesus_vs_Stevenson_2016_Rio_8cr.jpg"),
     spence: w("thumb/3/3c/Errol_Spence%2C_Jr.jpg/960px-Errol_Spence%2C_Jr.jpg"),
-    zhang: w("a/ab/Zhilei_Zhang_2021.jpg"),
+    zhang: w("thumb/1/18/Zhilei_Zhang_2021_41.png/1280px-Zhilei_Zhang_2021_41.png"),
     dubois: w("thumb/b/b9/Daniel_Dubois_walkout_%28cropped%29.jpg/960px-Daniel_Dubois_walkout_%28cropped%29.jpg"),
-    parker: w("c/cb/Joseph_Parker_2016.jpg"),
+    parker: w("thumb/6/60/Parker_v_Botha.jpg/1280px-Parker_v_Botha.jpg"),
     lomachenko: w("thumb/4/41/Vasyl_Lomachenko_portrait_3%C3%974.jpg/960px-Vasyl_Lomachenko_portrait_3%C3%974.jpg"),
     garcia: w("thumb/5/51/RYAN_GARCIA.jpg/1280px-RYAN_GARCIA.jpg"),
     lopez: w("d/d6/Teofimo_Lopez.jpg"),

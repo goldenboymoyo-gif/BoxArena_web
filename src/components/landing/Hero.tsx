@@ -26,7 +26,6 @@ const ROTATE_MS = 20000;
 const HERO_IMAGE_OVERRIDES: Record<string, { src: string; position: string }> = {
   "anthony-joshua": { src: IMAGES.fighters.joshuaFight, position: "object-center" },
   "tyson-fury": { src: IMAGES.fighters.furyFight, position: "object-top" },
-  "oleksandr-usyk": { src: IMAGES.fighters.usykAlt, position: "object-top" },
 };
 
 const HERO_BACKGROUND_OVERRIDES: Record<string, string> = {
