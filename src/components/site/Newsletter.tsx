@@ -28,12 +28,6 @@ export function Newsletter() {
       <div className="absolute inset-0 bg-[radial-gradient(60%_80%_at_50%_120%,rgba(227,27,35,0.18),transparent_70%)]" />
       <div className="relative mx-auto max-w-[1440px] px-6 py-20 lg:px-8">
         <div className="mx-auto flex max-w-2xl flex-col items-center text-center">
-          <span className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-1.5 text-[11px] font-bold uppercase tracking-[0.24em] text-white/70">
-            <span className="relative flex size-2">
-              <span className="live-dot inline-flex size-2 rounded-full bg-[#e31b23]" />
-            </span>
-            Fight Alerts
-          </span>
           <h2 className="mt-5 font-display text-4xl font-semibold uppercase tracking-wide text-white sm:text-5xl">
             Never Miss a{" "}
             <span className="text-[#e31b23]">Fight Night</span>
