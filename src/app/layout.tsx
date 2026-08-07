@@ -4,6 +4,7 @@ import { Inter, Oswald } from "next/font/google";
 import "./globals.css";
 import { SiteHeader } from "@/components/site/SiteHeader";
 import { SiteFooter } from "@/components/site/SiteFooter";
+import { LiveTicker } from "@/components/site/LiveTicker";
 import { AuthProvider } from "@/lib/auth";
 
 const inter = Inter({
@@ -36,6 +37,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       <body className="min-h-full bg-[#080808] text-white antialiased">
         <AuthProvider>
           <SiteHeader />
+          <LiveTicker />
           <main className="flex min-h-screen flex-col">{children}</main>
           <SiteFooter />
         </AuthProvider>
