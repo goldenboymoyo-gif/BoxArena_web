@@ -67,6 +67,7 @@ function FightCarousel({ fights, active, onSelect }: FightCarouselProps) {
       <div className="no-scrollbar flex gap-3 overflow-x-auto p-3">
         {fights.map((f, i) => {
           const fa = getFighterByName(f.fighterA);
+          const fb = getFighterByName(f.fighterB);
           const isActive = i === active;
           return (
             <button
@@ -80,11 +81,19 @@ function FightCarousel({ fights, active, onSelect }: FightCarouselProps) {
                   : "border-white/10 bg-white/5 hover:border-white/25 hover:bg-white/10"
               )}
             >
-              <img
-                src={fa?.image ?? f.imageA}
-                alt=""
-                className="h-11 w-11 rounded-xl object-cover object-top"
-              />
+              <span className="relative block h-11 w-11 shrink-0 overflow-hidden rounded-xl border border-white/10">
+                <img
+                  src={fa?.image ?? f.imageA}
+                  alt=""
+                  className="absolute inset-y-0 left-0 w-1/2 object-cover object-top"
+                />
+                <span className="absolute inset-y-0 left-1/2 w-px bg-[#e31b23]/80" />
+                <img
+                  src={fb?.image ?? f.imageB}
+                  alt=""
+                  className="absolute inset-y-0 right-0 w-1/2 object-cover object-top"
+                />
+              </span>
               <span className="min-w-0">
                 <span className="flex items-center gap-1.5 font-display text-sm font-bold uppercase tracking-wide text-white">
                   <span className="truncate">{shortName(f.fighterA)}</span>

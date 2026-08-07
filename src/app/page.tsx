@@ -1,7 +1,8 @@
 import Link from "next/link";
-import { ArrowRight, Play } from "lucide-react";
+import { ArrowRight, ArrowUpRight, Play } from "lucide-react";
 import { SectionHeading } from "@/components/site/SectionHeading";
 import { Hero } from "@/components/landing/Hero";
+import { Newsletter } from "@/components/site/Newsletter";
 import { StatsBand } from "@/components/landing/StatsBand";
 import { FighterCard } from "@/components/cards/FighterCard";
 import { EventCard } from "@/components/cards/EventCard";
@@ -204,9 +205,12 @@ export default function Home() {
           />
           <div className="no-scrollbar mt-10 flex snap-x gap-6 overflow-x-auto pb-2">
             {legends.map((legend) => (
-              <div
+              <a
                 key={legend.name}
-                className="group relative w-64 shrink-0 snap-start overflow-hidden rounded-2xl border border-white/10"
+                href={legend.wiki}
+                target="_blank"
+                rel="noreferrer"
+                className="group relative w-64 shrink-0 snap-start overflow-hidden rounded-2xl border border-white/10 transition duration-300 hover:-translate-y-1 hover:border-[#e31b23]/45"
               >
                 <img
                   src={legend.image}
@@ -222,12 +226,19 @@ export default function Home() {
                   <p className="mt-1 text-xs uppercase tracking-[0.18em] text-white/55">
                     {legend.era} · {legend.record}
                   </p>
+                  <span className="mt-3 inline-flex items-center gap-1.5 rounded-full border border-white/20 bg-black/50 px-3 py-1.5 text-[10px] font-bold uppercase tracking-[0.18em] text-white/70 backdrop-blur-md transition group-hover:border-[#e31b23]/60 group-hover:text-white">
+                    Meet the legend
+                    <ArrowUpRight className="size-3.5 text-[#e31b23] transition group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                  </span>
                 </div>
-              </div>
+              </a>
             ))}
           </div>
         </div>
       </section>
+
+      {/* ---------------- NEWSLETTER ---------------- */}
+      <Newsletter />
     </div>
   );
 }

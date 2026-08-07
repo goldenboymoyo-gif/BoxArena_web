@@ -227,6 +227,7 @@ export interface Legend {
   record: string;
   legacy: string;
   image: string;
+  wiki: string;
 }
 
 export interface PodcastEpisode {

@@ -109,13 +109,10 @@ export function SiteHeader() {
           <div className="flex w-full max-w-md items-center rounded-full border border-white/10 bg-white/5 px-4 py-2.5 transition focus-within:border-[#e31b23]/60 focus-within:bg-white/[0.07]">
             <Search className="size-4 shrink-0 text-white/50" />
             <input
-              type="search"
+              type="text"
               placeholder="Search fights, fighters, events..."
               className="ml-3 w-full min-w-0 bg-transparent text-sm text-white outline-none placeholder:text-white/40"
             />
-            <kbd className="ml-2 hidden shrink-0 rounded-md border border-white/10 bg-white/5 px-1.5 py-0.5 text-[10px] font-semibold text-white/35 md:block">
-              /
-            </kbd>
           </div>
         </div>
 
@@ -214,7 +211,7 @@ export function SiteHeader() {
           <div className="relative mb-3 flex items-center rounded-full border border-white/10 bg-white/5 px-3.5 py-2 lg:hidden">
             <Search className="size-4 text-white/50" />
             <input
-              type="search"
+              type="text"
               placeholder="Search fights, fighters, events"
               className="ml-2.5 w-full bg-transparent text-sm text-white outline-none placeholder:text-white/40"
             />

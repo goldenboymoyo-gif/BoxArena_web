@@ -1612,6 +1612,7 @@ export const legends: Legend[] = [
     record: "56-5 (37 KO)",
     legacy: "Three-time lineal heavyweight champion. 'The Greatest'.",
     image: IMAGES.legends.ali,
+    wiki: "https://en.wikipedia.org/wiki/Muhammad_Ali",
   },
   {
     name: "Mike Tyson",
@@ -1620,6 +1621,7 @@ export const legends: Legend[] = [
     record: "50-6 (44 KO)",
     legacy: "Youngest heavyweight champion in history at age 20.",
     image: IMAGES.legends.tyson,
+    wiki: "https://en.wikipedia.org/wiki/Mike_Tyson",
   },
   {
     name: "Floyd Mayweather Jr.",
@@ -1628,6 +1630,7 @@ export const legends: Legend[] = [
     record: "50-0 (27 KO)",
     legacy: "Undefeated five-division champion. 50-0 'TBE'.",
     image: IMAGES.legends.mayweather,
+    wiki: "https://en.wikipedia.org/wiki/Floyd_Mayweather_Jr.",
   },
   {
     name: "Manny Pacquiao",
@@ -1636,6 +1639,7 @@ export const legends: Legend[] = [
     record: "62-8-2 (39 KO)",
     legacy: "The only eight-division world champion in boxing history.",
     image: IMAGES.legends.pacquiao,
+    wiki: "https://en.wikipedia.org/wiki/Manny_Pacquiao",
   },
   {
     name: "George Foreman",
@@ -1644,6 +1648,7 @@ export const legends: Legend[] = [
     record: "76-5 (68 KO)",
     legacy: "Two-time heavyweight champion. Oldest champ at 45.",
     image: IMAGES.legends.foreman,
+    wiki: "https://en.wikipedia.org/wiki/George_Foreman",
   },
   {
     name: "Sugar Ray Leonard",
@@ -1652,6 +1657,7 @@ export const legends: Legend[] = [
     record: "36-3-1 (25 KO)",
     legacy: "Five-division champion of the golden era.",
     image: IMAGES.legends.leonard,
+    wiki: "https://en.wikipedia.org/wiki/Sugar_Ray_Leonard",
   },
   {
     name: "Oscar De La Hoya",
@@ -1660,6 +1666,7 @@ export const legends: Legend[] = [
     record: "39-6 (30 KO)",
     legacy: "Eleven-time champion in six divisions. 1992 Olympic gold.",
     image: IMAGES.legends.deLaHoya,
+    wiki: "https://en.wikipedia.org/wiki/Oscar_De_La_Hoya",
   },
   {
     name: "Azumah Nelson",
@@ -1668,6 +1675,7 @@ export const legends: Legend[] = [
     record: "39-6-2 (28 KO)",
     legacy: "Ghana's 'Professor' — three-time super featherweight king and African boxing icon.",
     image: IMAGES.legends.azumahNelson,
+    wiki: "https://en.wikipedia.org/wiki/Azumah_Nelson",
   },
   {
     name: "Dick Tiger",
@@ -1676,5 +1684,6 @@ export const legends: Legend[] = [
     record: "60-19-3 (27 KO)",
     legacy: "Nigeria's first world champion. Lineal middleweight and light heavyweight ruler.",
     image: IMAGES.legends.dickTiger,
+    wiki: "https://en.wikipedia.org/wiki/Dick_Tiger",
   },
 ];

@@ -3,13 +3,11 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import {
-  Apple,
   ArrowRight,
   BadgeCheck,
   Banknote,
   CalendarDays,
   Check,
-  CreditCard,
   Loader2,
   MapPin,
   Minus,
@@ -17,10 +15,17 @@ import {
   QrCode,
   Receipt,
   ShieldCheck,
-  Smartphone,
   Ticket,
-  Wallet,
 } from "lucide-react";
+import type { IconType } from "react-icons";
+import {
+  FaApplePay,
+  FaCcAmex,
+  FaCcMastercard,
+  FaCcVisa,
+  FaGooglePay,
+  FaPaypal,
+} from "react-icons/fa6";
 import type { BoxingEvent, TicketItem } from "@/data/types";
 import { ticketTiers } from "@/data/tickets";
 import { addPurchasedTicket } from "@/lib/ticketStore";
@@ -41,15 +46,28 @@ const paymentMethods: {
   id: PaymentMethodId;
   label: string;
   caption: string;
-  icon: typeof CreditCard;
+  icons: IconType[];
 }[] = [
-  { id: "card", label: "Card", caption: "Visa · Mastercard · Amex", icon: CreditCard },
-  { id: "paypal", label: "PayPal", caption: "Pay with balance", icon: Wallet },
-  { id: "applepay", label: "Apple Pay", caption: "Touch / Face ID", icon: Apple },
-  { id: "googlepay", label: "Google Pay", caption: "Tap to pay", icon: Smartphone },
+  {
+    id: "card",
+    label: "Card",
+    caption: "Visa · Mastercard · Amex",
+    icons: [FaCcVisa, FaCcMastercard, FaCcAmex],
+  },
+  { id: "paypal", label: "PayPal", caption: "Pay with balance", icons: [FaPaypal] },
+  { id: "applepay", label: "Apple Pay", caption: "Touch / Face ID", icons: [FaApplePay] },
+  { id: "googlepay", label: "Google Pay", caption: "Tap to pay", icons: [FaGooglePay] },
 ];
 
-const cardBadges = ["VISA", "MASTERCARD", "AMEX"];
+const brandColors: Record<PaymentMethodId, string[]> = {
+  card: ["#1A1F71", "#EB001B", "#2E77BC"],
+  paypal: ["#003087"],
+  applepay: ["#ffffff"],
+  googlepay: ["#4285F4"],
+};
+
+const cardBrands: IconType[] = [FaCcVisa, FaCcMastercard, FaCcAmex];
+const cardBrandColors = ["#1A1F71", "#EB001B", "#2E77BC"];
 
 function formatDate(iso: string) {
   return new Date(iso).toLocaleDateString("en-US", {
@@ -194,18 +212,20 @@ export function BuyTicketsCard({ event }: BuyTicketsCardProps) {
           <div className="mt-1 flex items-center justify-between gap-3 text-sm">
             <span className="text-white/75">Paid with</span>
             <span className="flex items-center gap-1.5 text-white/80">
-              {paymentMethod === "card" && (
-                <CreditCard className="size-3.5 text-[#e31b23]" />
-              )}
-              {paymentMethod === "paypal" && (
-                <Wallet className="size-3.5 text-[#e31b23]" />
-              )}
-              {paymentMethod === "applepay" && (
-                <Apple className="size-3.5 text-[#e31b23]" />
-              )}
-              {paymentMethod === "googlepay" && (
-                <Smartphone className="size-3.5 text-[#e31b23]" />
-              )}
+              <span className="grid size-5 place-items-center rounded bg-white">
+                {paymentMethod === "card" && (
+                  <FaCcVisa className="h-3 w-auto text-[#1A1F71]" />
+                )}
+                {paymentMethod === "paypal" && (
+                  <FaPaypal className="h-3 w-auto text-[#003087]" />
+                )}
+                {paymentMethod === "applepay" && (
+                  <FaApplePay className="h-3 w-auto text-black" />
+                )}
+                {paymentMethod === "googlepay" && (
+                  <FaGooglePay className="h-3 w-auto text-[#4285F4]" />
+                )}
+              </span>
               {paymentMethodLabel}
             </span>
           </div>
@@ -370,12 +390,15 @@ export function BuyTicketsCard({ event }: BuyTicketsCardProps) {
           </p>
           {paymentMethod === "card" && (
             <span className="flex items-center gap-1">
-              {cardBadges.map((b) => (
+              {cardBrands.map((Icon, idx) => (
                 <span
-                  key={b}
-                  className="rounded border border-white/15 bg-white/5 px-1.5 py-0.5 text-[9px] font-black tracking-wider text-white/55"
+                  key={idx}
+                  className="grid h-5 w-8 place-items-center rounded bg-white"
                 >
-                  {b}
+                  <Icon
+                    className="h-3 w-auto"
+                    style={{ color: cardBrandColors[idx] }}
+                  />
                 </span>
               ))}
             </span>
@@ -406,7 +429,25 @@ export function BuyTicketsCard({ event }: BuyTicketsCardProps) {
                       : "border-white/10 bg-white/5 text-white/60"
                   }`}
                 >
-                  <m.icon className="size-4" />
+                  {(() => {
+                    const Single = m.icons[0];
+                    return m.icons.length > 1 ? (
+                      <span className="flex items-center">
+                        {m.icons.map((Icon, idx) => (
+                          <Icon
+                            key={idx}
+                            className={`size-4 rounded bg-white ${idx > 0 ? "-ml-1" : ""}`}
+                            style={{ color: brandColors[m.id][idx] }}
+                          />
+                        ))}
+                      </span>
+                    ) : (
+                      <Single
+                        className="size-4"
+                        style={{ color: brandColors[m.id][0] }}
+                      />
+                    );
+                  })()}
                 </span>
                 <span className="min-w-0">
                   <span className="block truncate text-sm font-semibold text-white">

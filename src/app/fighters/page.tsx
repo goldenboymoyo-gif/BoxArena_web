@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowRight, Trophy } from "lucide-react";
+import { ArrowRight, ArrowUpRight, Trophy } from "lucide-react";
 import { SectionHeading } from "@/components/site/SectionHeading";
 import { FighterDirectory } from "@/components/fighters/FighterDirectory";
 import { fighters, legends } from "@/data/fighters";
@@ -96,8 +96,11 @@ export default function FightersPage() {
           />
           <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
             {legends.map((legend) => (
-              <div
+              <a
                 key={legend.name}
+                href={legend.wiki}
+                target="_blank"
+                rel="noreferrer"
                 className="group relative overflow-hidden rounded-2xl border border-white/10 bg-[#111111] transition-all duration-300 hover:-translate-y-1.5 hover:border-[#e31b23]/45"
               >
                 <div className="relative aspect-[4/5] overflow-hidden">
@@ -120,8 +123,12 @@ export default function FightersPage() {
                     {legend.era} · {legend.record}
                   </p>
                   <p className="mt-3 text-sm leading-6 text-white/50">{legend.legacy}</p>
+                  <span className="mt-4 inline-flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-[0.18em] text-white/45 transition group-hover:text-[#e31b23]">
+                    Read the story
+                    <ArrowUpRight className="size-3.5 transition group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                  </span>
                 </div>
-              </div>
+              </a>
             ))}
           </div>
         </div>
