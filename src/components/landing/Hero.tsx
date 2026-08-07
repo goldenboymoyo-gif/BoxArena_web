@@ -1,9 +1,9 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
+import { useEffect, useMemo, useRef, useState } from "react";
+import { AnimatePresence, motion, useInView } from "framer-motion";
 import Link from "next/link";
-import { Flag, Play, Ticket, Trophy } from "lucide-react";
+import { ArrowRight, CalendarDays, MapPin, Play, Ticket } from "lucide-react";
 import { Countdown } from "@/components/site/Countdown";
 import { FightCard } from "@/components/cards/FightCard";
 import { events } from "@/data/events";
@@ -46,10 +46,10 @@ const HERO_BLURBS: Record<string, string> = {
     "The most personal rivalry in boxing boils over at Madison Square Garden. Teofimo Lopez and Devin Haney unify the super lightweight division.",
 };
 
-function formatShortDate(iso: string) {
+function formatLongDate(iso: string) {
   return new Date(iso).toLocaleDateString("en-US", {
-    weekday: "short",
-    month: "short",
+    weekday: "long",
+    month: "long",
     day: "numeric",
   });
 }
@@ -59,6 +59,74 @@ function shortName(full: string) {
 }
 
 const fade = { duration: 0.5, ease: "easeOut" as const };
+
+interface Stat {
+  label: string;
+  value: number;
+  sub: string;
+}
+
+function StatCell({ stat, inView }: { stat: Stat; inView: boolean }) {
+  const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    if (!inView) return;
+    let raf = 0;
+    const start = performance.now();
+    const duration = 1100;
+    const tick = (now: number) => {
+      const p = Math.min(1, (now - start) / duration);
+      const eased = 1 - Math.pow(1 - p, 3);
+      setCount(Math.round(eased * stat.value));
+      if (p < 1) raf = requestAnimationFrame(tick);
+    };
+    raf = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(raf);
+  }, [inView, stat.value]);
+
+  return (
+    <div className="flex flex-col items-center justify-center px-2 py-5">
+      <span className="font-display text-5xl font-bold leading-none tabular-nums text-white">
+        {count}
+      </span>
+      <span className="mt-2 text-[10px] font-bold uppercase tracking-[0.24em] text-[#e31b23]">
+        {stat.label}
+      </span>
+      <span className="mt-1 text-[10px] text-white/35">{stat.sub}</span>
+    </div>
+  );
+}
+
+function StatsBand() {
+  const ref = useRef<HTMLDivElement>(null);
+  const inView = useInView(ref, { once: true, margin: "-80px" });
+  const stats: Stat[] = useMemo(
+    () => [
+      { label: "Upcoming Events", value: events.length, sub: "Live schedule" },
+      { label: "Divisions Ranked", value: divisions.length, sub: "Full tables" },
+      {
+        label: "Ranked Fighters",
+        value: divisions.reduce((n, d) => n + d.rows.length, 0),
+        sub: "World class",
+      },
+      { label: "World Champions", value: divisions.length, sub: "Across divisions" },
+    ],
+    []
+  );
+
+  return (
+    <div
+      ref={ref}
+      className="grid grid-cols-2 gap-px overflow-hidden rounded-2xl border border-white/10 bg-white/10 sm:grid-cols-4"
+    >
+      {stats.map((s) => (
+        <div key={s.label} className="bg-[#0d0d0d]">
+          <StatCell stat={s} inView={inView} />
+        </div>
+      ))}
+    </div>
+  );
+}
 
 export function Hero() {
   const heroEvents = useMemo(
@@ -82,22 +150,12 @@ export function Hero() {
 
   const event = heroEvents[index];
   const fighterA = event ? getFighterByName(event.fighterA) : undefined;
-  const fighterB = event ? getFighterByName(event.fighterB) : undefined;
-  const rankedFighters = useMemo(
-    () => divisions.reduce((n, d) => n + d.rows.length, 0),
-    []
-  );
 
   if (!event) return null;
 
   const overrideA = fighterA ? HERO_IMAGE_OVERRIDES[fighterA.id] : undefined;
-  const overrideB = fighterB ? HERO_IMAGE_OVERRIDES[fighterB.id] : undefined;
   const imageA = overrideA?.src ?? fighterA?.image ?? event.imageA;
-  const imageB = overrideB?.src ?? fighterB?.image ?? event.imageB;
   const hour = event.time.split(":")[0];
-
-  const recA = fighterA?.record;
-  const recB = fighterB?.record;
 
   return (
     <section
@@ -105,35 +163,25 @@ export function Hero() {
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
     >
-      {/* Background: the fighters themselves, split across the frame */}
+      {/* Backdrop: the headline fighter, deep in the dark */}
       <AnimatePresence>
         <motion.img
-          key={`bg-a-${event.id}`}
+          key={`bg-${event.id}`}
           src={imageA}
           alt=""
-          className="absolute inset-y-0 left-0 h-full w-full object-cover object-top opacity-45 sm:w-1/2"
+          className="absolute inset-0 h-full w-full object-cover object-top opacity-40"
           initial={{ opacity: 0 }}
-          animate={{ opacity: 0.45 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 1.1, ease: "easeInOut" }}
-        />
-        <motion.img
-          key={`bg-b-${event.id}`}
-          src={imageB}
-          alt=""
-          className="absolute inset-y-0 right-0 hidden h-full w-1/2 object-cover object-top opacity-45 sm:block"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 0.45 }}
+          animate={{ opacity: 0.4 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 1.1, ease: "easeInOut" }}
         />
       </AnimatePresence>
-      <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(8,8,8,0.55),rgba(8,8,8,0.4)_55%,#080808_97%)]" />
-      <div className="absolute inset-0 bg-[radial-gradient(70%_55%_at_50%_15%,rgba(227,27,35,0.16),transparent_65%)]" />
+      <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(7,7,7,0.82),rgba(7,7,7,0.55)_55%,#080808_97%)]" />
+      <div className="absolute inset-0 bg-[radial-gradient(70%_55%_at_50%_10%,rgba(227,27,35,0.16),transparent_65%)]" />
 
-      <div className="relative mx-auto max-w-[1440px] px-6 py-14 lg:px-8 lg:py-20">
-        <div className="grid items-center gap-12 lg:grid-cols-[1.05fr_1fr] lg:gap-16">
-          {/* ---------- LEFT: headline, story, countdown, CTAs ---------- */}
+      <div className="relative mx-auto max-w-[1440px] px-6 py-16 lg:px-8 lg:py-24">
+        <div className="grid items-center gap-14 lg:grid-cols-[1.1fr_0.9fr] lg:gap-20">
+          {/* ---------- LEFT: one story, in order ---------- */}
           <AnimatePresence mode="wait">
             <motion.div
               key={`left-${event.id}`}
@@ -143,147 +191,112 @@ export function Hero() {
               transition={fade}
               className="max-w-2xl"
             >
-              <p className="text-xs font-bold uppercase tracking-[0.34em] text-[#e31b23]">
+              <span className="inline-flex items-center gap-2.5 rounded-full border border-[#e31b23]/40 bg-[#e31b23]/10 px-4 py-2 text-[11px] font-bold uppercase tracking-[0.3em] text-[#e31b23]">
+                <span className="size-1.5 animate-pulse rounded-full bg-[#e31b23]" />
                 {event.headline}
-              </p>
+              </span>
 
-              <h1 className="mt-4 font-display font-bold uppercase leading-[0.92] tracking-tight text-white">
-                <span className="block text-5xl sm:text-6xl xl:text-7xl">
+              <h1 className="mt-7 font-display font-bold uppercase leading-[0.9] tracking-tight text-white">
+                <span className="block text-6xl sm:text-7xl xl:text-8xl">
                   {shortName(event.fighterA)}
                 </span>
-                <span className="my-2 flex items-center gap-4 text-xl text-[#e31b23] sm:text-2xl">
+                <span className="my-3 flex items-center gap-5 text-xl text-[#e31b23] sm:text-2xl">
                   <span className="h-px flex-1 bg-gradient-to-r from-transparent to-[#e31b23]/70" />
                   VS
                   <span className="h-px flex-1 bg-gradient-to-l from-transparent to-[#e31b23]/70" />
                 </span>
-                <span className="block text-5xl text-stroke sm:text-6xl xl:text-7xl">
+                <span className="block text-6xl text-stroke sm:text-7xl xl:text-8xl">
                   {shortName(event.fighterB)}
                 </span>
               </h1>
 
-              <p className="mt-6 hidden max-w-xl text-lg leading-8 text-white/70 sm:block">
+              <p className="mt-7 flex flex-wrap items-center gap-x-3 gap-y-1 font-display text-lg font-semibold uppercase tracking-wide text-white">
+                <span className="inline-flex items-center gap-2 text-white">
+                  <CalendarDays className="size-5 text-[#e31b23]" />
+                  {formatLongDate(event.date)}
+                </span>
+                <span className="text-white/35">·</span>
+                <span className="inline-flex items-center gap-2 text-white/70">
+                  <MapPin className="size-5 text-[#e31b23]" />
+                  {event.venue}, {event.city}
+                </span>
+              </p>
+
+              <p className="mt-6 hidden max-w-xl text-base leading-7 text-white/60 sm:block">
                 {HERO_BLURBS[event.id]}
               </p>
 
-              {/* Premium fight-night countdown card */}
-              <div className="mt-8 max-w-xl overflow-hidden rounded-2xl border border-white/12 bg-[#0d0d0d]/85 backdrop-blur-md">
-                <div className="flex items-center justify-between border-b border-white/10 bg-white/[0.04] px-5 py-3">
-                  <span className="flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.26em] text-white/70">
-                    <Trophy className="size-4 text-[#e31b23]" /> Fight Night
-                  </span>
-                  <span className="flex items-center gap-1.5 rounded-full bg-[#e31b23] px-3 py-1 text-[10px] font-bold uppercase tracking-[0.18em] text-white">
-                    <span className="size-1.5 animate-pulse rounded-full bg-white" />
-                    {event.ticketStatus}
-                  </span>
-                </div>
-                <div className="flex flex-col gap-4 px-5 py-5 sm:flex-row sm:items-center sm:justify-between">
+              <div className="mt-9">
+                <p className="text-[11px] font-bold uppercase tracking-[0.3em] text-white/45">
+                  Fight night in
+                </p>
+                <div className="mt-3">
                   <Countdown
                     date={`${event.date}T${hour}:00:00`}
                     timezone={event.timezone}
                   />
-                  <div className="shrink-0 border-white/10 sm:border-l sm:pl-5">
-                    <p className="font-display text-base font-semibold uppercase tracking-wide text-white">
-                      {formatShortDate(event.date)}
-                    </p>
-                    <p className="mt-0.5 text-xs text-white/50">
-                      {event.venue} · {event.time}
-                    </p>
-                  </div>
                 </div>
               </div>
 
-              <div className="mt-8 flex flex-col gap-4 sm:flex-row">
+              <div className="mt-10 flex flex-col gap-4 sm:flex-row">
                 <Link
                   href={`/events/${event.id}`}
-                  className="inline-flex items-center justify-center gap-2 rounded-full bg-[#e31b23] px-8 py-4 font-display text-sm font-bold uppercase tracking-[0.18em] text-white transition hover:bg-[#c3161d]"
+                  className="inline-flex items-center justify-center gap-2.5 rounded-full bg-[#e31b23] px-10 py-5 font-display text-base font-bold text-white shadow-[0_12px_44px_-12px_rgba(227,27,35,0.75)] transition hover:bg-[#c3161d]"
                 >
-                  <Ticket className="size-4" /> Get Tickets
+                  <Ticket className="size-5" /> Get Tickets
                 </Link>
                 <Link
                   href="/live"
-                  className="inline-flex items-center justify-center gap-2 rounded-full border border-white/20 bg-black/40 px-8 py-4 font-display text-sm font-bold uppercase tracking-[0.18em] text-white backdrop-blur-md transition hover:border-[#e31b23]/50 hover:bg-white/10"
+                  className="inline-flex items-center justify-center gap-2.5 rounded-full border border-white/25 bg-black/40 px-10 py-5 font-display text-base font-bold text-white backdrop-blur-md transition hover:border-[#e31b23]/60 hover:bg-white/10"
                 >
-                  <Play className="size-4 fill-current text-[#e31b23]" /> Watch Live
+                  <Play className="size-5 fill-current text-[#e31b23]" /> Watch Live
                 </Link>
               </div>
             </motion.div>
           </AnimatePresence>
 
-          {/* ---------- CENTER: the fighters, poster clash ---------- */}
-          <div className="relative hidden items-center justify-center lg:flex lg:py-4">
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={`posters-${event.id}`}
-                initial={{ opacity: 0, y: 14 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -14 }}
-                transition={fade}
-                className="flex items-end"
-              >
-                {fighterA && (
+          {/* ---------- RIGHT: single large poster ---------- */}
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={`poster-${event.id}`}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              transition={fade}
+              className="relative hidden lg:block"
+            >
+              <div className="relative overflow-hidden rounded-3xl border border-white/10">
+                <img
+                  src={imageA}
+                  alt={event.title}
+                  className={`img-zoom h-[520px] w-full object-cover xl:h-[580px] ${
+                    overrideA?.position ?? "object-top"
+                  }`}
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/10 to-black/20" />
+                <div className="absolute inset-x-0 bottom-0 p-7">
+                  <p className="text-[10px] font-bold uppercase tracking-[0.3em] text-white/55">
+                    {event.weightClass} · {event.titles.join(" · ")}
+                  </p>
+                  <h3 className="mt-2 font-display text-3xl font-bold uppercase tracking-wide text-white">
+                    {shortName(event.fighterA)}{" "}
+                    <span className="text-[#e31b23]">vs</span>{" "}
+                    {shortName(event.fighterB)}
+                  </h3>
+                  <p className="mt-1 text-sm text-white/55">
+                    {event.venue} · {formatLongDate(event.date)}
+                  </p>
                   <Link
-                    href={`/fighters/${fighterA.id}`}
-                    className="group relative z-10"
+                    href={`/events/${event.id}`}
+                    className="group mt-5 inline-flex items-center gap-2 rounded-full bg-[#e31b23] px-7 py-3.5 font-display text-sm font-bold text-white transition hover:bg-[#c3161d]"
                   >
-                    <div className="relative w-[200px] overflow-hidden rounded-l-[28px] border-2 border-r-0 border-[#e31b23]/70 sm:w-[230px] lg:w-[260px]">
-                      <img
-                        src={imageA}
-                        alt={fighterA.name}
-                        className={`img-zoom h-[300px] w-full object-cover sm:h-[380px] lg:h-[430px] ${
-                          overrideA?.position ?? "object-top"
-                        }`}
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-[#0a0a0a]/15 to-transparent" />
-                      <div className="absolute inset-x-0 bottom-0 p-4 text-left">
-                        <p className="font-display text-2xl font-bold uppercase tracking-wide text-white">
-                          {shortName(fighterA.name)}
-                        </p>
-                        <p className="mt-1 flex items-center gap-1.5 text-xs text-white/60">
-                          <Flag className="size-3.5 text-[#e31b23]" />{" "}
-                          {fighterA.country} · {recA?.wins}-{recA?.losses}-{recA?.draws}
-                          <span className="text-[#e31b23]">({recA?.kos} KO)</span>
-                        </p>
-                      </div>
-                    </div>
+                    Get Tickets{" "}
+                    <ArrowRight className="size-4 transition group-hover:translate-x-0.5" />
                   </Link>
-                )}
-
-                <div className="relative z-20 -mx-5 grid size-14 shrink-0 place-items-center rounded-full border border-white/20 bg-[#e31b23] shadow-lg sm:size-16">
-                  <span className="font-display text-base font-black uppercase tracking-wider text-white sm:text-lg">
-                    VS
-                  </span>
                 </div>
-
-                {fighterB && (
-                  <Link
-                    href={`/fighters/${fighterB.id}`}
-                    className="group relative z-10"
-                  >
-                    <div className="relative w-[200px] overflow-hidden rounded-r-[28px] border-2 border-l-0 border-[#f5c518]/70 sm:w-[230px] lg:w-[260px]">
-                      <img
-                        src={imageB}
-                        alt={fighterB.name}
-                        className={`img-zoom h-[300px] w-full object-cover sm:h-[380px] lg:h-[430px] ${
-                          overrideB?.position ?? "object-top"
-                        }`}
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-[#0a0a0a]/15 to-transparent" />
-                      <div className="absolute inset-x-0 bottom-0 p-4 text-right">
-                        <p className="font-display text-2xl font-bold uppercase tracking-wide text-white">
-                          {shortName(fighterB.name)}
-                        </p>
-                        <p className="mt-1 flex items-center justify-end gap-1.5 text-xs text-white/60">
-                          <Flag className="size-3.5 text-[#f5c518]" />{" "}
-                          {fighterB.country} · {recB?.wins}-{recB?.losses}-{recB?.draws}
-                          <span className="text-[#e31b23]">({recB?.kos} KO)</span>
-                        </p>
-                      </div>
-                    </div>
-                  </Link>
-                )}
-              </motion.div>
-            </AnimatePresence>
-          </div>
+              </div>
+            </motion.div>
+          </AnimatePresence>
         </div>
 
         {/* ---------- FULL FIGHT CARD ---------- */}
@@ -294,7 +307,7 @@ export function Hero() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -16 }}
             transition={fade}
-            className="mt-8 lg:mt-12"
+            className="mt-14"
           >
             <FightCard
               card={event.card}
@@ -305,7 +318,7 @@ export function Hero() {
         </AnimatePresence>
 
         {/* Fight selector */}
-        <div className="mt-12 flex items-center justify-center gap-2">
+        <div className="mt-10 flex items-center justify-center gap-2">
           {heroEvents.map((e, i) => (
             <button
               key={e.id}
@@ -322,21 +335,8 @@ export function Hero() {
         </div>
 
         {/* Real, data-backed metrics */}
-        <div className="mt-8 hidden grid-cols-2 gap-px overflow-hidden rounded-2xl border border-white/10 bg-white/10 sm:grid sm:grid-cols-4">
-          {[
-            { label: "Upcoming Events", value: String(events.length), sub: "Live schedule" },
-            { label: "Divisions Ranked", value: String(divisions.length), sub: "Full tables" },
-            { label: "Ranked Fighters", value: String(rankedFighters), sub: "World class" },
-            { label: "World Champions", value: String(divisions.length), sub: "Across divisions" },
-          ].map((s) => (
-            <div key={s.label} className="bg-[#0d0d0d] p-6 text-center">
-              <p className="font-display text-3xl font-bold text-white">{s.value}</p>
-              <p className="mt-1 text-[11px] font-bold uppercase tracking-[0.2em] text-[#e31b23]">
-                {s.label}
-              </p>
-              <p className="mt-0.5 text-[11px] text-white/40">{s.sub}</p>
-            </div>
-          ))}
+        <div className="mt-10 hidden sm:block">
+          <StatsBand />
         </div>
       </div>
     </section>

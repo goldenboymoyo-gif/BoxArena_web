@@ -47,12 +47,27 @@ export function FightCard({
           return (
             <li
               key={`${bout.fighters}-${i}`}
-              className="group flex items-start gap-4 px-5 py-4 transition hover:bg-white/[0.03]"
+              className={cn(
+                "group relative flex items-start gap-4 transition hover:bg-white/[0.03]",
+                isMain
+                  ? "bg-gradient-to-r from-[#e31b23]/12 via-[#e31b23]/4 to-transparent px-5 py-6 sm:px-6"
+                  : isCoMain
+                    ? "px-5 py-5"
+                    : "px-5 py-3.5"
+              )}
             >
+              {isMain && (
+                <span className="absolute inset-y-0 left-0 w-1 bg-[#e31b23]" />
+              )}
+
               <span
                 className={cn(
-                  "mt-0.5 w-7 shrink-0 text-right font-display text-xl font-bold leading-none",
-                  isMain ? "text-[#e31b23]" : "text-white/20"
+                  "shrink-0 text-right font-display font-bold leading-none",
+                  isMain
+                    ? "mt-1 w-10 text-3xl text-[#e31b23]"
+                    : isCoMain
+                      ? "mt-1 w-8 text-xl text-[#f5c518]/70"
+                      : "mt-0.5 w-7 text-base text-white/20"
                 )}
               >
                 {String(i + 1).padStart(2, "0")}
@@ -60,7 +75,12 @@ export function FightCard({
 
               <div className="min-w-0 flex-1">
                 <div className="flex flex-wrap items-center gap-2">
-                  <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-white/40">
+                  <p
+                    className={cn(
+                      "text-[10px] font-bold uppercase tracking-[0.2em]",
+                      isMain ? "text-[#e31b23]" : "text-white/40"
+                    )}
+                  >
                     {bout.bout}
                   </p>
                   {bout.titles && (
@@ -69,20 +89,36 @@ export function FightCard({
                     </span>
                   )}
                 </div>
-                <h3 className="mt-1 font-display text-lg font-semibold uppercase tracking-wide text-white">
+                <h3
+                  className={cn(
+                    "mt-1 font-display font-semibold uppercase tracking-wide text-white",
+                    isMain
+                      ? "text-2xl sm:text-[26px]"
+                      : isCoMain
+                        ? "text-xl"
+                        : "text-base"
+                  )}
+                >
                   {bout.fighters}
                 </h3>
-                <p className="mt-0.5 text-xs text-white/45">{bout.division}</p>
+                <p
+                  className={cn(
+                    "text-xs text-white/45",
+                    isMain && "mt-1.5 font-medium text-white/60"
+                  )}
+                >
+                  {bout.division}
+                </p>
               </div>
 
               <span
                 className={cn(
-                  "shrink-0 rounded-full px-2.5 py-1 text-[9px] font-bold uppercase tracking-[0.14em]",
+                  "shrink-0 self-start rounded-full font-bold uppercase tracking-[0.14em]",
                   isMain
-                    ? "bg-[#e31b23] text-white"
+                    ? "px-3.5 py-1.5 text-[10px] bg-[#e31b23] text-white"
                     : isCoMain
-                      ? "border border-[#f5c518]/40 bg-[#f5c518]/10 text-[#f5c518]"
-                      : "bg-white/5 text-white/50"
+                      ? "border border-[#f5c518]/40 bg-[#f5c518]/10 px-2.5 py-1 text-[9px] text-[#f5c518]"
+                      : "bg-white/5 px-2.5 py-1 text-[9px] text-white/50"
                 )}
               >
                 {bout.status ?? "Undercard"}

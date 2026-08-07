@@ -17,6 +17,7 @@ import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { useAuth, initialsOf } from "@/lib/auth";
 import { AuthDialog, type AuthMode } from "@/components/site/AuthDialog";
+import { heroEvent } from "@/data/events";
 
 const nav = [
   { label: "Home", href: "/" },
@@ -69,7 +70,28 @@ export function SiteHeader() {
 
   return (
     <header className="sticky top-0 z-50 border-b border-white/10 bg-[#080808]/95 backdrop-blur-xl">
-      <div className="mx-auto flex h-16 max-w-[1440px] items-center gap-6 px-4 sm:px-6 lg:px-8">
+      {/* Eyebrow: next fight strip */}
+      <div className="border-b border-white/5 bg-[#0c0c0c]">
+        <div className="mx-auto flex max-w-[1440px] items-center justify-center gap-2.5 px-6 py-2 text-[10px] font-bold uppercase tracking-[0.22em] text-white/45 lg:px-8">
+          <span className="flex items-center gap-1.5 text-[#e31b23]">
+            <span className="size-1.5 animate-pulse rounded-full bg-[#e31b23]" />
+            Fight Night
+          </span>
+          <span className="text-white/75">
+            {heroEvent.fighterA} vs {heroEvent.fighterB}
+          </span>
+          <span className="text-white/25">·</span>
+          <span className="hidden sm:inline">{heroEvent.city}</span>
+          <Link
+            href={`/events/${heroEvent.id}`}
+            className="text-[#e31b23] transition hover:text-white"
+          >
+            Get Tickets
+          </Link>
+        </div>
+      </div>
+
+      <div className="mx-auto flex h-20 max-w-[1440px] items-center gap-8 px-4 sm:px-6 lg:px-8">
         <Link href="/" className="flex items-center">
           <img
             src="/logo.png"
@@ -88,7 +110,7 @@ export function SiteHeader() {
                 key={item.href}
                 href={item.href}
                 className={cn(
-                  "rounded-lg px-3 py-2 text-sm font-medium transition",
+                  "rounded-lg px-4 py-2.5 text-sm font-medium transition",
                   isDashboard
                     ? "flex items-center gap-1.5 rounded-full border border-[#e31b23]/40 bg-[#e31b23]/10 font-semibold text-white hover:bg-[#e31b23]"
                     : cn(
