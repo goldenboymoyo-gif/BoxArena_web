@@ -46,7 +46,7 @@ function buildSections(article: ReturnType<typeof getNewsArticle>): ArticleSecti
       heading: "The Story",
       paragraphs: [
         article.excerpt,
-        `The story dominating the ${article.category.toLowerCase()} beat right now centres on ${tagLine}. For BoxArena's editorial team, it is a fight — and a storyline — that has been building for months, and tonight's news changes the picture across every division it touches.`,
+        `The story dominating the ${article.category.toLowerCase()} beat right now centres on ${tagLine}. For Ringcraft's editorial team, it is a fight — and a storyline — that has been building for months, and tonight's news changes the picture across every division it touches.`,
       ],
     },
     {
@@ -60,7 +60,7 @@ function buildSections(article: ReturnType<typeof getNewsArticle>): ArticleSecti
       heading: "The Wider Picture",
       paragraphs: [
         `This story does not exist in isolation. In the weeks since it broke, promoters, broadcasters and governing bodies have all weighed in, and the ripple effects are already visible across ${article.tags[0] ?? "the division"}. Fans — the people who pay the bills and fill the arenas — have made their feelings clear in the comment sections and on social media.`,
-        `BoxArena will keep this story updated as it develops. For now, the reaction is unanimous: this is the kind of news that makes a career, and it sets up a stretch of boxing that nobody wants to miss.`,
+        `Ringcraft will keep this story updated as it develops. For now, the reaction is unanimous: this is the kind of news that makes a career, and it sets up a stretch of boxing that nobody wants to miss.`,
       ],
     },
   ];

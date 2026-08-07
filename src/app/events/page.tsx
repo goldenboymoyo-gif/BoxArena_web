@@ -25,7 +25,7 @@ function formatDate(iso: string) {
 export const metadata = {
   title: "Events & Fight Schedule",
   description:
-    "Every upcoming and completed BoxArena boxing event — championship fights, tickets, venues and fight cards.",
+    "Every upcoming and completed Ringcraft boxing event — championship fights, tickets, venues and fight cards.",
 };
 
 export default function EventsPage() {
@@ -47,7 +47,7 @@ export default function EventsPage() {
             Fight <span className="text-[#e31b23]">Schedule</span>
           </h1>
           <p className="mt-4 max-w-2xl text-sm leading-7 text-white/55">
-            Every championship night on the BoxArena platform — upcoming events,
+            Every championship night on the Ringcraft platform — upcoming events,
             full fight cards and results from the biggest nights in boxing.
           </p>
         </div>

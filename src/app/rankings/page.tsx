@@ -6,7 +6,7 @@ import { divisions } from "@/data/rankings";
 export const metadata = {
   title: "Rankings & Weight Divisions",
   description:
-    "Official BoxArena rankings across all 17 professional weight divisions — champions, contenders, points and movement.",
+    "Official Ringcraft rankings across all 17 professional weight divisions — champions, contenders, points and movement.",
 };
 
 export default function RankingsPage() {

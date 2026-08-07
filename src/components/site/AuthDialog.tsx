@@ -77,7 +77,7 @@ export function AuthDialog({
           </DialogTitle>
           <DialogDescription className="text-sm leading-6 text-white/55">
             {mode === "signup"
-              ? "Join BoxArena to buy tickets, build a watchlist and get fight alerts."
+              ? "Join Ringcraft to buy tickets, build a watchlist and get fight alerts."
               : "Sign in to pick up where you left off."}
           </DialogDescription>
         </DialogHeader>
@@ -164,7 +164,7 @@ export function AuthDialog({
               </>
             ) : (
               <>
-                New to BoxArena?{" "}
+                New to Ringcraft?{" "}
                 <button
                   type="button"
                   onClick={() => switchMode("signup")}

@@ -83,7 +83,7 @@ const news = [
   {
     title: "Live analytics arrive for every fight",
     category: "Insights",
-    summary: "BoxArena launches real-time performance tracking, delivering pro-level statistics during live streams.",
+    summary: "Ringcraft launches real-time performance tracking, delivering pro-level statistics during live streams.",
   },
   {
     title: "Tickets sold out for the arena premiere",
@@ -322,7 +322,7 @@ export default function LandingPage() {
       <footer className="border-t border-white/10 bg-[#070707] py-10">
         <div className="mx-auto flex max-w-[1440px] flex-col gap-6 px-6 text-[#F5F5F5]/70 lg:flex-row lg:items-center lg:justify-between lg:px-8">
           <div>
-            <p className="text-sm font-semibold text-white">BoxArena</p>
+            <p className="text-sm font-semibold text-white">Ringcraft</p>
             <p className="mt-2 max-w-md text-sm leading-6">The digital ecosystem for professional boxing. One platform for fans, fighters, coaches, promoters, and media.</p>
           </div>
           <div className="flex flex-wrap items-center gap-4 text-sm">

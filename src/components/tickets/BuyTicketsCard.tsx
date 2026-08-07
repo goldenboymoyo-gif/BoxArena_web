@@ -265,7 +265,7 @@ export function BuyTicketsCard({ event }: BuyTicketsCardProps) {
             <span>Purchased {formatDate(order.purchasedAt)}</span>
             <span className="flex items-center gap-1.5">
               <ShieldCheck className="size-3.5 text-emerald-400" /> Backed by
-              BoxArena ticket guarantee
+              Ringcraft ticket guarantee
             </span>
           </div>
           <div className="mt-5 flex w-full flex-col gap-3">

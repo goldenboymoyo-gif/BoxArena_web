@@ -215,7 +215,7 @@ export function BoxArenaPlayer({
               <Play className="ml-1 size-8 fill-white text-white" />
             </span>
             <span className="relative mt-4 text-xs font-bold uppercase tracking-[0.28em] text-white/80">
-              Watch on BoxArena
+              Watch on Ringcraft
             </span>
             {label && (
               <span className="relative mt-2 text-[11px] font-semibold uppercase tracking-[0.2em] text-white/45">

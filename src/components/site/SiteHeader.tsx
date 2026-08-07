@@ -73,7 +73,7 @@ export function SiteHeader() {
         <Link href="/" className="flex shrink-0 items-center">
           <img
             src="/logo.png"
-            alt="BoxArena — The Home of Boxing"
+            alt="Ringcraft — The Home of Boxing"
             className="h-9 w-auto mix-blend-screen sm:h-10"
           />
         </Link>
@@ -112,7 +112,7 @@ export function SiteHeader() {
         {/* Search (mobile / tablet) */}
         <div className="min-w-0 flex-1 lg:hidden">
           <SearchForm
-            placeholder="Search BoxArena"
+            placeholder="Search Ringcraft"
             onSubmitted={() => setMenuOpen(false)}
             className="h-10 items-center rounded-full border border-white/10 bg-white/5 px-3.5 transition focus-within:border-[#e31b23]/60 focus-within:bg-white/[0.07]"
           />

@@ -38,7 +38,7 @@ const fans: { name: string; mod?: boolean }[] = [
   { name: "KidDynamite" },
   { name: "MannyPacFan" },
   { name: "BoxingBelle" },
-  { name: "BoxArena_Official", mod: true },
+  { name: "Ringcraft_Official", mod: true },
 ];
 
 const fanLines = [
@@ -71,7 +71,7 @@ let nextId = 100;
 
 export function LiveChat({ className = "" }: LiveChatProps) {
   const [messages, setMessages] = useState<ChatMessage[]>([
-    { id: 1, name: "BoxArena_Official", text: "Welcome to fight night! Be respectful, no spoilers, and enjoy the show. 🥊", mod: true, colorId: 0 },
+    { id: 1, name: "Ringcraft_Official", text: "Welcome to fight night! Be respectful, no spoilers, and enjoy the show. 🥊", mod: true, colorId: 0 },
     { id: 2, name: "BigGuyT", text: "What a round!! That jab is landing all night.", colorId: 1 },
     { id: 3, name: "KOQueen88", text: "Inoue is on another level tonight.", colorId: 2 },
   ]);

@@ -83,7 +83,7 @@ export default function LivePage() {
                   {liveEvent.title}
                 </h2>
                 <p className="text-xs text-white/45">
-                  {liveEvent.venue} · {liveEvent.city} · Demo stream on BoxArena
+                  {liveEvent.venue} · {liveEvent.city} · Demo stream on Ringcraft
                 </p>
               </div>
               <div className="flex flex-wrap items-center gap-2">
@@ -164,7 +164,7 @@ export default function LivePage() {
           <SectionHeading
             subtitle="Coming up next"
             title="Broadcast Schedule"
-            description="Every live event on the BoxArena platform — mark your calendar."
+            description="Every live event on the Ringcraft platform — mark your calendar."
             actionLabel="All events"
             actionHref="/events"
           />

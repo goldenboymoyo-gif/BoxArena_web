@@ -22,7 +22,7 @@ import { fighters } from "@/data/fighters";
 export const metadata = {
   title: "My Dashboard",
   description:
-    "Your BoxArena dashboard — tickets, favorite fighters, watchlist and account.",
+    "Your Ringcraft dashboard — tickets, favorite fighters, watchlist and account.",
 };
 
 const sidebarNav = [
@@ -101,7 +101,7 @@ export default function DashboardPage() {
               Refer & earn
             </p>
             <p className="mt-2 text-sm leading-6 text-white/55">
-              Share BoxArena with friends and get $25 fight credit for every signup.
+              Share Ringcraft with friends and get $25 fight credit for every signup.
             </p>
             <Button size="lg" className="mt-4 w-full rounded-full bg-[#e31b23] hover:bg-[#c3161d]">
               Invite friends
