@@ -57,19 +57,19 @@ export function Countdown({ date, timezone, compact, pill }: CountdownProps) {
 
   if (pill) {
     return (
-      <div className="flex items-center gap-4 sm:gap-5">
+      <div className="grid grid-cols-4 items-center gap-x-2 gap-y-1 sm:flex sm:items-center sm:gap-5">
         {rendered.map((u, i) => (
           <Fragment key={u.label}>
-            <span className="flex items-baseline gap-2">
-              <span className="font-display text-3xl font-bold leading-none tabular-nums text-white sm:text-4xl lg:text-[44px]">
+            <span className="flex flex-col items-center sm:flex-row sm:items-baseline sm:gap-2">
+              <span className="font-display text-2xl font-bold leading-none tabular-nums text-white sm:text-4xl lg:text-[44px]">
                 {String(u.value).padStart(2, "0")}
               </span>
-              <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-white/45 sm:text-[11px]">
+              <span className="text-[9px] font-bold uppercase tracking-[0.18em] text-white/45 sm:text-[11px]">
                 {u.label}
               </span>
             </span>
             {i < rendered.length - 1 && (
-              <span className="font-display text-2xl font-bold text-[#e31b23] sm:text-3xl">
+              <span className="hidden font-display text-2xl font-bold text-[#e31b23] sm:block sm:text-3xl">
                 :
               </span>
             )}

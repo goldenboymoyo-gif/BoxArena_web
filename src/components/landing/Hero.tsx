@@ -148,7 +148,7 @@ export function Hero() {
 
   return (
     <section
-      className="relative border-b border-white/10"
+      className="relative overflow-x-clip border-b border-white/10"
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
     >

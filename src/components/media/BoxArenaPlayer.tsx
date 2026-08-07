@@ -179,8 +179,8 @@ export function BoxArenaPlayer({
 
   return (
     <div ref={cardRef} className="overflow-hidden rounded-3xl border border-white/10 bg-black">
-      <div className="relative aspect-video">
-        <div ref={mountRef} className="absolute inset-0" />
+      <div className="relative aspect-video [&_iframe]:absolute [&_iframe]:inset-0 [&_iframe]:h-full [&_iframe]:w-full">
+        <div ref={mountRef} className="absolute inset-0 [&>div]:h-full [&>div]:w-full" />
 
         {!started && (
           <button
