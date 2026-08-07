@@ -26,6 +26,12 @@ const ROTATE_MS = 20000;
 const HERO_IMAGE_OVERRIDES: Record<string, { src: string; position: string }> = {
   "anthony-joshua": { src: IMAGES.fighters.joshuaFight, position: "object-center" },
   "tyson-fury": { src: IMAGES.fighters.furyFight, position: "object-top" },
+  "oleksandr-usyk": { src: IMAGES.fighters.usykAlt, position: "object-top" },
+};
+
+const HERO_BACKGROUND_OVERRIDES: Record<string, string> = {
+  "fury-vs-joshua-2":
+    "https://upload.wikimedia.org/wikipedia/commons/3/35/Joshua_vs_Pulev_02_Arena_London.png",
 };
 
 function formatLongDate(iso: string) {
@@ -130,6 +136,7 @@ export function Hero() {
   const imageB = overrideB?.src ?? fighterB?.image ?? event.imageB;
   const nameA = shortName(event.fighterA);
   const nameB = shortName(event.fighterB);
+  const bgSrc = HERO_BACKGROUND_OVERRIDES[event.id] ?? event.posterImage;
 
   return (
     <section
@@ -142,7 +149,7 @@ export function Hero() {
         <AnimatePresence>
           <motion.img
             key={`bg-${event.id}`}
-            src={event.posterImage}
+            src={bgSrc}
             alt=""
             className="h-full w-full object-cover object-center opacity-85"
             animate={{ scale: [1, 1.08, 1] }}
@@ -171,110 +178,113 @@ export function Hero() {
       />
 
       {/* ---------- Main hero ---------- */}
-      <div className="relative mx-auto flex min-h-[88vh] max-w-[1600px] flex-col px-6 pb-36 pt-10 lg:px-8 lg:pb-32 lg:pt-12">
-        <div className="flex flex-1 items-center gap-2 xl:gap-6">
-          {/* LEFT fighter */}
-          <div className="relative hidden h-[72vh] flex-1 xl:block">
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={`fa-${event.id}`}
-                className="absolute inset-x-0 -top-10 -bottom-10 [mask-image:linear-gradient(90deg,transparent_0%,black_40%)]"
-                initial={{ opacity: 0, x: -24 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: -24 }}
-                transition={fade}
-              >
-                <motion.img
-                  src={imageA}
-                  alt={event.fighterA}
-                  className="h-full w-full object-cover object-top drop-shadow-[0_24px_40px_rgba(0,0,0,0.7)]"
-                  animate={{ y: [0, -10, 0] }}
-                  transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
-                />
-              </motion.div>
-            </AnimatePresence>
-          </div>
-
-          {/* CENTER: the focal point */}
+      {/* Flanking fighters, anchored to the bottom behind the typography */}
+      <div className="pointer-events-none absolute inset-x-0 -bottom-10 z-[1] hidden h-[88vh] xl:block">
+        {/* LEFT fighter */}
+        <div className="absolute bottom-0 left-0 h-full w-[34%] xl:w-[30%] 2xl:w-[34%]">
           <AnimatePresence mode="wait">
             <motion.div
-              key={`center-${event.id}`}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
+              key={`fa-${event.id}`}
+              className="absolute inset-0 [mask-image:linear-gradient(90deg,transparent_0%,black_32%),linear-gradient(to_top,transparent_16%,black_65%)]"
+              initial={{ opacity: 0, x: -28 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -28 }}
               transition={fade}
-              className="relative z-10 flex w-full max-w-3xl shrink-0 flex-col items-center px-2 text-center"
             >
-              {/* Countdown panel */}
-              <div className="rounded-full border border-white/10 bg-black/45 px-6 py-3.5 backdrop-blur-xl sm:px-8 sm:py-4">
-                <Countdown
-                  date={`${event.date}T${hour}:00:00`}
-                  timezone={event.timezone}
-                  pill
-                />
-              </div>
-
-              {/* Fight title */}
-              <h1 className="mt-9 font-display font-black uppercase leading-[0.88] tracking-tight">
-                <span className="block bg-gradient-to-b from-white via-white/90 to-white/35 bg-clip-text text-6xl text-transparent sm:text-7xl xl:text-8xl">
-                  {nameA}
-                </span>
-                <span className="my-1 block bg-gradient-to-b from-[#ff4d52] via-[#e31b23] to-[#8f0e13] bg-clip-text text-7xl leading-none text-transparent sm:text-8xl xl:text-[9rem]">
-                  VS
-                </span>
-                <span className="block bg-gradient-to-b from-white via-white/90 to-white/35 bg-clip-text text-6xl text-transparent sm:text-7xl xl:text-8xl">
-                  {nameB}
-                </span>
-              </h1>
-
-              {/* Event info */}
-              <p className="mt-8 font-display text-lg font-semibold uppercase tracking-[0.18em] text-white sm:text-xl">
-                {formatLongDate(event.date)}
-              </p>
-              <p className="mt-1.5 text-xs font-bold uppercase tracking-[0.3em] text-white/50">
-                {event.venue}, {event.city} · {event.weightClass}
-              </p>
-
-              {/* CTAs */}
-              <div className="mt-9 flex flex-col items-center gap-3 sm:flex-row">
-                <Link
-                  href={`/events/${event.id}`}
-                  className="inline-flex items-center gap-2.5 rounded-full bg-white px-9 py-4 font-display text-sm font-bold uppercase tracking-[0.18em] text-black transition hover:-translate-y-0.5 hover:bg-white/90 hover:shadow-[0_16px_44px_rgba(255,255,255,0.28)]"
-                >
-                  <Ticket className="size-4 text-[#e31b23]" /> Get Tickets
-                </Link>
-                <Link
-                  href="/live"
-                  className="inline-flex items-center gap-2.5 rounded-full border border-white/25 bg-white/5 px-9 py-4 font-display text-sm font-bold uppercase tracking-[0.18em] text-white backdrop-blur-md transition hover:-translate-y-0.5 hover:border-[#e31b23]/60 hover:bg-white/10"
-                >
-                  <Play className="size-4 fill-current text-[#e31b23]" /> Watch Live
-                </Link>
-              </div>
+              <motion.img
+                src={imageA}
+                alt={event.fighterA}
+                className="h-full w-full -scale-x-100 object-cover object-top drop-shadow-[0_30px_50px_rgba(0,0,0,0.75)]"
+                animate={{ y: [0, -12, 0] }}
+                transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
+              />
             </motion.div>
           </AnimatePresence>
-
-          {/* RIGHT fighter */}
-          <div className="relative hidden h-[72vh] flex-1 xl:block">
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={`fb-${event.id}`}
-                className="absolute inset-x-0 -top-10 -bottom-10 [mask-image:linear-gradient(90deg,black_60%,transparent_100%)]"
-                initial={{ opacity: 0, x: 24 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: 24 }}
-                transition={fade}
-              >
-                <motion.img
-                  src={imageB}
-                  alt={event.fighterB}
-                  className="h-full w-full object-cover object-top drop-shadow-[0_24px_40px_rgba(0,0,0,0.7)]"
-                  animate={{ y: [0, -10, 0] }}
-                  transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
-                />
-              </motion.div>
-            </AnimatePresence>
-          </div>
+          <div className="absolute inset-x-0 bottom-0 h-56 bg-gradient-to-t from-[#0a0a0a]/95 via-[#0a0a0a]/40 to-transparent" />
         </div>
+
+        {/* RIGHT fighter */}
+        <div className="absolute bottom-0 right-0 h-full w-[34%] xl:w-[30%] 2xl:w-[34%]">
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={`fb-${event.id}`}
+              className="absolute inset-0 [mask-image:linear-gradient(90deg,black_68%,transparent_100%),linear-gradient(to_top,transparent_16%,black_65%)]"
+              initial={{ opacity: 0, x: 28 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: 28 }}
+              transition={fade}
+            >
+              <motion.img
+                src={imageB}
+                alt={event.fighterB}
+                className="h-full w-full object-cover object-top drop-shadow-[0_30px_50px_rgba(0,0,0,0.75)]"
+                animate={{ y: [0, -12, 0] }}
+                transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
+              />
+            </motion.div>
+          </AnimatePresence>
+          <div className="absolute inset-x-0 bottom-0 h-56 bg-gradient-to-t from-[#0a0a0a]/95 via-[#0a0a0a]/40 to-transparent" />
+        </div>
+      </div>
+
+      {/* CENTER: the focal point */}
+      <div className="relative z-[2] flex min-h-[88vh] items-center justify-center px-6 pb-40 pt-10 lg:px-8 lg:pt-12">
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={`center-${event.id}`}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={fade}
+            className="flex w-full max-w-xl flex-col items-center px-2 text-center 2xl:max-w-lg"
+          >
+            {/* Countdown panel */}
+            <div className="rounded-full border border-white/10 bg-black/45 px-6 py-3.5 backdrop-blur-xl sm:px-8 sm:py-4">
+              <Countdown
+                date={`${event.date}T${hour}:00:00`}
+                timezone={event.timezone}
+                pill
+              />
+            </div>
+
+            {/* Fight title */}
+            <h1 className="mt-9 font-display font-black uppercase leading-[0.88] tracking-tight">
+              <span className="block bg-gradient-to-b from-white via-white/90 to-white/35 bg-clip-text text-6xl text-transparent sm:text-7xl xl:text-8xl">
+                {nameA}
+              </span>
+              <span className="my-1 block bg-gradient-to-b from-[#ff4d52] via-[#e31b23] to-[#8f0e13] bg-clip-text text-7xl leading-none text-transparent sm:text-8xl xl:text-[9rem]">
+                VS
+              </span>
+              <span className="block bg-gradient-to-b from-white via-white/90 to-white/35 bg-clip-text text-6xl text-transparent sm:text-7xl xl:text-8xl">
+                {nameB}
+              </span>
+            </h1>
+
+            {/* Event info */}
+            <p className="mt-8 font-display text-lg font-semibold uppercase tracking-[0.18em] text-white sm:text-xl">
+              {formatLongDate(event.date)}
+            </p>
+            <p className="mt-1.5 text-xs font-bold uppercase tracking-[0.3em] text-white/50">
+              {event.venue}, {event.city} · {event.weightClass}
+            </p>
+
+            {/* CTAs */}
+            <div className="mt-9 flex flex-col items-center gap-3 sm:flex-row">
+              <Link
+                href={`/events/${event.id}`}
+                className="inline-flex items-center gap-2.5 rounded-full bg-white px-9 py-4 font-display text-sm font-bold uppercase tracking-[0.18em] text-black transition hover:-translate-y-0.5 hover:bg-white/90 hover:shadow-[0_16px_44px_rgba(255,255,255,0.28)]"
+              >
+                <Ticket className="size-4 text-[#e31b23]" /> Get Tickets
+              </Link>
+              <Link
+                href="/live"
+                className="inline-flex items-center gap-2.5 rounded-full border border-white/25 bg-white/5 px-9 py-4 font-display text-sm font-bold uppercase tracking-[0.18em] text-white backdrop-blur-md transition hover:-translate-y-0.5 hover:border-[#e31b23]/60 hover:bg-white/10"
+              >
+                <Play className="size-4 fill-current text-[#e31b23]" /> Watch Live
+              </Link>
+            </div>
+          </motion.div>
+          </AnimatePresence>
       </div>
 
       {/* ---------- Bottom fight carousel, overlapping the hero ---------- */}

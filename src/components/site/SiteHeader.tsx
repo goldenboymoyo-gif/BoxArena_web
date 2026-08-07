@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useState } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import {
@@ -17,7 +17,6 @@ import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { useAuth, initialsOf } from "@/lib/auth";
 import { AuthDialog, type AuthMode } from "@/components/site/AuthDialog";
-import { events } from "@/data/events";
 
 const nav = [
   { label: "Home", href: "/" },
@@ -68,43 +67,8 @@ export function SiteHeader() {
     ? [...nav, { label: "Dashboard", href: "/dashboard" }]
     : nav;
 
-  const tickerItems = useMemo(() => {
-    const fights = events
-      .filter((e) => e.status !== "Completed")
-      .slice(0, 5)
-      .map(
-        (e) =>
-          `${e.fighterA} vs ${e.fighterB} — ${new Date(e.date).toLocaleDateString(
-            "en-US",
-            { month: "short", day: "numeric" }
-          )}`
-      );
-    return ["Lopez defeated Haney — MSG", ...fights];
-  }, []);
-
   return (
     <header className="sticky top-0 z-50 border-b border-white/10 bg-[#0a0a0a]/70 backdrop-blur-xl">
-      {/* Live news ticker */}
-      <div className="flex items-stretch border-b border-white/5 bg-[#0b0b0b]">
-        <div className="relative z-10 flex shrink-0 items-center gap-2 bg-[#e31b23] px-4 py-1.5 text-[10px] font-bold uppercase tracking-[0.24em] text-white sm:px-5">
-          <span className="live-dot inline-flex size-1.5 rounded-full bg-white" />
-          Live
-        </div>
-        <div className="flex-1 overflow-hidden">
-          <div className="animate-ticker flex w-max items-center gap-10 whitespace-nowrap py-2 pl-8">
-            {[...tickerItems, ...tickerItems].map((item, i) => (
-              <span
-                key={i}
-                className="flex items-center gap-10 text-[11px] font-medium uppercase tracking-[0.18em] text-white/60"
-              >
-                {item}
-                <span className="text-[#e31b23]">◆</span>
-              </span>
-            ))}
-          </div>
-        </div>
-      </div>
-
       <div className="mx-auto flex h-20 max-w-[1440px] items-center gap-6 px-4 sm:px-6 lg:px-8">
         <Link href="/" className="flex shrink-0 items-center">
           <img
