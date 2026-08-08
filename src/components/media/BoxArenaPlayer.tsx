@@ -179,10 +179,10 @@ export function BoxArenaPlayer({
 
   return (
     <div ref={cardRef} className="overflow-hidden rounded-3xl border border-white/10 bg-black">
-      <div className="relative aspect-video w-full overflow-hidden [&_iframe]:!absolute [&_iframe]:!inset-0 [&_iframe]:!h-full [&_iframe]:!w-full">
+      <div className="relative aspect-video w-full overflow-hidden [&_iframe]:absolute! [&_iframe]:inset-0! [&_iframe]:h-full! [&_iframe]:w-full!">
         <div
           ref={mountRef}
-          className="absolute inset-0 w-full [&>div]:!absolute [&>div]:!inset-0 [&>div]:!h-full [&>div]:!w-full [&_div]:!max-w-full"
+          className="absolute inset-0 w-full [&>div]:absolute! [&>div]:inset-0! [&>div]:h-full! [&>div]:w-full! [&_div]:max-w-full!"
         />
 
         {!started && (

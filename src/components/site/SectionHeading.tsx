@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
+import type { ReactNode } from "react";
 
 interface SectionHeadingProps {
   title: string;
@@ -7,6 +8,7 @@ interface SectionHeadingProps {
   description?: string;
   actionLabel?: string;
   actionHref?: string;
+  action?: ReactNode;
 }
 
 export function SectionHeading({
@@ -15,6 +17,7 @@ export function SectionHeading({
   description,
   actionLabel,
   actionHref,
+  action,
 }: SectionHeadingProps) {
   return (
     <div className="flex flex-wrap items-end justify-between gap-4">
@@ -32,7 +35,9 @@ export function SectionHeading({
           <p className="mt-4 max-w-xl text-sm leading-7 text-white/55">{description}</p>
         ) : null}
       </div>
-      {actionLabel && actionHref ? (
+      {action ? (
+        <>{action}</>
+      ) : actionLabel && actionHref ? (
         <Link
           href={actionHref}
           className="group flex items-center gap-2 rounded-full border border-white/15 px-5 py-2.5 text-xs font-bold uppercase tracking-[0.18em] text-white/80 transition hover:border-[#e31b23]/50 hover:text-white"

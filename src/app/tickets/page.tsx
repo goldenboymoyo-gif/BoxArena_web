@@ -1,5 +1,6 @@
 import Link from "next/link";
 import {
+  ArrowRight,
   Banknote,
   CalendarDays,
   CreditCard,
@@ -12,6 +13,7 @@ import {
 import { SectionHeading } from "@/components/site/SectionHeading";
 import { EventCard } from "@/components/cards/EventCard";
 import { BuyTicketsCard } from "@/components/tickets/BuyTicketsCard";
+import { MyTicketsLink } from "@/components/site/MyTicketsLink";
 import { events, getEvent, heroEvent } from "@/data/events";
 
 export const metadata = {
@@ -111,8 +113,12 @@ export default async function TicketsPage({
             subtitle="On sale now"
             title="Events with Tickets"
             description="Every event currently selling — status, prices and seat categories."
-            actionLabel="My tickets"
-            actionHref="/dashboard"
+            action={
+              <MyTicketsLink className="group flex items-center gap-2 rounded-full border border-white/15 px-5 py-2.5 text-xs font-bold uppercase tracking-[0.18em] text-white/80 transition hover:border-[#e31b23]/50 hover:text-white">
+                My tickets
+                <ArrowRight className="size-4 text-[#e31b23] transition group-hover:translate-x-1" />
+              </MyTicketsLink>
+            }
           />
           <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
             {onSale.map((event) => (
@@ -164,12 +170,9 @@ export default async function TicketsPage({
             </div>
           </div>
           <div className="flex flex-col gap-3 sm:flex-row">
-            <Link
-              href="/dashboard"
-              className="rounded-full bg-[#e31b23] px-7 py-3.5 text-xs font-bold uppercase tracking-[0.18em] text-white transition hover:bg-[#c3161d]"
-            >
+            <MyTicketsLink className="rounded-full bg-[#e31b23] px-7 py-3.5 text-xs font-bold uppercase tracking-[0.18em] text-white transition hover:bg-[#c3161d]">
               My tickets
-            </Link>
+            </MyTicketsLink>
             <Link
               href="/events"
               className="rounded-full border border-white/20 bg-white/5 px-7 py-3.5 text-xs font-bold uppercase tracking-[0.18em] text-white transition hover:border-[#e31b23]/50"

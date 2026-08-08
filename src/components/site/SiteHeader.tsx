@@ -218,15 +218,16 @@ export function SiteHeader() {
             </span>
           </Button>
 
-          <Button
-            variant="ghost"
-            size="icon"
-            className="lg:hidden"
-            onClick={handleSettings}
-            aria-label="Settings"
-          >
-            <Settings className="size-4.5 text-white/80" />
-          </Button>
+          {signedIn && (
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={handleSettings}
+              aria-label="Settings"
+            >
+              <Settings className="size-4.5 text-white/80" />
+            </Button>
+          )}
 
           {signedIn && user ? (
             <div className="relative hidden lg:block">
