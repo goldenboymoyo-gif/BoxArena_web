@@ -64,7 +64,7 @@ export default async function VideoPage({
 
             <div className="mt-6">
               <div className="flex flex-wrap items-center gap-2">
-                <span className="rounded-full bg-[#e31b23]/15 px-3 py-1 text-[11px] font-bold uppercase tracking-[0.16em] text-[#ff6b6b]">
+                <span className="rounded-full border border-white/15 bg-white/5 px-3 py-1 text-[11px] font-bold uppercase tracking-[0.16em] text-white/85">
                   {video.category}
                 </span>
               </div>

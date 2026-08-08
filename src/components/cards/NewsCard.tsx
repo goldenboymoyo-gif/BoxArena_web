@@ -26,7 +26,7 @@ export function NewsCard({ article, variant = "default" }: NewsCardProps) {
               {article.category}
             </span>
             {article.breaking && (
-              <span className="animate-pulse rounded-full border border-[#e31b23]/50 bg-[#e31b23]/15 px-2.5 py-1 text-[10px] font-bold uppercase tracking-[0.14em] text-[#ff6a6a]">
+              <span className="animate-pulse rounded-full border border-white/15 bg-white/5 px-2.5 py-1 text-[10px] font-bold uppercase tracking-[0.14em] text-white/85 backdrop-blur-md">
                 Breaking
               </span>
             )}

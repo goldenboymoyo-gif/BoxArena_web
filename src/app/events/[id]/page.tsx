@@ -256,7 +256,7 @@ export default async function EventDetailPage({
           </div>
           <div className="mt-6 flex flex-col gap-4 rounded-2xl border border-white/10 bg-[#111111] p-6 sm:flex-row sm:items-center sm:justify-between">
             <div className="flex items-center gap-4">
-              <span className="grid size-12 place-items-center rounded-xl bg-[#e31b23]/15 text-[#e31b23]">
+              <span className="grid size-12 place-items-center rounded-xl border border-white/15 bg-white/5 text-[#e31b23]">
                 <Clock3 className="size-6" />
               </span>
               <div>

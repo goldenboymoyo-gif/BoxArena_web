@@ -565,5 +565,5 @@ export function getEvent(id: string): BoxingEvent | undefined {
   return [...events, ...completedEvents].find((e) => e.id === id);
 }
 
-export const heroEvent = events.find((e) => e.id === "fury-vs-joshua-2") ?? events[0];
+export const heroEvent = events.find((e) => e.id === "canelo-vs-crawford") ?? events[0];
 export const liveEvent = events.find((e) => e.id === "inoue-vs-nakatani") ?? events[0];

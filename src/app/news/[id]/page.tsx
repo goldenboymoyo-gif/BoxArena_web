@@ -124,7 +124,7 @@ export default async function NewsArticlePage({ params }: Props) {
               </h1>
               <div className="mt-5 flex flex-wrap items-center gap-x-6 gap-y-3 text-sm text-white/55">
                 <span className="flex items-center gap-2">
-                  <span className="grid size-9 place-items-center rounded-full bg-[#e31b23]/15 text-xs font-bold uppercase text-[#ff6b6b]">
+                  <span className="grid size-9 place-items-center rounded-full border border-white/15 bg-white/5 text-xs font-bold uppercase text-white/80">
                     {article.author
                       .split(" ")
                       .map((w) => w[0])

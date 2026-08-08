@@ -16,7 +16,7 @@ const statusStyles: Record<TicketItem["status"], string> = {
   active: "bg-emerald-500/15 text-emerald-400 border-emerald-500/30",
   used: "bg-white/5 text-white/50 border-white/10",
   pending: "bg-[#f5c518]/15 text-[#f5c518] border-[#f5c518]/30",
-  refunded: "bg-[#e31b23]/15 text-[#ff6a6a] border-[#e31b23]/30",
+  refunded: "bg-white/5 text-white/50 border-white/10",
 };
 
 function formatDate(iso: string) {

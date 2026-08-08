@@ -40,7 +40,7 @@ export default function FightersPage() {
         <div className="mx-auto max-w-[1440px] px-6 py-10 lg:px-8">
           <div className="flex flex-wrap items-center justify-between gap-4">
             <div className="flex items-center gap-3">
-              <span className="grid size-10 place-items-center rounded-xl bg-[#e31b23]/15 text-[#e31b23]">
+              <span className="grid size-10 place-items-center rounded-xl border border-white/15 bg-white/5 text-[#e31b23]">
                 <Trophy className="size-5" />
               </span>
               <div>

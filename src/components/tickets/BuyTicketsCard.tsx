@@ -86,6 +86,8 @@ export function BuyTicketsCard({ event }: BuyTicketsCardProps) {
   const [purchased, setPurchased] = useState<TicketItem[]>([]);
   const [authOpen, setAuthOpen] = useState(false);
   const [paymentMethod, setPaymentMethod] = useState<PaymentMethodId>("card");
+  const [cardNumber, setCardNumber] = useState("");
+  const [cardError, setCardError] = useState(false);
 
   const signedIn = hydrated && Boolean(user);
   const soldOut = event.status === "Sellout";
@@ -100,6 +102,11 @@ export function BuyTicketsCard({ event }: BuyTicketsCardProps) {
       setAuthOpen(true);
       return;
     }
+    if (paymentMethod === "card" && cardNumber.replace(/\s/g, "").length < 15) {
+      setCardError(true);
+      return;
+    }
+    setCardError(false);
     setStatus("processing");
     setTimeout(() => {
       const orderId = `BA-${Math.floor(100000 + Math.random() * 899999)}`;
@@ -280,6 +287,8 @@ export function BuyTicketsCard({ event }: BuyTicketsCardProps) {
                 setQty(1);
                 setPurchased([]);
                 setPaymentMethod("card");
+                setCardNumber("");
+                setCardError(false);
                 setStatus("idle");
               }}
               className="w-full cursor-pointer rounded-full border border-white/15 bg-white/5 py-3.5 text-xs font-bold uppercase tracking-[0.18em] text-white/80 transition hover:border-[#e31b23]/50 hover:text-white"
@@ -298,7 +307,7 @@ export function BuyTicketsCard({ event }: BuyTicketsCardProps) {
         <h3 className="font-display text-2xl font-semibold uppercase tracking-wide text-white">
           Ticket Tiers
         </h3>
-        <span className="rounded-full bg-[#e31b23]/15 px-3 py-1 text-[11px] font-bold uppercase tracking-[0.16em] text-[#ff6b6b]">
+        <span className="rounded-full border border-white/15 bg-white/5 px-3 py-1 text-[11px] font-bold uppercase tracking-[0.16em] text-white/85">
           {event.ticketStatus}
         </span>
       </div>
@@ -413,6 +422,7 @@ export function BuyTicketsCard({ event }: BuyTicketsCardProps) {
                 type="button"
                 onClick={() => {
                   setPaymentMethod(m.id);
+                  setCardError(false);
                   setStatus("idle");
                 }}
                 disabled={soldOut}
@@ -460,6 +470,53 @@ export function BuyTicketsCard({ event }: BuyTicketsCardProps) {
               </button>
             );
           })}
+        </div>
+        <div className="mt-4 rounded-2xl border border-white/10 bg-white/[0.03] p-4">
+          <label
+            htmlFor="card-number"
+            className="text-[10px] font-bold uppercase tracking-[0.2em] text-white/40"
+          >
+            Card number
+          </label>
+          <div className="mt-2 flex items-center gap-2">
+            <input
+              id="card-number"
+              type="text"
+              inputMode="numeric"
+              autoComplete="cc-number"
+              placeholder="1234 5678 9012 3456"
+              value={cardNumber}
+              onChange={(e) => {
+                const digits = e.target.value.replace(/\D/g, "").slice(0, 16);
+                setCardNumber(
+                  digits.replace(/(.{4})/g, "$1 ").trim()
+                );
+                setCardError(false);
+              }}
+              disabled={soldOut}
+              className={`w-full rounded-xl border bg-[#0a0a0a] px-3.5 py-3 font-mono text-sm text-white placeholder:text-white/25 outline-none transition focus:border-[#e31b23]/60 ${
+                cardError ? "border-[#e31b23]/70" : "border-white/10"
+              }`}
+            />
+            <span className="hidden shrink-0 items-center gap-1 sm:flex">
+              {cardBrands.map((Icon, idx) => (
+                <span
+                  key={idx}
+                  className="grid h-5 w-8 place-items-center rounded bg-white"
+                >
+                  <Icon
+                    className="h-3 w-auto"
+                    style={{ color: cardBrandColors[idx] }}
+                  />
+                </span>
+              ))}
+            </span>
+          </div>
+          {cardError && (
+            <p className="mt-2 text-[11px] font-semibold text-[#ff6b6b]">
+              Please enter a valid card number to continue.
+            </p>
+          )}
         </div>
         <p className="mt-2 flex items-center gap-1.5 text-[11px] text-white/40">
           <ShieldCheck className="size-3.5 text-emerald-400" /> Your payment

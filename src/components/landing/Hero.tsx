@@ -12,10 +12,10 @@ import { cn } from "@/lib/utils";
 import type { BoxingEvent } from "@/data/types";
 
 const HERO_IDS = [
-  "fury-vs-joshua-2",
   "canelo-vs-crawford",
   "usyk-vs-zhang",
   "dubois-vs-parker",
+  "inoue-vs-nakatani",
   "bivol-vs-beterbiev-3",
   "shakur-vs-davis",
   "lopez-vs-haney",
@@ -26,11 +26,6 @@ const ROTATE_MS = 20000;
 const HERO_IMAGE_OVERRIDES: Record<string, { src: string; position: string }> = {
   "anthony-joshua": { src: IMAGES.fighters.joshuaFight, position: "object-center" },
   "tyson-fury": { src: IMAGES.fighters.furyFight, position: "object-top" },
-};
-
-const HERO_BACKGROUND_OVERRIDES: Record<string, string> = {
-  "fury-vs-joshua-2":
-    "https://upload.wikimedia.org/wikipedia/commons/3/35/Joshua_vs_Pulev_02_Arena_London.png",
 };
 
 function formatLongDate(iso: string) {
@@ -156,7 +151,7 @@ export function Hero() {
   const divShort =
     event.weightClass.match(/\(([^)]+)\)/)?.[1] ??
     event.weightClass.split(" (")[0];
-  const bgSrc = HERO_BACKGROUND_OVERRIDES[event.id] ?? event.posterImage;
+  const bgSrc = event.posterImage;
 
   return (
     <section
@@ -188,7 +183,7 @@ export function Hero() {
       {/* ================= MOBILE APP HERO ================= */}
       <div className="relative z-[2] mx-auto flex min-h-[calc(100dvh-9rem)] max-w-xl flex-col justify-center px-5 pb-24 pt-6 sm:pb-36 lg:hidden">
         <div className="flex items-center justify-between">
-          <span className="inline-flex items-center gap-1.5 rounded-full border border-[#e31b23]/40 bg-[#e31b23]/15 px-3 py-1.5 text-[10px] font-bold uppercase tracking-[0.2em] text-[#ff6b6b]">
+          <span className="inline-flex items-center gap-1.5 rounded-full border border-white/15 bg-white/5 px-3 py-1.5 text-[10px] font-bold uppercase tracking-[0.2em] text-white/90 backdrop-blur-md">
             <span className="size-1.5 rounded-full bg-[#e31b23]" />
             Next Event
           </span>

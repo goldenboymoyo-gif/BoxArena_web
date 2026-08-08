@@ -45,32 +45,34 @@ export default function VideosPage() {
               href={`/videos/${lead.id}`}
               className="group relative block overflow-hidden rounded-3xl border border-white/10"
             >
-              <img
-                src={
-                  lead.youtubeId
-                    ? `https://i.ytimg.com/vi/${lead.youtubeId}/hqdefault.jpg`
-                    : resolveImage(lead.image)
-                }
-                alt={lead.title}
-                className="img-zoom aspect-video w-full object-cover"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black via-black/30 to-transparent" />
-              <span className="absolute left-4 top-4 rounded-full bg-[#e31b23] px-3 py-1.5 text-[11px] font-bold uppercase tracking-[0.16em] text-white">
-                Featured
-              </span>
-              <span className="absolute bottom-3 right-3 rounded bg-black/80 px-2 py-1 text-[11px] font-bold tabular-nums text-white">
-                {lead.duration}
-              </span>
-              <div className="absolute inset-0 grid place-items-center">
-                <span className="grid size-16 place-items-center rounded-full bg-[#e31b23] text-white transition group-hover:scale-110">
-                  <Play className="ml-0.5 size-7 fill-current" />
+              <div className="relative">
+                <img
+                  src={
+                    lead.youtubeId
+                      ? `https://i.ytimg.com/vi/${lead.youtubeId}/hqdefault.jpg`
+                      : resolveImage(lead.image)
+                  }
+                  alt={lead.title}
+                  className="img-zoom aspect-video w-full object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black via-black/30 to-transparent" />
+                <span className="absolute left-4 top-4 rounded-full bg-[#e31b23] px-3 py-1.5 text-[11px] font-bold uppercase tracking-[0.16em] text-white">
+                  Featured
                 </span>
+                <span className="absolute bottom-3 right-3 rounded bg-black/80 px-2 py-1 text-[11px] font-bold tabular-nums text-white">
+                  {lead.duration}
+                </span>
+                <div className="absolute inset-0 grid place-items-center">
+                  <span className="grid size-12 place-items-center rounded-full bg-[#e31b23] text-white transition group-hover:scale-110 sm:size-16">
+                    <Play className="ml-0.5 size-6 fill-current sm:size-7" />
+                  </span>
+                </div>
               </div>
-              <div className="absolute inset-x-0 bottom-0 p-6">
+              <div className="p-5 sm:absolute sm:inset-x-0 sm:bottom-0 sm:p-6">
                 <p className="text-xs font-bold uppercase tracking-[0.2em] text-[#ff6a6a]">
                   {lead.category}
                 </p>
-                <h2 className="mt-2 max-w-2xl font-display text-3xl font-semibold uppercase leading-tight tracking-wide text-white sm:text-4xl">
+                <h2 className="mt-2 max-w-2xl font-display text-2xl font-semibold uppercase leading-snug tracking-wide text-white sm:text-3xl lg:text-4xl">
                   {lead.title}
                 </h2>
                 <div className="mt-3 flex flex-wrap items-center gap-4 text-xs text-white/60">

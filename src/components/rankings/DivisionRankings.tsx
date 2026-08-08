@@ -140,7 +140,7 @@ export function DivisionRankings({ divisions }: DivisionRankingsProps) {
                         row.status === "Champion"
                           ? "gold-gradient text-black"
                           : row.status === "Interim"
-                            ? "bg-[#e31b23]/15 text-[#ff6a6a]"
+                            ? "border border-[#e31b23]/40 bg-white/5 text-white/85"
                             : "bg-white/10 text-white/60"
                       }`}
                     >

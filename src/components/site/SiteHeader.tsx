@@ -109,12 +109,8 @@ export function SiteHeader() {
   }
 
   function handleSettings() {
-    if (signedIn) {
-      setMenuOpen(false);
-      router.push("/dashboard");
-    } else {
-      openAuth("signin");
-    }
+    setMenuOpen(false);
+    router.push("/dashboard");
   }
 
   function handleSignOut() {

@@ -8,7 +8,7 @@ import { FighterCard } from "@/components/cards/FighterCard";
 import { EventCard } from "@/components/cards/EventCard";
 import { NewsCard } from "@/components/cards/NewsCard";
 import { VideoCard } from "@/components/cards/VideoCard";
-import { getFighter, legends } from "@/data/fighters";
+import { getFighter, getFighterByName, legends } from "@/data/fighters";
 import { events, heroEvent, liveEvent, completedEvents } from "@/data/events";
 import { featuredNews, latestNews } from "@/data/news";
 import { featuredVideos, videos } from "@/data/videos";
@@ -17,8 +17,8 @@ const p4pIds = ["oleksandr-usyk", "terence-crawford", "naoya-inoue", "canelo-alv
 
 export default function Home() {
   const p4p = p4pIds.map((id) => getFighter(id)).filter(Boolean).slice(0, 5);
-  const heroFury = getFighter("tyson-fury");
-  const heroJoshua = getFighter("anthony-joshua");
+  const heroFighterA = getFighterByName(heroEvent.fighterA);
+  const heroFighterB = getFighterByName(heroEvent.fighterB);
   const upcoming = events.slice(0, 4);
   const breaking = latestNews.slice(0, 3);
   const leadNews = featuredNews[0];
@@ -138,21 +138,25 @@ export default function Home() {
                 {heroEvent.title}
               </h2>
               <p className="mt-4 text-sm leading-7 text-white/55">
-                Two champions, one destiny. Comparing the heavyweights who headline
+                Two champions, one destiny. Comparing the superstars who headline
                 the biggest fight of the year.
               </p>
               <div className="mt-6 grid grid-cols-2 gap-4">
-                {heroFury && heroJoshua && (
+                {heroFighterA && heroFighterB && (
                   <>
                     <div className="rounded-2xl border border-white/10 bg-[#111111] p-5">
-                      <img src={heroFury.image} alt={heroFury.name} className="h-20 w-20 rounded-full border-2 border-[#e31b23] object-cover object-top" />
-                      <h4 className="mt-3 font-display text-xl font-semibold uppercase text-white">{heroFury.name}</h4>
-                      <p className="text-sm text-white/50">34-2-1 (24 KO)</p>
+                      <img src={heroFighterA.image} alt={heroFighterA.name} className="h-20 w-20 rounded-full border-2 border-[#e31b23] object-cover object-top" />
+                      <h4 className="mt-3 font-display text-xl font-semibold uppercase text-white">{heroFighterA.name}</h4>
+                      <p className="text-sm text-white/50">
+                        {heroFighterA.record.wins}-{heroFighterA.record.losses}-{heroFighterA.record.draws} ({heroFighterA.record.kos} KO)
+                      </p>
                     </div>
                     <div className="rounded-2xl border border-white/10 bg-[#111111] p-5">
-                      <img src={heroJoshua.image} alt={heroJoshua.name} className="h-20 w-20 rounded-full border-2 border-white/40 object-cover object-top" />
-                      <h4 className="mt-3 font-display text-xl font-semibold uppercase text-white">{heroJoshua.name}</h4>
-                      <p className="text-sm text-white/50">29-4-0 (26 KO)</p>
+                      <img src={heroFighterB.image} alt={heroFighterB.name} className="h-20 w-20 rounded-full border-2 border-white/40 object-cover object-top" />
+                      <h4 className="mt-3 font-display text-xl font-semibold uppercase text-white">{heroFighterB.name}</h4>
+                      <p className="text-sm text-white/50">
+                        {heroFighterB.record.wins}-{heroFighterB.record.losses}-{heroFighterB.record.draws} ({heroFighterB.record.kos} KO)
+                      </p>
                     </div>
                   </>
                 )}
