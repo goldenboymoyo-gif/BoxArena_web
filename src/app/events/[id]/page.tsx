@@ -73,8 +73,8 @@ export default async function EventDetailPage({
           className="absolute inset-0 h-full w-full object-cover opacity-40"
         />
         <div className="absolute inset-0 bg-[radial-gradient(120%_100%_at_50%_0%,rgba(227,27,35,0.22),transparent_55%),linear-gradient(180deg,rgba(8,8,8,0.5),#080808_95%)]" />
-        <div className="relative mx-auto max-w-[1440px] px-6 py-16 lg:px-8">
-          <div className="flex items-center gap-2 text-xs uppercase tracking-[0.2em] text-white/40">
+        <div className="relative mx-auto max-w-[1440px] px-6 py-10 sm:py-16 lg:px-8">
+          <div className="flex flex-wrap items-center gap-2 text-xs uppercase tracking-[0.2em] text-white/40">
             <Link href="/" className="transition hover:text-white">Home</Link>
             <span className="text-[#e31b23]">/</span>
             <Link href="/events" className="transition hover:text-white">Events</Link>
@@ -98,15 +98,15 @@ export default async function EventDetailPage({
                 ))}
               </div>
 
-              <div className="mt-8 flex items-center gap-4 sm:gap-8">
+              <div className="mt-8 flex flex-wrap items-center gap-3 sm:gap-8">
                 {fighterA && (
                   <Link href={`/fighters/${fighterA.id}`} className="group text-center">
                     <img
                       src={fighterA.image}
                       alt={fighterA.name}
-                      className="size-24 rounded-2xl border-2 border-[#e31b23] object-cover object-top shadow-xl sm:size-32"
+                      className="size-20 rounded-2xl border-2 border-[#e31b23] object-cover object-top shadow-xl sm:size-32"
                     />
-                    <p className="mt-3 font-display text-lg font-semibold uppercase tracking-wide text-white group-hover:text-[#ff5a5a] sm:text-xl">
+                    <p className="mt-3 font-display text-base font-semibold uppercase tracking-wide text-white group-hover:text-[#ff5a5a] sm:text-xl">
                       {fighterA.name}
                     </p>
                     <p className="text-xs text-white/50">
@@ -127,9 +127,9 @@ export default async function EventDetailPage({
                     <img
                       src={fighterB.image}
                       alt={fighterB.name}
-                      className="size-24 rounded-2xl border-2 border-white/40 object-cover object-top shadow-xl sm:size-32"
+                      className="size-20 rounded-2xl border-2 border-white/40 object-cover object-top shadow-xl sm:size-32"
                     />
-                    <p className="mt-3 font-display text-lg font-semibold uppercase tracking-wide text-white group-hover:text-[#ff5a5a] sm:text-xl">
+                    <p className="mt-3 font-display text-base font-semibold uppercase tracking-wide text-white group-hover:text-[#ff5a5a] sm:text-xl">
                       {fighterB.name}
                     </p>
                     <p className="text-xs text-white/50">

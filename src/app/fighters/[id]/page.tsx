@@ -71,8 +71,8 @@ export default async function FighterProfilePage({
           className="absolute inset-0 h-full w-full object-cover object-top opacity-25"
         />
         <div className="absolute inset-0 bg-[radial-gradient(100%_120%_at_50%_-20%,rgba(227,27,35,0.2),transparent_55%),linear-gradient(180deg,rgba(8,8,8,0.55),#080808_90%)]" />
-        <div className="relative mx-auto max-w-[1440px] px-6 py-16 lg:px-8">
-          <div className="flex items-center gap-2 text-xs uppercase tracking-[0.2em] text-white/40">
+        <div className="relative mx-auto max-w-[1440px] px-6 py-10 sm:py-16 lg:px-8">
+          <div className="flex flex-wrap items-center gap-2 text-xs uppercase tracking-[0.2em] text-white/40">
             <Link href="/" className="transition hover:text-white">Home</Link>
             <span className="text-[#e31b23]">/</span>
             <Link href="/fighters" className="transition hover:text-white">Fighters</Link>
@@ -103,7 +103,7 @@ export default async function FighterProfilePage({
                     {flagEmoji(fighter.country)} {fighter.flagLabel}
                   </span>
                 </div>
-                <h1 className="mt-4 font-display text-5xl font-bold uppercase tracking-tight text-white sm:text-6xl">
+                <h1 className="mt-4 font-display text-4xl font-bold uppercase tracking-tight text-white sm:text-5xl lg:text-6xl">
                   {fighter.name}
                 </h1>
                 <p className="mt-1 text-base italic text-white/55">

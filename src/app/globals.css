@@ -100,6 +100,28 @@
   --sidebar-ring: rgb(227 27 35 / 55%);
 }
 
+/* ---------- light (white) theme ----------
+   Quick invert filter: flips the whole dark UI to a white theme.
+   Invert maps white -> black, then hue-rotate(180deg) maps the
+   inverted brand red back to #e31b23, so the logo's white surface
+   turns black while red stays red. */
+html.light {
+  filter: invert(1) hue-rotate(180deg);
+}
+
+/* Keep photos, video and iframe embeds looking natural (double-invert) */
+html.light img:not(.theme-logo),
+html.light iframe,
+html.light video {
+  filter: invert(1) hue-rotate(180deg);
+}
+
+/* The logo keeps the single page-level invert so its white surface
+   becomes black; drop the screen blend so it renders on light bg. */
+html.light .theme-logo {
+  mix-blend-mode: normal;
+}
+
 @layer base {
   * {
     @apply border-border outline-ring/50;

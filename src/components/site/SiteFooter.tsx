@@ -75,7 +75,7 @@ export function SiteFooter() {
               <img
                 src="/logo.png"
                 alt="Ringcraft — The Home of Boxing"
-                className="h-10 w-auto mix-blend-screen"
+                className="theme-logo h-10 w-auto mix-blend-screen"
               />
             </Link>
             <p className="mt-7 text-sm leading-7 text-white/55">

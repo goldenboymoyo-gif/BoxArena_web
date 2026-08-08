@@ -186,7 +186,7 @@ export function Hero() {
       <div className="absolute inset-0 bg-gradient-to-b from-[#0a0a0a]/70 via-transparent to-[#0a0a0a]" />
 
       {/* ================= MOBILE APP HERO ================= */}
-      <div className="relative z-[2] mx-auto flex min-h-[calc(100dvh-7rem)] max-w-xl flex-col justify-center px-5 pb-36 pt-6 lg:hidden">
+      <div className="relative z-[2] mx-auto flex min-h-[calc(100dvh-9rem)] max-w-xl flex-col justify-center px-5 pb-24 pt-6 sm:pb-36 lg:hidden">
         <div className="flex items-center justify-between">
           <span className="inline-flex items-center gap-1.5 rounded-full border border-[#e31b23]/40 bg-[#e31b23]/15 px-3 py-1.5 text-[10px] font-bold uppercase tracking-[0.2em] text-[#ff6b6b]">
             <span className="size-1.5 rounded-full bg-[#e31b23]" />
@@ -198,15 +198,15 @@ export function Hero() {
         </div>
 
         {/* Matchup card */}
-        <div className="mt-5 overflow-hidden rounded-3xl border border-white/10 bg-black/50 backdrop-blur-2xl">
-          <div className="flex items-stretch gap-2 p-4">
+        <div className="mt-4 overflow-hidden rounded-3xl border border-white/10 bg-black/50 backdrop-blur-2xl">
+          <div className="flex items-stretch gap-2 p-3.5 sm:p-4">
             <div className="flex min-w-0 flex-1 flex-col items-center text-center">
               <img
                 src={imageA}
                 alt={event.fighterA}
-                className="size-20 rounded-2xl border border-white/15 object-cover object-top shadow-lg"
+                className="size-16 rounded-2xl border border-white/15 object-cover object-top shadow-lg sm:size-20"
               />
-              <p className="mt-2.5 w-full truncate font-display text-xl font-bold uppercase leading-tight text-white">
+              <p className="mt-2 w-full truncate font-display text-lg font-bold uppercase leading-tight text-white sm:text-xl">
                 {nameA}
               </p>
               <p className="mt-1 text-[10px] font-semibold uppercase tracking-[0.16em] text-white/45">
@@ -223,9 +223,9 @@ export function Hero() {
               <img
                 src={imageB}
                 alt={event.fighterB}
-                className="size-20 rounded-2xl border border-white/15 object-cover object-top shadow-lg"
+                className="size-16 rounded-2xl border border-white/15 object-cover object-top shadow-lg sm:size-20"
               />
-              <p className="mt-2.5 w-full truncate font-display text-xl font-bold uppercase leading-tight text-white">
+              <p className="mt-2 w-full truncate font-display text-lg font-bold uppercase leading-tight text-white sm:text-xl">
                 {nameB}
               </p>
               <p className="mt-1 text-[10px] font-semibold uppercase tracking-[0.16em] text-white/45">
@@ -236,27 +236,27 @@ export function Hero() {
         </div>
 
         {/* Countdown */}
-        <div className="mt-5 flex justify-center">
+        <div className="mt-4 flex justify-center">
           <Countdown date={`${event.date}T${hour}:00:00`} timezone={event.timezone} pill />
         </div>
 
         {/* Meta */}
-        <p className="mt-4 flex items-center justify-center gap-1.5 text-center text-[11px] font-semibold uppercase tracking-[0.16em] text-white/55">
+        <p className="mt-3 flex items-center justify-center gap-1.5 text-center text-[11px] font-semibold uppercase tracking-[0.16em] text-white/55">
           <MapPin className="size-3.5 shrink-0 text-[#e31b23]" />
           {event.venue}, {event.city.split(",")[0]}
         </p>
 
         {/* CTAs */}
-        <div className="mt-6 flex flex-col gap-3">
+        <div className="mt-4 flex flex-col gap-3">
           <Link
             href={`/events/${event.id}`}
-            className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-white px-6 py-4 font-display text-sm font-bold uppercase tracking-[0.18em] text-black transition active:scale-[0.98]"
+            className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-white px-6 py-3.5 font-display text-sm font-bold uppercase tracking-[0.18em] text-black transition active:scale-[0.98]"
           >
             <Ticket className="size-4 text-[#e31b23]" /> Get Tickets
           </Link>
           <Link
             href="/live"
-            className="inline-flex w-full items-center justify-center gap-2 rounded-full border border-white/25 bg-white/5 px-6 py-4 font-display text-sm font-bold uppercase tracking-[0.18em] text-white backdrop-blur-md transition active:scale-[0.98]"
+            className="inline-flex w-full items-center justify-center gap-2 rounded-full border border-white/25 bg-white/5 px-6 py-3.5 font-display text-sm font-bold uppercase tracking-[0.18em] text-white backdrop-blur-md transition active:scale-[0.98]"
           >
             <Play className="size-4 fill-current text-[#e31b23]" /> Watch Live
           </Link>
@@ -374,7 +374,7 @@ export function Hero() {
       </div>
 
       {/* ---------- Bottom fight carousel, overlapping the hero ---------- */}
-      <div className="relative z-10 mx-auto -mt-24 max-w-[1600px] px-6 pb-4 lg:-mt-28 lg:px-8">
+      <div className="relative z-10 mx-auto -mt-14 max-w-[1600px] px-6 pb-4 sm:-mt-24 lg:-mt-28 lg:px-8">
         <FightCarousel fights={heroEvents} active={index} onSelect={setIndex} />
       </div>
     </section>

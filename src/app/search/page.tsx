@@ -84,14 +84,14 @@ export default async function SearchPage({
     <div className="text-white">
       <section className="relative overflow-hidden border-b border-white/10">
         <div className="absolute inset-0 bg-[radial-gradient(100%_120%_at_50%_-20%,rgba(227,27,35,0.25),transparent_55%)]" />
-        <div className="relative mx-auto max-w-[1440px] px-6 py-14 lg:px-8">
+        <div className="relative mx-auto max-w-[1440px] px-6 py-10 sm:py-14 lg:px-8">
           <div className="flex items-center gap-2 text-xs uppercase tracking-[0.2em] text-white/40">
             <Link href="/" className="transition hover:text-white">Home</Link>
             <span className="text-[#e31b23]">/</span>
             <span className="text-white/70">Search</span>
           </div>
-          <h1 className="mt-4 flex items-center gap-3 font-display text-4xl font-bold uppercase tracking-tight text-white sm:text-5xl">
-            <Search className="size-8 text-[#e31b23]" />
+          <h1 className="mt-4 flex items-center gap-3 font-display text-3xl font-bold uppercase tracking-tight text-white sm:text-4xl">
+            <Search className="size-7 text-[#e31b23] sm:size-8" />
             Search <span className="text-[#e31b23]">Results</span>
           </h1>
           {query ? (

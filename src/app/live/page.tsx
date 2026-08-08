@@ -42,14 +42,14 @@ export default function LivePage() {
       {/* Header */}
       <section className="relative overflow-hidden border-b border-white/10">
         <div className="absolute inset-0 bg-[radial-gradient(100%_120%_at_50%_-20%,rgba(227,27,35,0.25),transparent_55%)]" />
-        <div className="relative mx-auto flex max-w-[1440px] flex-wrap items-end justify-between gap-6 px-6 py-14 lg:px-8">
+        <div className="relative mx-auto flex max-w-[1440px] flex-wrap items-end justify-between gap-6 px-6 py-10 sm:py-14 lg:px-8">
           <div>
             <div className="flex items-center gap-2 text-xs uppercase tracking-[0.2em] text-white/40">
               <Link href="/" className="transition hover:text-white">Home</Link>
               <span className="text-[#e31b23]">/</span>
               <span className="text-white/70">Live</span>
             </div>
-            <h1 className="mt-4 font-display text-5xl font-bold uppercase tracking-tight text-white sm:text-6xl">
+            <h1 className="mt-4 font-display text-4xl font-bold uppercase tracking-tight text-white sm:text-5xl lg:text-6xl">
               Live <span className="text-[#e31b23]">Now</span>
             </h1>
           </div>
