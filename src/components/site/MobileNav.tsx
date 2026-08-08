@@ -33,19 +33,21 @@ export function MobileNav() {
                 "group flex flex-col items-center gap-1 py-1 text-[10px] font-bold uppercase tracking-wide transition",
                 active
                   ? "text-[#ff5a5a]"
-                  : "text-white/45 hover:text-white/80"
+                  : "text-white/45 hover:text-white"
               )}
             >
               <span
                 className={cn(
                   "grid h-7 w-12 place-items-center rounded-full transition",
-                  active && "bg-[#e31b23]/15"
+                  active ? "bg-[#e31b23]/15" : "group-hover:bg-white/5"
                 )}
               >
                 <Icon
                   className={cn(
-                    "size-[22px] transition",
-                    active ? "text-[#e31b23]" : "text-white/55"
+                    "size-[22px] transition group-hover:scale-110",
+                    active
+                      ? "text-[#e31b23]"
+                      : "text-white/55 group-hover:text-white"
                   )}
                   fill={active ? "currentColor" : "none"}
                 />

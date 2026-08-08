@@ -18,7 +18,6 @@ import { cn } from "@/lib/utils";
 import { useAuth, initialsOf, type AuthUser } from "@/lib/auth";
 import { AuthDialog, type AuthMode } from "@/components/site/AuthDialog";
 import { SearchForm } from "@/components/site/SearchForm";
-import { ThemeToggle } from "@/components/site/ThemeToggle";
 
 function UserMenuDropdown({
   user,
@@ -110,8 +109,12 @@ export function SiteHeader() {
   }
 
   function handleSettings() {
-    setMenuOpen(false);
-    router.push("/dashboard");
+    if (signedIn) {
+      setMenuOpen(false);
+      router.push("/dashboard");
+    } else {
+      openAuth("signin");
+    }
   }
 
   function handleSignOut() {
@@ -133,7 +136,7 @@ export function SiteHeader() {
           <img
             src="/logo.png"
             alt="Ringcraft — The Home of Boxing"
-            className="theme-logo h-9 w-auto mix-blend-screen sm:h-10"
+            className="h-9 w-auto sm:h-10"
           />
         </Link>
 
@@ -206,9 +209,6 @@ export function SiteHeader() {
         </div>
 
         <div className="flex shrink-0 items-center justify-end gap-2 sm:gap-3">
-
-          <ThemeToggle />
-
           <Button
             variant="ghost"
             size="icon"

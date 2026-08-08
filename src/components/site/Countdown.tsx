@@ -103,22 +103,22 @@ export function Countdown({ date, timezone, compact, pill }: CountdownProps) {
   }
 
   return (
-    <div className="flex items-center gap-3">
+    <div className="grid grid-cols-4 gap-2 sm:flex sm:items-center sm:gap-3">
       {rendered.map((u) => (
         <div
           key={u.label}
-          className="flex min-w-[68px] flex-col items-center rounded-xl border border-white/10 bg-white/5 px-4 py-3 backdrop-blur-md"
+          className="flex min-w-0 flex-col items-center rounded-xl border border-white/10 bg-white/5 px-1 py-3 backdrop-blur-md sm:min-w-[68px] sm:px-4"
         >
-          <span className="font-display text-3xl font-bold tabular-nums text-white">
+          <span className="font-display text-xl font-bold tabular-nums text-white sm:text-3xl">
             {String(u.value).padStart(2, "0")}
           </span>
-          <span className="mt-1 text-[10px] font-semibold uppercase tracking-[0.2em] text-white/45">
+          <span className="mt-1 text-[9px] font-semibold uppercase tracking-[0.14em] text-white/45 sm:text-[10px] sm:tracking-[0.2em]">
             {u.label}
           </span>
         </div>
       ))}
       {timezone && (
-        <span className="ml-2 hidden text-xs uppercase tracking-[0.16em] text-white/35 sm:block">
+        <span className="hidden text-xs uppercase tracking-[0.16em] text-white/35 sm:block">
           {timezone}
         </span>
       )}
