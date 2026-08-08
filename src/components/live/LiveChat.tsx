@@ -191,7 +191,11 @@ export function LiveChat({ className = "" }: LiveChatProps) {
                 m.self ? "items-end" : "items-start"
               }`}
             >
-              <span className="flex items-center gap-1 text-[11px] font-bold text-white/55">
+              <span
+                className={`flex items-center gap-1 text-[11px] font-bold ${
+                  m.self ? "text-[#e31b23]" : "text-white/55"
+                }`}
+              >
                 {m.name}
                 {m.mod && (
                   <span className="flex items-center gap-0.5 rounded-full bg-emerald-500/15 px-1.5 py-px text-[9px] font-bold uppercase tracking-wide text-emerald-400">
@@ -204,7 +208,7 @@ export function LiveChat({ className = "" }: LiveChatProps) {
                   m.reaction
                     ? "bg-transparent px-0 py-0 text-2xl leading-7"
                     : m.self
-                      ? "rounded-2xl rounded-br-sm bg-[#e31b23]/90 px-3 py-2 text-white"
+                      ? "text-white"
                       : "rounded-2xl rounded-tl-sm bg-white/5 px-3 py-2 text-white/85"
                 }`}
               >

@@ -136,7 +136,7 @@ export function SiteHeader() {
           <img
             src="/logo.png"
             alt="Ringcraft — The Home of Boxing"
-            className="h-9 w-auto sm:h-10"
+            className="h-11 w-auto sm:h-12"
           />
         </Link>
 
