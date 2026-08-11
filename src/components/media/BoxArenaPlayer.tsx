@@ -178,7 +178,7 @@ export function BoxArenaPlayer({
   }
 
   return (
-    <div ref={cardRef} className="overflow-hidden rounded-3xl border border-white/10 bg-black">
+    <div ref={cardRef} className="overflow-hidden rounded-2xl border border-white/10 bg-black sm:rounded-3xl">
       <div className="relative aspect-video w-full overflow-hidden [&_iframe]:absolute! [&_iframe]:inset-0! [&_iframe]:h-full! [&_iframe]:w-full!">
         <div
           ref={mountRef}
@@ -200,7 +200,7 @@ export function BoxArenaPlayer({
               />
             )}
             <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-[#0a0a0a]/60 to-black/30" />
-            <div className="pointer-events-none absolute left-5 top-5 flex items-center gap-2">
+          <div className="pointer-events-none absolute left-3 top-3 flex max-w-[calc(100%-1.5rem)] items-center gap-2 sm:left-5 sm:top-5">
               <span className="font-display text-sm font-bold uppercase tracking-[0.22em] text-white">
                 Box<span className="text-[#e31b23]">Arena</span>
               </span>
@@ -214,10 +214,10 @@ export function BoxArenaPlayer({
                 </span>
               )}
             </div>
-            <span className="relative grid size-20 place-items-center rounded-full border border-white/25 bg-white/10 backdrop-blur-md transition group-hover:border-[#e31b23] group-hover:bg-[#e31b23]">
-              <Play className="ml-1 size-8 fill-white text-white" />
+            <span className="relative grid size-16 place-items-center rounded-full border border-white/25 bg-white/10 backdrop-blur-md transition group-hover:border-[#e31b23] group-hover:bg-[#e31b23] sm:size-20">
+              <Play className="ml-1 size-6 fill-white text-white sm:size-8" />
             </span>
-            <span className="relative mt-4 text-xs font-bold uppercase tracking-[0.28em] text-white/80">
+            <span className="relative mt-3 text-center text-[10px] font-bold uppercase tracking-[0.2em] text-white/80 sm:mt-4 sm:text-xs sm:tracking-[0.28em]">
               Watch on Ringcraft
             </span>
             {label && (
@@ -245,12 +245,12 @@ export function BoxArenaPlayer({
       </div>
 
       {started && (
-        <div className="flex items-center gap-2 border-t border-white/10 bg-[#111111] px-4 py-3">
+        <div className="flex items-center gap-1.5 border-t border-white/10 bg-[#111111] px-3 py-2.5 sm:gap-2 sm:px-4 sm:py-3">
           <button
             type="button"
             onClick={togglePlay}
             aria-label={playing ? "Pause" : "Play"}
-            className="grid size-10 cursor-pointer place-items-center rounded-full bg-[#e31b23] text-white transition hover:bg-[#c3161d]"
+            className="grid size-9 shrink-0 cursor-pointer place-items-center rounded-full bg-[#e31b23] text-white transition hover:bg-[#c3161d] sm:size-10"
           >
             {playing ? <Pause className="size-4" /> : <Play className="ml-0.5 size-4" />}
           </button>
@@ -258,13 +258,13 @@ export function BoxArenaPlayer({
             type="button"
             onClick={toggleMute}
             aria-label={muted ? "Unmute" : "Mute"}
-            className="grid size-10 cursor-pointer place-items-center rounded-full border border-white/15 text-white/80 transition hover:border-[#e31b23]/50 hover:text-white"
+            className="grid size-9 shrink-0 cursor-pointer place-items-center rounded-full border border-white/15 text-white/80 transition hover:border-[#e31b23]/50 hover:text-white sm:size-10"
           >
             {muted ? <VolumeX className="size-4" /> : <Volume2 className="size-4" />}
           </button>
 
-          <div className="ml-2 min-w-0 flex-1">
-            <p className="truncate text-[11px] font-bold uppercase tracking-[0.18em] text-white/50">
+          <div className="ml-1 min-w-0 flex-1 sm:ml-2">
+            <p className="truncate text-[10px] font-bold uppercase tracking-[0.12em] text-white/50 sm:text-[11px] sm:tracking-[0.18em]">
               Now {live ? "streaming" : "playing"} on{" "}
               <span className="font-display text-white">
                 Box<span className="text-[#e31b23]">Arena</span>
@@ -282,7 +282,7 @@ export function BoxArenaPlayer({
             type="button"
             onClick={toggleFullscreen}
             aria-label={isFullscreen ? "Exit fullscreen" : "Fullscreen"}
-            className="grid size-10 cursor-pointer place-items-center rounded-full border border-white/15 text-white/80 transition hover:border-[#e31b23]/50 hover:text-white"
+            className="grid size-9 shrink-0 cursor-pointer place-items-center rounded-full border border-white/15 text-white/80 transition hover:border-[#e31b23]/50 hover:text-white sm:size-10"
           >
             {isFullscreen ? <Minimize className="size-4" /> : <Maximize className="size-4" />}
           </button>

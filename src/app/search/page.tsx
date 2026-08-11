@@ -84,7 +84,7 @@ export default async function SearchPage({
     <div className="text-white">
       <section className="relative overflow-hidden border-b border-white/10">
         <div className="absolute inset-0 bg-[radial-gradient(100%_120%_at_50%_-20%,rgba(227,27,35,0.25),transparent_55%)]" />
-        <div className="relative mx-auto max-w-[1440px] px-6 py-10 sm:py-14 lg:px-8">
+        <div className="relative mx-auto max-w-[1440px] px-4 sm:px-6 py-10 sm:py-14 lg:px-8">
           <div className="flex items-center gap-2 text-xs uppercase tracking-[0.2em] text-white/40">
             <Link href="/" className="transition hover:text-white">Home</Link>
             <span className="text-[#e31b23]">/</span>
@@ -109,7 +109,7 @@ export default async function SearchPage({
       </section>
 
       {!query ? (
-        <section className="mx-auto max-w-[1440px] px-6 py-24 text-center lg:px-8">
+        <section className="mx-auto max-w-[1440px] px-4 sm:px-6 py-24 text-center lg:px-8">
           <Search className="mx-auto size-12 text-white/20" />
           <p className="mt-4 font-display text-2xl font-semibold uppercase tracking-wide text-white/70">
             Start typing to search
@@ -129,7 +129,7 @@ export default async function SearchPage({
           </p>
         </section>
       ) : (
-        <section className="mx-auto max-w-[1440px] px-6 py-14 lg:px-8">
+        <section className="mx-auto max-w-[1440px] px-4 sm:px-6 py-14 lg:px-8">
           {eventResults.length > 0 && (
             <div className="mt-10">
               <h2 className="font-display text-2xl font-semibold uppercase tracking-wide text-white">

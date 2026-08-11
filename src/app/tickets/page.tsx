@@ -44,7 +44,7 @@ export default async function TicketsPage({
     <div className="text-white">
       <section className="relative overflow-hidden border-b border-white/10">
         <div className="absolute inset-0 bg-[radial-gradient(100%_120%_at_50%_-20%,rgba(227,27,35,0.25),transparent_55%)]" />
-        <div className="relative mx-auto max-w-[1440px] px-6 py-10 sm:py-16 lg:px-8">
+        <div className="relative mx-auto max-w-[1440px] px-4 sm:px-6 py-10 sm:py-16 lg:px-8">
           <div className="flex items-center gap-2 text-xs uppercase tracking-[0.2em] text-white/40">
             <Link href="/" className="transition hover:text-white">Home</Link>
             <span className="text-[#e31b23]">/</span>
@@ -72,7 +72,7 @@ export default async function TicketsPage({
       </section>
 
       {/* Featured event ticket */}
-      <section className="mx-auto max-w-[1440px] px-6 py-14 lg:px-8">
+      <section className="mx-auto max-w-[1440px] px-4 sm:px-6 py-14 lg:px-8">
         <div className="grid gap-8 lg:grid-cols-[1.3fr_1fr]">
           <div className="relative overflow-hidden rounded-3xl border border-white/10">
             <img
@@ -108,7 +108,7 @@ export default async function TicketsPage({
 
       {/* Events with tickets */}
       <section className="border-t border-white/10 bg-[#0b0b0b]">
-        <div className="mx-auto max-w-[1440px] px-6 py-16 lg:px-8">
+        <div className="mx-auto max-w-[1440px] px-4 sm:px-6 py-16 lg:px-8">
           <SectionHeading
             subtitle="On sale now"
             title="Events with Tickets"

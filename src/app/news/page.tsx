@@ -20,7 +20,7 @@ export default function NewsPage() {
     <div className="text-white">
       <section className="relative overflow-hidden border-b border-white/10">
         <div className="absolute inset-0 bg-[radial-gradient(100%_120%_at_50%_-20%,rgba(227,27,35,0.25),transparent_55%)]" />
-        <div className="relative mx-auto max-w-[1440px] px-6 py-10 sm:py-16 lg:px-8">
+        <div className="relative mx-auto max-w-[1440px] px-4 sm:px-6 py-10 sm:py-16 lg:px-8">
           <div className="flex items-center gap-2 text-xs uppercase tracking-[0.2em] text-white/40">
             <Link href="/" className="transition hover:text-white">Home</Link>
             <span className="text-[#e31b23]">/</span>
@@ -39,7 +39,7 @@ export default function NewsPage() {
       {/* Breaking banner */}
       {breakingNews.length > 0 && (
         <section className="border-b border-[#e31b23]/30 bg-gradient-to-r from-[#e31b23]/20 via-[#e31b23]/5 to-transparent">
-          <div className="mx-auto flex max-w-[1440px] items-center gap-4 px-6 py-4 lg:px-8">
+          <div className="mx-auto flex max-w-[1440px] items-center gap-4 px-4 py-4 sm:px-6 lg:px-8">
             <span className="inline-flex shrink-0 items-center gap-1.5 rounded-full bg-[#e31b23] px-3 py-1 text-[11px] font-bold uppercase tracking-[0.16em] text-white">
               <Flame className="size-3.5" /> Breaking
             </span>
@@ -54,7 +54,7 @@ export default function NewsPage() {
       )}
 
       {/* Top stories */}
-      <section className="mx-auto max-w-[1440px] px-6 py-14 lg:px-8">
+      <section className="mx-auto max-w-[1440px] px-4 sm:px-6 py-14 lg:px-8">
         <div className="grid gap-6 lg:grid-cols-[1.2fr_1fr]">
           {lead && <NewsCard article={lead} variant="overlay" />}
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-1">
@@ -67,7 +67,7 @@ export default function NewsPage() {
 
       {/* All news */}
       <section className="border-t border-white/10 bg-[#0b0b0b]">
-        <div className="mx-auto max-w-[1440px] px-6 py-16 lg:px-8">
+        <div className="mx-auto max-w-[1440px] px-4 sm:px-6 py-16 lg:px-8">
           <SectionHeading
             subtitle="Latest"
             title="All Stories"

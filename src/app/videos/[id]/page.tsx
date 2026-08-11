@@ -41,7 +41,7 @@ export default async function VideoPage({
     <div className="text-white">
       <section className="relative overflow-hidden border-b border-white/10">
         <div className="absolute inset-0 bg-[radial-gradient(100%_120%_at_50%_-20%,rgba(227,27,35,0.25),transparent_55%)]" />
-        <div className="relative mx-auto max-w-[1440px] px-6 py-12 lg:px-8">
+        <div className="relative mx-auto max-w-[1440px] px-4 py-8 sm:px-6 sm:py-12 lg:px-8">
           <div className="flex items-center gap-2 text-xs uppercase tracking-[0.2em] text-white/40">
             <Link href="/" className="transition hover:text-white">Home</Link>
             <span className="text-white/25">/</span>
@@ -52,7 +52,7 @@ export default async function VideoPage({
         </div>
       </section>
 
-      <section className="mx-auto max-w-[1440px] px-6 py-12 lg:px-8">
+      <section className="mx-auto max-w-[1440px] px-4 py-8 sm:px-6 sm:py-12 lg:px-8">
         <div className="grid gap-10 lg:grid-cols-[1.7fr_1fr]">
           <div>
             <BoxArenaPlayer
@@ -71,7 +71,7 @@ export default async function VideoPage({
               <h1 className="mt-4 font-display text-3xl font-semibold uppercase leading-tight tracking-wide text-white sm:text-4xl">
                 {video.title}
               </h1>
-              <div className="mt-3 flex flex-wrap items-center gap-4 text-sm text-white/55">
+              <div className="mt-3 flex flex-wrap items-center gap-x-3 gap-y-2 text-sm text-white/55 sm:gap-4">
                 <span className="flex items-center gap-1.5">
                   <Clock3 className="size-4 text-[#e31b23]" /> {video.duration}
                 </span>

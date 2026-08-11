@@ -42,7 +42,7 @@ export default function LivePage() {
       {/* Header */}
       <section className="relative overflow-hidden border-b border-white/10">
         <div className="absolute inset-0 bg-[radial-gradient(100%_120%_at_50%_-20%,rgba(227,27,35,0.25),transparent_55%)]" />
-        <div className="relative mx-auto flex max-w-[1440px] flex-wrap items-end justify-between gap-6 px-6 py-10 sm:py-14 lg:px-8">
+        <div className="relative mx-auto flex max-w-[1440px] flex-wrap items-end justify-between gap-4 px-4 py-8 sm:gap-6 sm:px-6 sm:py-14 lg:px-8">
           <div>
             <div className="flex items-center gap-2 text-xs uppercase tracking-[0.2em] text-white/40">
               <Link href="/" className="transition hover:text-white">Home</Link>
@@ -63,7 +63,7 @@ export default function LivePage() {
       </section>
 
       {/* Live player + chat */}
-      <section className="mx-auto max-w-[1440px] px-6 py-14 lg:px-8">
+      <section className="mx-auto max-w-[1440px] px-4 py-8 sm:px-6 sm:py-14 lg:px-8">
         <div className="grid gap-8 lg:grid-cols-[1.7fr_1fr]">
           <div className="min-w-0">
             <BoxArenaPlayer
@@ -74,15 +74,15 @@ export default function LivePage() {
               label={liveEvent.weightClass}
               poster={resolveImage(liveEvent.venueImage)}
             />
-            <div className="mt-4 flex flex-wrap items-center justify-between gap-4 rounded-3xl border border-white/10 bg-[#111111] p-5">
-              <div>
+            <div className="mt-4 flex flex-wrap items-center justify-between gap-4 rounded-2xl border border-white/10 bg-[#111111] p-4 sm:rounded-3xl sm:p-5">
+              <div className="min-w-0">
                 <p className="text-[11px] font-bold uppercase tracking-[0.2em] text-[#e31b23]">
                   {liveEvent.weightClass}
                 </p>
-                <h2 className="font-display text-2xl font-semibold uppercase tracking-wide text-white">
+                <h2 className="font-display text-xl font-semibold uppercase tracking-wide text-white sm:text-2xl">
                   {liveEvent.title}
                 </h2>
-                <p className="text-xs text-white/45">
+                <p className="text-xs leading-5 text-white/45">
                   {liveEvent.venue} · {liveEvent.city} · Demo stream on Ringcraft
                 </p>
               </div>
@@ -160,7 +160,7 @@ export default function LivePage() {
 
       {/* Upcoming broadcasts */}
       <section className="border-t border-white/10 bg-[#0b0b0b]">
-        <div className="mx-auto max-w-[1440px] px-6 py-16 lg:px-8">
+        <div className="mx-auto max-w-[1440px] px-4 py-10 sm:px-6 sm:py-16 lg:px-8">
           <SectionHeading
             subtitle="Coming up next"
             title="Broadcast Schedule"

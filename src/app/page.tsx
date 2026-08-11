@@ -35,7 +35,7 @@ export default function Home() {
       <StatsBand />
 
       {/* ---------------- UPCOMING EVENTS ---------------- */}
-      <section className="mx-auto max-w-[1440px] px-6 py-20 lg:px-8">
+      <section className="mx-auto max-w-[1440px] px-4 py-12 sm:px-6 sm:py-16 lg:px-8 lg:py-20">
         <SectionHeading
           subtitle="Fight Schedule"
           title="Upcoming Events"
@@ -52,7 +52,7 @@ export default function Home() {
 
       {/* ---------------- POUND-FOR-POUND ---------------- */}
       <section className="border-y border-white/10 bg-[#0b0b0b]">
-        <div className="mx-auto max-w-[1440px] px-6 py-20 lg:px-8">
+        <div className="mx-auto max-w-[1440px] px-4 py-12 sm:px-6 sm:py-16 lg:px-8 lg:py-20">
           <SectionHeading
             subtitle="The Elite"
             title="Pound-for-Pound Top 5"
@@ -69,7 +69,7 @@ export default function Home() {
       </section>
 
       {/* ---------------- LATEST NEWS ---------------- */}
-      <section className="mx-auto max-w-[1440px] px-6 py-20 lg:px-8">
+      <section className="mx-auto max-w-[1440px] px-4 py-12 sm:px-6 sm:py-16 lg:px-8 lg:py-20">
         <SectionHeading
           subtitle="Inside the Ring"
           title="Latest News"
@@ -96,7 +96,7 @@ export default function Home() {
 
       {/* ---------------- LIVE NOW / TALE OF THE TAPE ---------------- */}
       <section className="border-y border-white/10 bg-[#0b0b0b]">
-        <div className="mx-auto max-w-[1440px] px-6 py-20 lg:px-8">
+        <div className="mx-auto max-w-[1440px] px-4 py-12 sm:px-6 sm:py-16 lg:px-8 lg:py-20">
           <div className="grid gap-10 lg:grid-cols-[1fr_1fr] lg:items-center">
             <div className="relative overflow-hidden rounded-2xl border border-white/10">
               <img
@@ -174,7 +174,7 @@ export default function Home() {
       </section>
 
       {/* ---------------- VIDEOS ---------------- */}
-      <section className="mx-auto max-w-[1440px] px-6 py-20 lg:px-8">
+      <section className="mx-auto max-w-[1440px] px-4 py-12 sm:px-6 sm:py-16 lg:px-8 lg:py-20">
         <SectionHeading
           subtitle="Watch"
           title="Videos & Highlights"
@@ -199,7 +199,7 @@ export default function Home() {
 
       {/* ---------------- LEGENDS ---------------- */}
       <section className="border-y border-white/10 bg-[#0b0b0b]">
-        <div className="mx-auto max-w-[1440px] px-6 py-20 lg:px-8">
+        <div className="mx-auto max-w-[1440px] px-4 py-12 sm:px-6 sm:py-16 lg:px-8 lg:py-20">
           <SectionHeading
             subtitle="The Greats"
             title="Boxing Legends"

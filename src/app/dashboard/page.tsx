@@ -40,7 +40,7 @@ export default function DashboardPage() {
   const nextEvents = events.slice(0, 2);
 
   return (
-    <div className="mx-auto max-w-[1440px] px-6 py-10 lg:px-8">
+    <div className="mx-auto max-w-[1440px] px-4 py-8 sm:px-6 sm:py-10 lg:px-8">
       <div className="grid gap-8 lg:grid-cols-[300px_1fr]">
         {/* Left sidebar */}
         <aside className="lg:sticky lg:top-24 lg:self-start">
