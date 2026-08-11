@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import Link from "next/link";
 import { ChevronRight, MapPin, Play, Ticket } from "lucide-react";
 import { Countdown } from "@/components/site/Countdown";
@@ -115,6 +115,7 @@ function FightCarousel({ fights, active, onSelect }: FightCarouselProps) {
 }
 
 export function Hero() {
+  const shouldReduceMotion = useReducedMotion();
   const heroEvents = useMemo(
     () =>
       HERO_IDS.map((id) => events.find((e) => e.id === id)).filter(
@@ -126,13 +127,13 @@ export function Hero() {
   const [paused, setPaused] = useState(false);
 
   useEffect(() => {
-    if (paused || heroEvents.length < 2) return;
+    if (paused || shouldReduceMotion || heroEvents.length < 2) return;
     const id = setInterval(
       () => setIndex((i) => (i + 1) % heroEvents.length),
       ROTATE_MS
     );
     return () => clearInterval(id);
-  }, [heroEvents.length, paused]);
+  }, [heroEvents.length, paused, shouldReduceMotion]);
 
   const event = heroEvents[index];
   if (!event) return null;
@@ -167,8 +168,8 @@ export function Hero() {
             src={bgSrc}
             alt=""
             className="h-full w-full object-cover object-center opacity-85"
-            animate={{ scale: [1, 1.08, 1] }}
-            transition={{ duration: 40, repeat: Infinity, ease: "easeInOut" }}
+            animate={{ scale: shouldReduceMotion ? 1 : [1, 1.08, 1] }}
+            transition={{ duration: 40, repeat: shouldReduceMotion ? 0 : Infinity, ease: "easeInOut" }}
           />
         </AnimatePresence>
       </div>
@@ -276,8 +277,8 @@ export function Hero() {
                 src={imageA}
                 alt={event.fighterA}
                 className="h-full w-full -scale-x-100 object-cover object-top drop-shadow-[0_30px_50px_rgba(0,0,0,0.75)]"
-                animate={{ y: [0, -12, 0] }}
-                transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
+                animate={{ y: shouldReduceMotion ? 0 : [0, -12, 0] }}
+                transition={{ duration: 7, repeat: shouldReduceMotion ? 0 : Infinity, ease: "easeInOut" }}
               />
             </motion.div>
           </AnimatePresence>
@@ -299,8 +300,8 @@ export function Hero() {
                 src={imageB}
                 alt={event.fighterB}
                 className="h-full w-full object-cover object-top drop-shadow-[0_30px_50px_rgba(0,0,0,0.75)]"
-                animate={{ y: [0, -12, 0] }}
-                transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
+                animate={{ y: shouldReduceMotion ? 0 : [0, -12, 0] }}
+                transition={{ duration: 7, repeat: shouldReduceMotion ? 0 : Infinity, ease: "easeInOut" }}
               />
             </motion.div>
           </AnimatePresence>

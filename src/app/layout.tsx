@@ -39,7 +39,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         <AuthProvider>
           <SiteHeader />
           <LiveTicker />
-          <main className="flex min-h-screen flex-col">{children}</main>
+          <main className="flex min-h-screen flex-col pb-20 lg:pb-0">{children}</main>
           <SiteFooter />
           <MobileNav />
         </AuthProvider>

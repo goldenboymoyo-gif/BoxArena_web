@@ -44,7 +44,7 @@ export function DivisionRankings({ divisions }: DivisionRankingsProps) {
         </div>
       </div>
 
-      <div className="overflow-hidden rounded-2xl border border-white/10 bg-[#111111]">
+        <div className="overflow-hidden rounded-2xl border border-white/10 bg-[#111111]">
         <div className="flex flex-wrap items-center justify-between gap-4 border-b border-white/10 bg-gradient-to-r from-[#e31b23]/15 to-transparent p-6">
           <div>
             <h2 className="font-display text-3xl font-semibold uppercase tracking-wide text-white">
@@ -64,7 +64,8 @@ export function DivisionRankings({ divisions }: DivisionRankingsProps) {
           </div>
         </div>
 
-        <div className="overflow-x-auto">
+          <p className="px-5 pt-4 text-xs text-white/45 sm:hidden">Swipe sideways to view the full rankings table.</p>
+          <div className="overflow-x-auto" aria-label="Scrollable rankings table">
           <table className="w-full min-w-[820px] text-left">
             <thead>
               <tr className="border-b border-white/10 text-[10px] font-bold uppercase tracking-[0.2em] text-white/40">
