@@ -80,7 +80,7 @@ export default async function NewsArticlePage({ params }: Props) {
       {/* Breadcrumb */}
       <section className="relative overflow-hidden border-b border-white/10">
         <div className="absolute inset-0 bg-[radial-gradient(100%_120%_at_50%_-20%,rgba(227,27,35,0.25),transparent_55%)]" />
-        <div className="relative mx-auto max-w-[1440px] px-6 py-10 lg:px-8">
+        <div className="relative mx-auto max-w-[1440px] px-4 sm:px-6 py-10 lg:px-8">
           <div className="flex items-center gap-2 text-xs uppercase tracking-[0.2em] text-white/40">
             <Link href="/" className="transition hover:text-white">Home</Link>
             <span className="text-white/25">/</span>
@@ -93,7 +93,7 @@ export default async function NewsArticlePage({ params }: Props) {
         </div>
       </section>
 
-      <article className="mx-auto max-w-[1440px] px-6 py-12 lg:px-8">
+      <article className="mx-auto max-w-[1440px] px-4 sm:px-6 py-12 lg:px-8">
         <div className="grid gap-12 lg:grid-cols-[minmax(0,1fr)_360px]">
           {/* Main column */}
           <div className="min-w-0">

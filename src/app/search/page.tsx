@@ -119,7 +119,7 @@ export default async function SearchPage({
           </p>
         </section>
       ) : total === 0 ? (
-        <section className="mx-auto max-w-[1440px] px-6 py-24 text-center lg:px-8">
+        <section className="mx-auto max-w-[1440px] px-4 sm:px-6 py-24 text-center lg:px-8">
           <SearchX className="mx-auto size-12 text-white/20" />
           <p className="mt-4 font-display text-2xl font-semibold uppercase tracking-wide text-white/70">
             No results for &ldquo;{query}&rdquo;

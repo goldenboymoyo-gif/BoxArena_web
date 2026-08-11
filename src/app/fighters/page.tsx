@@ -135,7 +135,7 @@ export default function FightersPage() {
       </section>
 
       {/* CTA */}
-      <section className="mx-auto max-w-[1440px] px-6 py-16 lg:px-8">
+      <section className="mx-auto max-w-[1440px] px-4 sm:px-6 py-16 lg:px-8">
         <div className="flex flex-col items-center gap-5 rounded-3xl border border-white/10 bg-gradient-to-r from-[#e31b23]/20 via-[#111111] to-[#111111] p-10 text-center">
           <h2 className="max-w-2xl font-display text-3xl font-semibold uppercase tracking-wide text-white sm:text-4xl">
             Want to see them fight in person?

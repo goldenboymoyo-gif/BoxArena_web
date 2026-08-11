@@ -67,7 +67,7 @@ const legalLinks = [
 export function SiteFooter() {
   return (
     <footer className="border-t border-white/10 bg-[#050505] text-[#E5E7EB]">
-      <div className="mx-auto max-w-[1440px] px-6 pt-24 pb-28 lg:px-8 lg:pb-20">
+      <div className="mx-auto max-w-[1440px] px-4 pt-24 pb-28 sm:px-6 lg:px-8 lg:pb-20">
         <div className="grid gap-14 lg:grid-cols-[2.6fr_1fr_1fr_1fr_1fr] lg:gap-12">
           {/* Logo & company */}
           <div className="max-w-sm">

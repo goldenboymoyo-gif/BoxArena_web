@@ -129,7 +129,7 @@ export default async function TicketsPage({
       </section>
 
       {/* How it works */}
-      <section className="mx-auto max-w-[1440px] px-6 py-16 lg:px-8">
+      <section className="mx-auto max-w-[1440px] px-4 sm:px-6 py-16 lg:px-8">
         <SectionHeading
           subtitle="Simple & secure"
           title="How It Works"

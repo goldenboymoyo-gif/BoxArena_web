@@ -26,7 +26,7 @@ export function Newsletter() {
   return (
     <section className="relative overflow-hidden border-t border-white/10">
       <div className="absolute inset-0 bg-[radial-gradient(60%_80%_at_50%_120%,rgba(227,27,35,0.18),transparent_70%)]" />
-      <div className="relative mx-auto max-w-[1440px] px-6 py-20 lg:px-8">
+      <div className="relative mx-auto max-w-[1440px] px-4 py-20 sm:px-6 lg:px-8">
         <div className="mx-auto flex max-w-2xl flex-col items-center text-center">
           <h2 className="mt-5 font-display text-4xl font-semibold uppercase tracking-wide text-white sm:text-5xl">
             Never Miss a{" "}

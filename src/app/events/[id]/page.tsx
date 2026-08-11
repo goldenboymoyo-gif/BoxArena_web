@@ -73,7 +73,7 @@ export default async function EventDetailPage({
           className="absolute inset-0 h-full w-full object-cover opacity-40"
         />
         <div className="absolute inset-0 bg-[radial-gradient(120%_100%_at_50%_0%,rgba(227,27,35,0.22),transparent_55%),linear-gradient(180deg,rgba(8,8,8,0.5),#080808_95%)]" />
-        <div className="relative mx-auto max-w-[1440px] px-6 py-10 sm:py-16 lg:px-8">
+        <div className="relative mx-auto max-w-[1440px] px-4 sm:px-6 py-10 sm:py-16 lg:px-8">
           <div className="flex flex-wrap items-center gap-2 text-xs uppercase tracking-[0.2em] text-white/40">
             <Link href="/" className="transition hover:text-white">Home</Link>
             <span className="text-[#e31b23]">/</span>
@@ -185,7 +185,7 @@ export default async function EventDetailPage({
       </section>
 
       {/* Tale of the tape + card */}
-      <section className="mx-auto max-w-[1440px] px-6 py-16 lg:px-8">
+      <section className="mx-auto max-w-[1440px] px-4 sm:px-6 py-16 lg:px-8">
         <div className="grid gap-10 lg:grid-cols-[1fr_1.2fr]">
           <div>
             <div className="flex items-center gap-2">
@@ -228,7 +228,7 @@ export default async function EventDetailPage({
 
       {/* Event details */}
       <section className="border-y border-white/10 bg-[#0b0b0b]">
-        <div className="mx-auto max-w-[1440px] px-6 py-16 lg:px-8">
+        <div className="mx-auto max-w-[1440px] px-4 sm:px-6 py-16 lg:px-8">
           <div className="flex items-center gap-2">
             <span className="h-6 w-1 rounded-full bg-[#e31b23]" />
             <p className="text-xs font-bold uppercase tracking-[0.32em] text-[#e31b23]">
@@ -282,7 +282,7 @@ export default async function EventDetailPage({
       </section>
 
       {/* More events */}
-      <section className="mx-auto max-w-[1440px] px-6 py-16 lg:px-8">
+      <section className="mx-auto max-w-[1440px] px-4 sm:px-6 py-16 lg:px-8">
         <div className="flex flex-wrap items-end justify-between gap-4">
           <div>
             <div className="flex items-center gap-2">

@@ -80,7 +80,7 @@ export default function NewsPage() {
       </section>
 
       {/* Most read */}
-      <section className="mx-auto max-w-[1440px] px-6 py-16 lg:px-8">
+      <section className="mx-auto max-w-[1440px] px-4 sm:px-6 py-16 lg:px-8">
         <div className="grid gap-10">
           <div>
             <div className="flex items-center gap-2">

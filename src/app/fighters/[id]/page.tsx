@@ -71,7 +71,7 @@ export default async function FighterProfilePage({
           className="absolute inset-0 h-full w-full object-cover object-top opacity-25"
         />
         <div className="absolute inset-0 bg-[radial-gradient(100%_120%_at_50%_-20%,rgba(227,27,35,0.2),transparent_55%),linear-gradient(180deg,rgba(8,8,8,0.55),#080808_90%)]" />
-        <div className="relative mx-auto max-w-[1440px] px-6 py-10 sm:py-16 lg:px-8">
+        <div className="relative mx-auto max-w-[1440px] px-4 sm:px-6 py-10 sm:py-16 lg:px-8">
           <div className="flex flex-wrap items-center gap-2 text-xs uppercase tracking-[0.2em] text-white/40">
             <Link href="/" className="transition hover:text-white">Home</Link>
             <span className="text-[#e31b23]">/</span>
@@ -134,7 +134,7 @@ export default async function FighterProfilePage({
       </section>
 
       {/* Stats + skills */}
-      <section className="mx-auto max-w-[1440px] px-6 py-16 lg:px-8">
+      <section className="mx-auto max-w-[1440px] px-4 sm:px-6 py-16 lg:px-8">
         <div className="grid gap-10 lg:grid-cols-[1.2fr_1fr]">
           <div>
             <div className="flex items-center gap-2">
@@ -298,7 +298,7 @@ export default async function FighterProfilePage({
       {/* Same division */}
       {sameDivision.length > 0 && (
         <section className="border-t border-white/10 bg-[#0b0b0b]">
-          <div className="mx-auto max-w-[1440px] px-6 py-16 lg:px-8">
+          <div className="mx-auto max-w-[1440px] px-4 sm:px-6 py-16 lg:px-8">
             <div className="flex flex-wrap items-end justify-between gap-4">
               <div>
                 <div className="flex items-center gap-2">

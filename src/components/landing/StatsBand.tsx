@@ -63,7 +63,7 @@ export function StatsBand() {
     <section className="relative border-b border-white/10 bg-[#0a0a0a]">
       <div
         ref={ref}
-        className="mx-auto grid max-w-[1440px] grid-cols-2 gap-4 px-6 py-14 sm:grid-cols-4 lg:px-8"
+        className="mx-auto grid max-w-[1440px] grid-cols-2 gap-4 px-4 py-14 sm:grid-cols-4 sm:px-6 lg:px-8"
       >
         {stats.map((s) => (
           <div
