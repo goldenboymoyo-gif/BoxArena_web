@@ -121,11 +121,11 @@ export default async function FighterProfilePage({
                 </div>
               </div>
             </div>
-            <div className="flex gap-3 lg:flex-col">
-              <Button size="lg" className="rounded-full bg-[#e31b23] px-6 text-xs font-bold uppercase tracking-[0.16em] text-white hover:bg-[#c3161d]">
+            <div className="flex flex-col gap-3 sm:flex-row lg:flex-col">
+              <Button size="lg" className="w-full rounded-full bg-[#e31b23] px-6 text-xs font-bold uppercase tracking-[0.16em] text-white hover:bg-[#c3161d] sm:w-auto lg:w-full">
                 Follow fighter
               </Button>
-              <Button variant="outline" size="lg" className="rounded-full border-white/15 px-6 text-xs font-bold uppercase tracking-[0.16em] text-white/80">
+              <Button variant="outline" size="lg" className="w-full rounded-full border-white/15 px-6 text-xs font-bold uppercase tracking-[0.16em] text-white/80 sm:w-auto lg:w-full">
                 <Swords className="size-4 text-[#e31b23]" /> Bet on next fight
               </Button>
             </div>

@@ -8,12 +8,12 @@ interface TaleOfTheTapeProps {
 
 function Row({ label, a, b }: { label: string; a: string; b: string }) {
   return (
-    <div className="grid grid-cols-[1fr_auto_1fr] items-center gap-3 border-b border-white/8 py-3">
-      <span className="text-right font-semibold text-white">{a}</span>
-      <span className="w-24 text-center text-[10px] font-bold uppercase tracking-[0.22em] text-white/40">
+    <div className="grid grid-cols-[1fr_auto_1fr] items-center gap-2 border-b border-white/8 py-3 sm:gap-3">
+      <span className="min-w-0 truncate text-right font-semibold text-white">{a}</span>
+      <span className="w-14 shrink-0 text-center text-[9px] font-bold uppercase tracking-[0.14em] text-white/40 sm:w-24 sm:text-[10px] sm:tracking-[0.22em]">
         {label}
       </span>
-      <span className="font-semibold text-white">{b}</span>
+      <span className="min-w-0 truncate font-semibold text-white">{b}</span>
     </div>
   );
 }
@@ -24,17 +24,17 @@ export function TaleOfTheTape({ fighterA, fighterB }: TaleOfTheTapeProps) {
 
   return (
     <div className="rounded-2xl border border-white/10 bg-[#111111]">
-      <div className="grid grid-cols-[1fr_auto_1fr] items-center gap-3 border-b border-white/10 p-5">
-        <div className="flex flex-col items-start gap-1">
-          <img src={fighterA.image} alt={fighterA.name} className="h-16 w-16 rounded-full border-2 border-[#e31b23] object-cover object-top" />
-          <p className="mt-1 text-base font-semibold text-white">{fighterA.name}</p>
-          <p className="text-xs text-white/45">{flagEmoji(fighterA.country)} {fighterA.nickname}</p>
+      <div className="grid grid-cols-[1fr_auto_1fr] items-center gap-2 border-b border-white/10 p-4 sm:gap-3 sm:p-5">
+        <div className="flex min-w-0 flex-col items-start gap-1">
+          <img src={fighterA.image} alt={fighterA.name} className="h-12 w-12 shrink-0 rounded-full border-2 border-[#e31b23] object-cover object-top sm:h-16 sm:w-16" />
+          <p className="mt-1 w-full truncate text-sm font-semibold text-white sm:text-base">{fighterA.name}</p>
+          <p className="w-full truncate text-xs text-white/45">{flagEmoji(fighterA.country)} {fighterA.nickname}</p>
         </div>
-        <span className="font-display text-2xl font-bold uppercase tracking-widest text-[#e31b23]">VS</span>
-        <div className="flex flex-col items-end gap-1">
-          <img src={fighterB.image} alt={fighterB.name} className="h-16 w-16 rounded-full border-2 border-white/40 object-cover object-top" />
-          <p className="mt-1 text-base font-semibold text-white">{fighterB.name}</p>
-          <p className="text-xs text-white/45">{flagEmoji(fighterB.country)} {fighterB.nickname}</p>
+        <span className="shrink-0 font-display text-lg font-bold uppercase tracking-widest text-[#e31b23] sm:text-2xl">VS</span>
+        <div className="flex min-w-0 flex-col items-end gap-1">
+          <img src={fighterB.image} alt={fighterB.name} className="h-12 w-12 shrink-0 rounded-full border-2 border-white/40 object-cover object-top sm:h-16 sm:w-16" />
+          <p className="mt-1 w-full truncate text-right text-sm font-semibold text-white sm:text-base">{fighterB.name}</p>
+          <p className="w-full truncate text-right text-xs text-white/45">{flagEmoji(fighterB.country)} {fighterB.nickname}</p>
         </div>
       </div>
       <div className="px-5 pb-2">

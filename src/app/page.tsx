@@ -141,20 +141,20 @@ export default function Home() {
                 Two champions, one destiny. Comparing the superstars who headline
                 the biggest fight of the year.
               </p>
-              <div className="mt-6 grid grid-cols-2 gap-4">
+              <div className="mt-6 grid grid-cols-2 gap-3 sm:gap-4">
                 {heroFighterA && heroFighterB && (
                   <>
-                    <div className="rounded-2xl border border-white/10 bg-[#111111] p-5">
-                      <img src={heroFighterA.image} alt={heroFighterA.name} className="h-20 w-20 rounded-full border-2 border-[#e31b23] object-cover object-top" />
-                      <h4 className="mt-3 font-display text-xl font-semibold uppercase text-white">{heroFighterA.name}</h4>
-                      <p className="text-sm text-white/50">
+                    <div className="min-w-0 rounded-2xl border border-white/10 bg-[#111111] p-4 sm:p-5">
+                      <img src={heroFighterA.image} alt={heroFighterA.name} className="h-14 w-14 rounded-full border-2 border-[#e31b23] object-cover object-top sm:h-20 sm:w-20" />
+                      <h4 className="mt-3 truncate font-display text-base font-semibold uppercase text-white sm:text-xl">{heroFighterA.name}</h4>
+                      <p className="truncate text-xs text-white/50 sm:text-sm">
                         {heroFighterA.record.wins}-{heroFighterA.record.losses}-{heroFighterA.record.draws} ({heroFighterA.record.kos} KO)
                       </p>
                     </div>
-                    <div className="rounded-2xl border border-white/10 bg-[#111111] p-5">
-                      <img src={heroFighterB.image} alt={heroFighterB.name} className="h-20 w-20 rounded-full border-2 border-white/40 object-cover object-top" />
-                      <h4 className="mt-3 font-display text-xl font-semibold uppercase text-white">{heroFighterB.name}</h4>
-                      <p className="text-sm text-white/50">
+                    <div className="min-w-0 rounded-2xl border border-white/10 bg-[#111111] p-4 sm:p-5">
+                      <img src={heroFighterB.image} alt={heroFighterB.name} className="h-14 w-14 rounded-full border-2 border-white/40 object-cover object-top sm:h-20 sm:w-20" />
+                      <h4 className="mt-3 truncate font-display text-base font-semibold uppercase text-white sm:text-xl">{heroFighterB.name}</h4>
+                      <p className="truncate text-xs text-white/50 sm:text-sm">
                         {heroFighterB.record.wins}-{heroFighterB.record.losses}-{heroFighterB.record.draws} ({heroFighterB.record.kos} KO)
                       </p>
                     </div>
