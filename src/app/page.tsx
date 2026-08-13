@@ -241,7 +241,7 @@ export default function Home() {
           <div className="relative mt-10 flex w-full flex-col items-center justify-center overflow-hidden">
             <div className="group flex overflow-hidden p-2 [--gap:1.5rem] [gap:var(--gap)] flex-row [--duration:45s]">
               <div className="flex shrink-0 justify-around [gap:var(--gap)] animate-marquee flex-row group-hover:[animation-play-state:paused]">
-                {[...Array(4)].map((_, setIndex) =>
+                {[...Array(2)].map((_, setIndex) =>
                   legends.map((legend, i) => (
                     <LegendCard key={`${setIndex}-${i}`} legend={legend} />
                   ))
