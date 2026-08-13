@@ -77,7 +77,7 @@ export function AuthDialog({
           </DialogTitle>
           <DialogDescription className="text-sm leading-6 text-white/55">
             {mode === "signup"
-              ? "Join Ringcraft to buy tickets, build a watchlist and get fight alerts."
+              ? "Join Pugnera to buy tickets, build a watchlist and get fight alerts."
               : "Sign in to pick up where you left off."}
           </DialogDescription>
         </DialogHeader>
@@ -164,7 +164,7 @@ export function AuthDialog({
               </>
             ) : (
               <>
-                New to Ringcraft?{" "}
+                New to Pugnera?{" "}
                 <button
                   type="button"
                   onClick={() => switchMode("signup")}
@@ -176,7 +176,7 @@ export function AuthDialog({
             )}
           </p>
           <p className="text-[11px] leading-4 text-white/35">
-            Demo site — no real account is created.
+            Demo site â€” no real account is created.
           </p>
         </div>
       </DialogContent>

@@ -12,7 +12,7 @@ import { videos } from "@/data/videos";
 export const metadata = {
   title: "Search",
   description:
-    "Search Ringcraft for fights, fighters, events, news and videos.",
+    "Search Pugnera for fights, fighters, events, news and videos.",
 };
 
 function matches(
@@ -101,7 +101,7 @@ export default async function SearchPage({
             </p>
           ) : (
             <p className="mt-4 max-w-2xl text-sm leading-7 text-white/55">
-              Find fights, fighters, events, news and videos across the Ringcraft
+              Find fights, fighters, events, news and videos across the Pugnera
               platform. Type a name, venue or division into the search bar above.
             </p>
           )}

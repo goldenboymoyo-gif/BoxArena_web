@@ -21,7 +21,7 @@ interface AuthContextValue {
   signOut: () => void;
 }
 
-const STORAGE_KEY = "boxarena_user";
+const STORAGE_KEY = "pugnera_user";
 
 const AuthContext = createContext<AuthContextValue | null>(null);
 

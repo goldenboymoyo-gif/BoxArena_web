@@ -22,11 +22,11 @@ const oswald = Oswald({
 
 export const metadata: Metadata = {
   title: {
-    default: "Ringcraft — The Home of Professional Boxing",
-    template: "%s | Ringcraft",
+    default: "Pugnera — The Home of Professional Boxing",
+    template: "%s | Pugnera",
   },
   description:
-    "Ringcraft is the premium digital ecosystem for professional boxing. Watch live fights, buy tickets, explore champions, rankings, news and the biggest events in the sport.",
+    "Pugnera is the premium digital ecosystem for professional boxing. Watch live fights, buy tickets, explore champions, rankings, news and the biggest events in the sport.",
 };
 
 export default function RootLayout({ children }: { children: ReactNode }) {

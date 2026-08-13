@@ -51,7 +51,7 @@ const paymentMethods: {
   {
     id: "card",
     label: "Card",
-    caption: "Visa · Mastercard · Amex",
+    caption: "Visa Â· Mastercard Â· Amex",
     icons: [FaCcVisa, FaCcMastercard, FaCcAmex],
   },
   { id: "paypal", label: "PayPal", caption: "Pay with balance", icons: [FaPaypal] },
@@ -121,7 +121,7 @@ export function BuyTicketsCard({ event }: BuyTicketsCardProps) {
           orderId,
           eventId: event.id,
           eventTitle: event.title,
-          undercard: event.coMain ?? event.titles.join(" · "),
+          undercard: event.coMain ?? event.titles.join(" Â· "),
           venue: event.venue,
           city: event.city,
           date: event.date,
@@ -163,7 +163,7 @@ export function BuyTicketsCard({ event }: BuyTicketsCardProps) {
             </div>
           </div>
           <span className="rounded-full border border-emerald-500/30 bg-emerald-500/15 px-3 py-1 text-[11px] font-bold uppercase tracking-[0.16em] text-emerald-400">
-            Paid · {paymentMethodLabel}
+            Paid Â· {paymentMethodLabel}
           </span>
         </div>
 
@@ -174,11 +174,11 @@ export function BuyTicketsCard({ event }: BuyTicketsCardProps) {
           </h4>
           <p className="flex items-center gap-1.5 text-xs text-white/50">
             <MapPin className="size-3.5 text-[#e31b23]" />
-            {event.venue} · {event.city}
+            {event.venue} Â· {event.city}
           </p>
           <p className="flex items-center gap-1.5 text-xs text-white/50">
             <CalendarDays className="size-3.5 text-[#e31b23]" />
-            {formatDate(event.date)} · {event.time} · {event.timezone}
+            {formatDate(event.date)} Â· {event.time} Â· {event.timezone}
           </p>
         </div>
 
@@ -189,7 +189,7 @@ export function BuyTicketsCard({ event }: BuyTicketsCardProps) {
           </p>
           <div className="mt-3 flex items-center justify-between gap-3 text-sm">
             <span className="text-white/75">
-              {qty} × {tier.name} ticket{qty > 1 ? "s" : ""}
+              {qty} Ã— {tier.name} ticket{qty > 1 ? "s" : ""}
             </span>
             <span className="font-display font-semibold text-white">
               {formatMoney(tier.price)}
@@ -202,7 +202,7 @@ export function BuyTicketsCard({ event }: BuyTicketsCardProps) {
                 className="flex items-center justify-between gap-3 rounded-xl bg-white/[0.03] px-3 py-2 text-xs"
               >
                 <span className="font-semibold uppercase tracking-wide text-white/80">
-                  {t.section} · Row {t.row} · Seat {t.seat}
+                  {t.section} Â· Row {t.row} Â· Seat {t.seat}
                 </span>
                 <span className="font-mono text-white/45">{t.id}</span>
               </div>
@@ -256,7 +256,7 @@ export function BuyTicketsCard({ event }: BuyTicketsCardProps) {
             <p className="mt-2 text-sm leading-6 text-white/60">
               {qty} active ticket{qty > 1 ? "s" : ""} attached to order{" "}
               <span className="font-mono text-white/80">{order.orderId}</span>.
-              Scan the QR at the gate for entry — present it from your device
+              Scan the QR at the gate for entry â€” present it from your device
               on the day of the event.
             </p>
             <p className="mt-2 flex items-center gap-1.5 text-xs text-white/45">
@@ -272,7 +272,7 @@ export function BuyTicketsCard({ event }: BuyTicketsCardProps) {
             <span>Purchased {formatDate(order.purchasedAt)}</span>
             <span className="flex items-center gap-1.5">
               <ShieldCheck className="size-3.5 text-emerald-400" /> Backed by
-              Ringcraft ticket guarantee
+              Pugnera ticket guarantee
             </span>
           </div>
           <div className="mt-5 flex w-full flex-col gap-3">
@@ -312,7 +312,7 @@ export function BuyTicketsCard({ event }: BuyTicketsCardProps) {
         </span>
       </div>
       <p className="mt-2 text-xs text-white/45">
-        {event.title} · Broadcast on {event.broadcaster}
+        {event.title} Â· Broadcast on {event.broadcaster}
       </p>
 
       <div className="mt-6 space-y-3">

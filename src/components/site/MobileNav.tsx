@@ -30,7 +30,7 @@ export function MobileNav() {
       {moreOpen && (
         <div className="absolute inset-x-3 bottom-[calc(100%+0.75rem)] rounded-2xl border border-white/10 bg-[#111111]/95 p-3 shadow-2xl backdrop-blur-xl">
           <div className="mb-2 flex items-center justify-between px-2 pt-1">
-            <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-white/45">Explore Ringcraft</p>
+            <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-white/45">Explore Pugnera</p>
             <button type="button" aria-label="Close more navigation" onClick={() => setMoreOpen(false)} className="rounded-full p-1 text-white/60 hover:bg-white/10 hover:text-white">
               <X className="size-4" />
             </button>

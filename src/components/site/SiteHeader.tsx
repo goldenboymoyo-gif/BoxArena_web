@@ -130,8 +130,8 @@ export function SiteHeader() {
         {/* Desktop logo */}
         <Link href="/" className="hidden shrink-0 items-center lg:flex">
           <img
-            src="/logo.png"
-            alt="Ringcraft — The Home of Boxing"
+            src="/pugnera-logo.png"
+            alt="Pugnera — The Home of Boxing"
             className="h-11 w-auto sm:h-12"
           />
         </Link>
@@ -198,7 +198,7 @@ export function SiteHeader() {
         {/* Search (mobile / tablet) */}
         <div className="min-w-0 flex-1 lg:hidden">
           <SearchForm
-            placeholder="Search Ringcraft"
+            placeholder="Search Pugnera"
             onSubmitted={() => setMenuOpen(false)}
             className="h-10 items-center rounded-full border border-white/10 bg-white/5 px-3.5 transition focus-within:border-[#e31b23]/60 focus-within:bg-white/[0.07]"
           />

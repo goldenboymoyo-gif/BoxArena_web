@@ -1,6 +1,6 @@
 import type { TicketItem } from "@/data/types";
 
-const STORAGE_KEY = "boxarena_tickets";
+const STORAGE_KEY = "pugnera_tickets";
 
 type Listener = () => void;
 

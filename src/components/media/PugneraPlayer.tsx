@@ -46,7 +46,7 @@ declare global {
   }
 }
 
-interface BoxArenaPlayerProps {
+interface PugneraPlayerProps {
   videoId: string;
   title: string;
   autoplay?: boolean;
@@ -55,14 +55,14 @@ interface BoxArenaPlayerProps {
   poster?: string;
 }
 
-export function BoxArenaPlayer({
+export function PugneraPlayer({
   videoId,
   title,
   autoplay = false,
   live = false,
   label,
   poster,
-}: BoxArenaPlayerProps) {
+}: PugneraPlayerProps) {
   const cardRef = useRef<HTMLDivElement>(null);
   const mountRef = useRef<HTMLDivElement>(null);
   const playerRef = useRef<YTPlayer | null>(null);
@@ -218,7 +218,7 @@ export function BoxArenaPlayer({
               <Play className="ml-1 size-6 fill-white text-white sm:size-8" />
             </span>
             <span className="relative mt-3 text-center text-[10px] font-bold uppercase tracking-[0.2em] text-white/80 sm:mt-4 sm:text-xs sm:tracking-[0.28em]">
-              Watch on Ringcraft
+              Watch on Pugnera
             </span>
             {label && (
               <span className="relative mt-2 text-[11px] font-semibold uppercase tracking-[0.2em] text-white/45">

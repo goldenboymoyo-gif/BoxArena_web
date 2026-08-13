@@ -41,7 +41,7 @@ const footerColumns = [
   {
     title: "Company",
     links: [
-      { label: "About Ringcraft", href: "/news" },
+      { label: "About Pugnera", href: "/news" },
       { label: "Ticket Policy", href: "/tickets" },
       { label: "My Tickets", href: "/dashboard" },
       { label: "My Dashboard", href: "/dashboard" },
@@ -73,8 +73,8 @@ export function SiteFooter() {
           <div className="max-w-sm">
             <Link href="/" className="inline-flex items-center">
               <img
-                src="/logo.png"
-                alt="Ringcraft — The Home of Boxing"
+                src="/pugnera-logo.png"
+                alt="Pugnera — The Home of Boxing"
                 className="h-16 w-auto sm:h-20"
               />
             </Link>
@@ -89,11 +89,11 @@ export function SiteFooter() {
                 Madison Square Garden, New York, USA
               </p>
               <a
-                href="mailto:hello@ringcraft.com"
+                href="mailto:hello@pugnera.com"
                 className="flex items-center gap-3 transition-colors hover:text-white"
               >
                 <Mail className="size-4 shrink-0 text-[#e31b23]" />
-                hello@ringcraft.com
+                hello@pugnera.com
               </a>
             </div>
             <div className="mt-10 flex items-center gap-3">
@@ -137,7 +137,7 @@ export function SiteFooter() {
         {/* Bottom bar */}
         <div className="mt-16 flex flex-col items-center gap-5 border-t border-white/10 pt-9 sm:flex-row sm:justify-between">
           <p className="text-xs text-white/40">
-            © 2026 Ringcraft. All rights reserved.
+            © 2026 Pugnera. All rights reserved.
           </p>
           <div className="flex flex-wrap items-center justify-center gap-x-7 gap-y-3">
             {legalLinks.map((link) => (

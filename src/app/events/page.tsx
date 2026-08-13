@@ -25,7 +25,7 @@ function formatDate(iso: string) {
 export const metadata = {
   title: "Events & Fight Schedule",
   description:
-    "Every upcoming and completed Ringcraft boxing event — championship fights, tickets, venues and fight cards.",
+    "Every upcoming and completed Pugnera boxing event â€” championship fights, tickets, venues and fight cards.",
 };
 
 export default function EventsPage() {
@@ -47,7 +47,7 @@ export default function EventsPage() {
             Fight <span className="text-[#e31b23]">Schedule</span>
           </h1>
           <p className="mt-4 max-w-2xl text-sm leading-7 text-white/55">
-            Every championship night on the Ringcraft platform — upcoming events,
+            Every championship night on the Pugnera platform â€” upcoming events,
             full fight cards and results from the biggest nights in boxing.
           </p>
         </div>
@@ -79,7 +79,7 @@ export default function EventsPage() {
               <div className="mt-6 flex flex-wrap items-center gap-5 text-sm text-white/65">
                 <span className="flex items-center gap-2">
                   <CalendarDays className="size-4 text-[#e31b23]" />
-                  {formatDate(featured.date)} · {featured.time} {featured.timezone}
+                  {formatDate(featured.date)} Â· {featured.time} {featured.timezone}
                 </span>
                 <span className="flex items-center gap-2">
                   <MapPin className="size-4 text-[#e31b23]" />
@@ -166,7 +166,7 @@ export default function EventsPage() {
                   </div>
                   <div>
                     <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-white/40">
-                      {formatDate(event.date)} · {event.venue}
+                      {formatDate(event.date)} Â· {event.venue}
                     </p>
                     <h3 className="font-display text-xl font-semibold uppercase tracking-wide text-white group-hover:text-[#ff5a5a]">
                       {event.title}

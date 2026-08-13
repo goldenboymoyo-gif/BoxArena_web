@@ -5,7 +5,7 @@ import { Clock3, Eye, ThumbsUp } from "lucide-react";
 import { getVideo, videos } from "@/data/videos";
 import { formatViews, timeAgo } from "@/lib/format";
 import { VideoCard } from "@/components/cards/VideoCard";
-import { BoxArenaPlayer } from "@/components/media/BoxArenaPlayer";
+import { PugneraPlayer } from "@/components/media/PugneraPlayer";
 import { resolveImage } from "@/lib/resolveImage";
 
 export function generateStaticParams() {
@@ -55,7 +55,7 @@ export default async function VideoPage({
       <section className="mx-auto max-w-[1440px] px-4 py-8 sm:px-6 sm:py-12 lg:px-8">
         <div className="grid gap-10 lg:grid-cols-[1.7fr_1fr]">
           <div>
-            <BoxArenaPlayer
+            <PugneraPlayer
               videoId={video.youtubeId}
               title={video.title}
               label={video.category}
