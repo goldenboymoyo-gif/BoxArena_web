@@ -28,6 +28,22 @@ const HERO_IMAGE_OVERRIDES: Record<string, { src: string; position: string }> = 
   "tyson-fury": { src: IMAGES.fighters.furyFight, position: "object-top" },
 };
 
+const FIGHTER_CUTOUTS: Record<string, string> = {
+  "oleksandr-usyk": "/images/fighters/hero/usyk-cut.png",
+  "daniel-dubois": "/images/fighters/hero/dubois-cut.png",
+  "zhilei-zhang": "/images/fighters/hero/zhang-cut.png",
+  "joseph-parker": "/images/fighters/hero/parker-cut.png",
+  "terence-crawford": "/images/fighters/hero/crawford-cut.png",
+  "naoya-inoue": "/images/fighters/hero/inoue-cut.png",
+  "dmitry-bivol": "/images/fighters/hero/bivol-cut.png",
+  "artur-beterbiev": "/images/fighters/hero/beterbiev-cut.png",
+  "canelo-alvarez": "/images/fighters/hero/canelo-cut.png",
+  "gervonta-davis": "/images/fighters/hero/davis-cut.png",
+  "shakur-stevenson": "/images/fighters/hero/stevenson-cut.png",
+  "teofimo-lopez": "/images/fighters/hero/lopez-cut.png",
+  "devin-haney": "/images/fighters/hero/haney-cut.png",
+};
+
 function formatLongDate(iso: string) {
   return new Date(iso).toLocaleDateString("en-US", {
     weekday: "long",
@@ -145,6 +161,8 @@ export function Hero() {
   const overrideB = fighterB ? HERO_IMAGE_OVERRIDES[fighterB.id] : undefined;
   const imageA = overrideA?.src ?? fighterA?.image ?? event.imageA;
   const imageB = overrideB?.src ?? fighterB?.image ?? event.imageB;
+  const cutoutA = fighterA ? FIGHTER_CUTOUTS[fighterA.id] : undefined;
+  const cutoutB = fighterB ? FIGHTER_CUTOUTS[fighterB.id] : undefined;
   const nameA = shortName(event.fighterA);
   const nameB = shortName(event.fighterB);
   const recordA = recordString(event.fighterA);
@@ -267,16 +285,19 @@ export function Hero() {
           <AnimatePresence mode="wait">
             <motion.div
               key={`fa-${event.id}`}
-              className="absolute inset-0 [mask-image:radial-gradient(130%_100%_at_50%_24%,black_40%,transparent_82%)]"
+              className="absolute inset-0"
               initial={{ opacity: 0, x: -28 }}
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: -28 }}
               transition={fade}
             >
               <motion.img
-                src={imageA}
+                src={cutoutA ?? imageA}
                 alt={event.fighterA}
-                className="h-full w-full -scale-x-100 object-cover object-top drop-shadow-[0_30px_50px_rgba(0,0,0,0.75)]"
+                className={cn(
+                  "h-full w-full drop-shadow-[0_30px_50px_rgba(0,0,0,0.75)]",
+                  cutoutA ? "-scale-x-100 object-contain object-bottom" : "-scale-x-100 object-cover object-top"
+                )}
                 animate={{ y: shouldReduceMotion ? 0 : [0, -12, 0] }}
                 transition={{ duration: 7, repeat: shouldReduceMotion ? 0 : Infinity, ease: "easeInOut" }}
               />
@@ -290,16 +311,19 @@ export function Hero() {
           <AnimatePresence mode="wait">
             <motion.div
               key={`fb-${event.id}`}
-              className="absolute inset-0 [mask-image:radial-gradient(130%_100%_at_50%_24%,black_40%,transparent_82%)]"
+              className="absolute inset-0"
               initial={{ opacity: 0, x: 28 }}
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: 28 }}
               transition={fade}
             >
               <motion.img
-                src={imageB}
+                src={cutoutB ?? imageB}
                 alt={event.fighterB}
-                className="h-full w-full object-cover object-top drop-shadow-[0_30px_50px_rgba(0,0,0,0.75)]"
+                className={cn(
+                  "h-full w-full drop-shadow-[0_30px_50px_rgba(0,0,0,0.75)]",
+                  cutoutB ? "object-contain object-bottom" : "object-cover object-top"
+                )}
                 animate={{ y: shouldReduceMotion ? 0 : [0, -12, 0] }}
                 transition={{ duration: 7, repeat: shouldReduceMotion ? 0 : Infinity, ease: "easeInOut" }}
               />

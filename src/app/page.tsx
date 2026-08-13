@@ -15,6 +15,37 @@ import { featuredVideos, videos } from "@/data/videos";
 
 const p4pIds = ["oleksandr-usyk", "terence-crawford", "naoya-inoue", "canelo-alvarez", "dmitry-bivol"];
 
+function LegendCard({ legend }: { legend: (typeof legends)[number] }) {
+  return (
+    <a
+      href={legend.wiki}
+      target="_blank"
+      rel="noreferrer"
+      className="group relative w-64 shrink-0 snap-start overflow-hidden rounded-2xl border border-white/10 transition duration-300 hover:-translate-y-1 hover:border-[#e31b23]/45"
+    >
+      <img
+        src={legend.image}
+        alt={legend.name}
+        loading="lazy"
+        className="img-zoom h-80 w-full object-cover"
+      />
+      <div className="absolute inset-0 bg-gradient-to-t from-black via-black/30 to-transparent" />
+      <div className="absolute inset-x-0 bottom-0 p-5">
+        <h4 className="font-display text-2xl font-semibold uppercase tracking-wide text-white">
+          {legend.name}
+        </h4>
+        <p className="mt-1 text-xs uppercase tracking-[0.18em] text-white/55">
+          {legend.era} · {legend.record}
+        </p>
+        <span className="mt-3 inline-flex items-center gap-1.5 rounded-full border border-white/20 bg-black/50 px-3 py-1.5 text-[10px] font-bold uppercase tracking-[0.18em] text-white/70 backdrop-blur-md transition group-hover:border-[#e31b23]/60 group-hover:text-white">
+          Meet the legend
+          <ArrowUpRight className="size-3.5 text-[#e31b23] transition group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+        </span>
+      </div>
+    </a>
+  );
+}
+
 export default function Home() {
   const p4p = p4pIds.map((id) => getFighter(id)).filter(Boolean).slice(0, 5);
   const heroFighterA = getFighterByName(heroEvent.fighterA);
@@ -207,36 +238,19 @@ export default function Home() {
             actionLabel="Meet the legends"
             actionHref="/fighters#legends"
           />
-          <div className="no-scrollbar mt-10 flex snap-x gap-6 overflow-x-auto pb-2">
-            {legends.map((legend) => (
-              <a
-                key={legend.name}
-                href={legend.wiki}
-                target="_blank"
-                rel="noreferrer"
-                className="group relative w-64 shrink-0 snap-start overflow-hidden rounded-2xl border border-white/10 transition duration-300 hover:-translate-y-1 hover:border-[#e31b23]/45"
-              >
-                <img
-                  src={legend.image}
-                  alt={legend.name}
-                  loading="lazy"
-                  className="img-zoom h-80 w-full object-cover"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black via-black/30 to-transparent" />
-                <div className="absolute inset-x-0 bottom-0 p-5">
-                  <h4 className="font-display text-2xl font-semibold uppercase tracking-wide text-white">
-                    {legend.name}
-                  </h4>
-                  <p className="mt-1 text-xs uppercase tracking-[0.18em] text-white/55">
-                    {legend.era} · {legend.record}
-                  </p>
-                  <span className="mt-3 inline-flex items-center gap-1.5 rounded-full border border-white/20 bg-black/50 px-3 py-1.5 text-[10px] font-bold uppercase tracking-[0.18em] text-white/70 backdrop-blur-md transition group-hover:border-[#e31b23]/60 group-hover:text-white">
-                    Meet the legend
-                    <ArrowUpRight className="size-3.5 text-[#e31b23] transition group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-                  </span>
-                </div>
-              </a>
-            ))}
+          <div className="relative mt-10 flex w-full flex-col items-center justify-center overflow-hidden">
+            <div className="group flex overflow-hidden p-2 [--gap:1.5rem] [gap:var(--gap)] flex-row [--duration:45s]">
+              <div className="flex shrink-0 justify-around [gap:var(--gap)] animate-marquee flex-row group-hover:[animation-play-state:paused]">
+                {[...Array(4)].map((_, setIndex) =>
+                  legends.map((legend, i) => (
+                    <LegendCard key={`${setIndex}-${i}`} legend={legend} />
+                  ))
+                )}
+              </div>
+            </div>
+
+            <div className="pointer-events-none absolute inset-y-0 left-0 w-1/4 bg-gradient-to-r from-[#0b0b0b] to-transparent sm:w-1/3" />
+            <div className="pointer-events-none absolute inset-y-0 right-0 w-1/4 bg-gradient-to-l from-[#0b0b0b] to-transparent sm:w-1/3" />
           </div>
         </div>
       </section>

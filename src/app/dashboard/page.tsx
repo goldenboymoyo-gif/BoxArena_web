@@ -12,9 +12,10 @@ import {
   UserRound,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { FighterCard } from "@/components/cards/FighterCard";
 import { EventCard } from "@/components/cards/EventCard";
 import { TicketList } from "@/components/dashboard/TicketList";
+import { FollowedFighters } from "@/components/dashboard/FollowedFighters";
+import { FightCalendar } from "@/components/dashboard/FightCalendar";
 import { myTickets } from "@/data/tickets";
 import { events } from "@/data/events";
 import { fighters } from "@/data/fighters";
@@ -36,7 +37,6 @@ const sidebarNav = [
 
 export default function DashboardPage() {
   const activeTickets = myTickets.filter((t) => t.status === "active");
-  const favorites = fighters.filter((f) => f.rank <= 5);
   const nextEvents = events.slice(0, 2);
 
   return (
@@ -178,15 +178,59 @@ export default function DashboardPage() {
             </div>
           </div>
 
-          {/* Favorites */}
+          {/* Fight calendar */}
           <div>
-            <h2 className="font-display text-3xl font-semibold uppercase tracking-wide text-white">
-              Favorite Fighters
-            </h2>
-            <div className="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
-              {favorites.map((fighter) => (
-                <FighterCard key={fighter.id} fighter={fighter} />
-              ))}
+            <div className="flex flex-wrap items-end justify-between gap-4">
+              <div>
+                <div className="flex items-center gap-2">
+                  <span className="h-6 w-1 rounded-full bg-[#e31b23]" />
+                  <p className="text-xs font-bold uppercase tracking-[0.32em] text-[#e31b23]">
+                    My Fight Calendar
+                  </p>
+                </div>
+                <h2 className="mt-3 font-display text-3xl font-semibold uppercase tracking-wide text-white">
+                  Upcoming Fights
+                </h2>
+              </div>
+              <Link
+                href="/events"
+                className="group flex items-center gap-2 rounded-full border border-white/15 px-5 py-2.5 text-xs font-bold uppercase tracking-[0.18em] text-white/80 transition hover:border-[#e31b23]/50 hover:text-white"
+              >
+                Browse events <ArrowRight className="size-4 text-[#e31b23] transition group-hover:translate-x-1" />
+              </Link>
+            </div>
+            <p className="mt-3 text-sm leading-6 text-white/50">
+              Fights you added with “Add to calendar” — download the .ics file
+              again or remove them here.
+            </p>
+            <div className="mt-6">
+              <FightCalendar events={events} />
+            </div>
+          </div>
+
+          {/* Followed fighters */}
+          <div>
+            <div className="flex flex-wrap items-end justify-between gap-4">
+              <div>
+                <div className="flex items-center gap-2">
+                  <span className="h-6 w-1 rounded-full bg-[#e31b23]" />
+                  <p className="text-xs font-bold uppercase tracking-[0.32em] text-[#e31b23]">
+                    Your Watchlist
+                  </p>
+                </div>
+                <h2 className="mt-3 font-display text-3xl font-semibold uppercase tracking-wide text-white">
+                  Fighters You Follow
+                </h2>
+              </div>
+              <Link
+                href="/fighters"
+                className="group flex items-center gap-2 rounded-full border border-white/15 px-5 py-2.5 text-xs font-bold uppercase tracking-[0.18em] text-white/80 transition hover:border-[#e31b23]/50 hover:text-white"
+              >
+                All fighters <ArrowRight className="size-4 text-[#e31b23] transition group-hover:translate-x-1" />
+              </Link>
+            </div>
+            <div className="mt-6">
+              <FollowedFighters fighters={fighters} />
             </div>
           </div>
         </div>

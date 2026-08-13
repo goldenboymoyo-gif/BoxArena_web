@@ -15,6 +15,7 @@ import {
   Users,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { AddToCalendarButton } from "@/components/events/AddToCalendarButton";
 import { Countdown } from "@/components/site/Countdown";
 import { TaleOfTheTape } from "@/components/cards/TaleOfTheTape";
 import { EventCard } from "@/components/cards/EventCard";
@@ -179,6 +180,7 @@ export default async function EventDetailPage({
               >
                 <Ticket className="size-4" /> Buy tickets
               </Link>
+              <AddToCalendarButton event={event} className="mt-3 w-full" />
             </div>
           </div>
         </div>

@@ -20,9 +20,7 @@ import {
 import type { IconType } from "react-icons";
 import {
   FaApplePay,
-  FaCcAmex,
   FaCcMastercard,
-  FaCcVisa,
   FaGooglePay,
   FaPaypal,
 } from "react-icons/fa6";
@@ -33,6 +31,11 @@ import { formatMoney } from "@/lib/format";
 import { useAuth } from "@/lib/auth";
 import { AuthDialog } from "@/components/site/AuthDialog";
 import { TicketQr } from "@/components/tickets/TicketQr";
+import {
+  CreditCardForm,
+  type CardState,
+  type CardValidity,
+} from "@/components/ui/credit-card-form";
 
 interface BuyTicketsCardProps {
   event: BoxingEvent;
@@ -51,8 +54,8 @@ const paymentMethods: {
   {
     id: "card",
     label: "Card",
-    caption: "Visa Â· Mastercard Â· Amex",
-    icons: [FaCcVisa, FaCcMastercard, FaCcAmex],
+    caption: "Mastercard",
+    icons: [FaCcMastercard],
   },
   { id: "paypal", label: "PayPal", caption: "Pay with balance", icons: [FaPaypal] },
   { id: "applepay", label: "Apple Pay", caption: "Touch / Face ID", icons: [FaApplePay] },
@@ -60,14 +63,14 @@ const paymentMethods: {
 ];
 
 const brandColors: Record<PaymentMethodId, string[]> = {
-  card: ["#1A1F71", "#EB001B", "#2E77BC"],
+  card: ["#EB001B"],
   paypal: ["#003087"],
   applepay: ["#ffffff"],
   googlepay: ["#4285F4"],
 };
 
-const cardBrands: IconType[] = [FaCcVisa, FaCcMastercard, FaCcAmex];
-const cardBrandColors = ["#1A1F71", "#EB001B", "#2E77BC"];
+const cardBrands: IconType[] = [FaCcMastercard];
+const cardBrandColors = ["#EB001B"];
 
 function formatDate(iso: string) {
   return new Date(iso).toLocaleDateString("en-US", {
@@ -86,7 +89,7 @@ export function BuyTicketsCard({ event }: BuyTicketsCardProps) {
   const [purchased, setPurchased] = useState<TicketItem[]>([]);
   const [authOpen, setAuthOpen] = useState(false);
   const [paymentMethod, setPaymentMethod] = useState<PaymentMethodId>("card");
-  const [cardNumber, setCardNumber] = useState("");
+  const [cardValid, setCardValid] = useState(false);
   const [cardError, setCardError] = useState(false);
 
   const signedIn = hydrated && Boolean(user);
@@ -102,7 +105,7 @@ export function BuyTicketsCard({ event }: BuyTicketsCardProps) {
       setAuthOpen(true);
       return;
     }
-    if (paymentMethod === "card" && cardNumber.replace(/\s/g, "").length < 15) {
+    if (paymentMethod === "card" && !cardValid) {
       setCardError(true);
       return;
     }
@@ -221,7 +224,7 @@ export function BuyTicketsCard({ event }: BuyTicketsCardProps) {
             <span className="flex items-center gap-1.5 text-white/80">
               <span className="grid size-5 place-items-center rounded bg-white">
                 {paymentMethod === "card" && (
-                  <FaCcVisa className="h-3 w-auto text-[#1A1F71]" />
+                  <FaCcMastercard className="h-3 w-auto text-[#EB001B]" />
                 )}
                 {paymentMethod === "paypal" && (
                   <FaPaypal className="h-3 w-auto text-[#003087]" />
@@ -287,7 +290,7 @@ export function BuyTicketsCard({ event }: BuyTicketsCardProps) {
                 setQty(1);
                 setPurchased([]);
                 setPaymentMethod("card");
-                setCardNumber("");
+                setCardValid(false);
                 setCardError(false);
                 setStatus("idle");
               }}
@@ -471,53 +474,23 @@ export function BuyTicketsCard({ event }: BuyTicketsCardProps) {
             );
           })}
         </div>
-        <div className="mt-4 rounded-2xl border border-white/10 bg-white/[0.03] p-4">
-          <label
-            htmlFor="card-number"
-            className="text-[10px] font-bold uppercase tracking-[0.2em] text-white/40"
-          >
-            Card number
-          </label>
-          <div className="mt-2 flex items-center gap-2">
-            <input
-              id="card-number"
-              type="text"
-              inputMode="numeric"
-              autoComplete="cc-number"
-              placeholder="1234 5678 9012 3456"
-              value={cardNumber}
-              onChange={(e) => {
-                const digits = e.target.value.replace(/\D/g, "").slice(0, 16);
-                setCardNumber(
-                  digits.replace(/(.{4})/g, "$1 ").trim()
-                );
+        {paymentMethod === "card" && (
+          <div className="mt-4">
+            <CreditCardForm
+              maskMiddle
+              showSubmit={false}
+              onChange={(_state: CardState, validity: CardValidity) => {
+                setCardValid(validity.allValid);
                 setCardError(false);
               }}
-              disabled={soldOut}
-              className={`w-full rounded-xl border bg-[#0a0a0a] px-3.5 py-3 font-mono text-sm text-white placeholder:text-white/25 outline-none transition focus:border-[#e31b23]/60 ${
-                cardError ? "border-[#e31b23]/70" : "border-white/10"
-              }`}
             />
-            <span className="hidden shrink-0 items-center gap-1 sm:flex">
-              {cardBrands.map((Icon, idx) => (
-                <span
-                  key={idx}
-                  className="grid h-5 w-8 place-items-center rounded bg-white"
-                >
-                  <Icon
-                    className="h-3 w-auto"
-                    style={{ color: cardBrandColors[idx] }}
-                  />
-                </span>
-              ))}
-            </span>
+            {cardError && (
+              <p className="mt-2 text-[11px] font-semibold text-[#ff6b6b]">
+                Please complete all card fields to continue.
+              </p>
+            )}
           </div>
-          {cardError && (
-            <p className="mt-2 text-[11px] font-semibold text-[#ff6b6b]">
-              Please enter a valid card number to continue.
-            </p>
-          )}
-        </div>
+        )}
         <p className="mt-2 flex items-center gap-1.5 text-[11px] text-white/40">
           <ShieldCheck className="size-3.5 text-emerald-400" /> Your payment
           details are encrypted and never stored.
