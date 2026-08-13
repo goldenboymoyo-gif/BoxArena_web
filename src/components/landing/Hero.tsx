@@ -200,7 +200,7 @@ export function Hero() {
               <img
                 src={imageA}
                 alt={event.fighterA}
-                className="size-16 rounded-2xl border border-white/15 object-cover object-top shadow-lg sm:size-20"
+                className="size-16 rounded-2xl border border-white/15 object-cover object-top shadow-lg [mask-image:radial-gradient(130%_130%_at_50%_12%,black_48%,transparent_90%)] sm:size-20"
               />
               <p className="mt-2 w-full truncate font-display text-lg font-bold uppercase leading-tight text-white sm:text-xl">
                 {nameA}
@@ -219,7 +219,7 @@ export function Hero() {
               <img
                 src={imageB}
                 alt={event.fighterB}
-                className="size-16 rounded-2xl border border-white/15 object-cover object-top shadow-lg sm:size-20"
+                className="size-16 rounded-2xl border border-white/15 object-cover object-top shadow-lg [mask-image:radial-gradient(130%_130%_at_50%_12%,black_48%,transparent_90%)] sm:size-20"
               />
               <p className="mt-2 w-full truncate font-display text-lg font-bold uppercase leading-tight text-white sm:text-xl">
                 {nameB}
@@ -267,7 +267,7 @@ export function Hero() {
           <AnimatePresence mode="wait">
             <motion.div
               key={`fa-${event.id}`}
-              className="absolute inset-0 [mask-image:linear-gradient(90deg,transparent_0%,black_32%),linear-gradient(to_top,transparent_16%,black_65%)]"
+              className="absolute inset-0 [mask-image:radial-gradient(130%_100%_at_50%_24%,black_40%,transparent_82%)]"
               initial={{ opacity: 0, x: -28 }}
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: -28 }}
@@ -290,7 +290,7 @@ export function Hero() {
           <AnimatePresence mode="wait">
             <motion.div
               key={`fb-${event.id}`}
-              className="absolute inset-0 [mask-image:linear-gradient(90deg,black_68%,transparent_100%),linear-gradient(to_top,transparent_16%,black_65%)]"
+              className="absolute inset-0 [mask-image:radial-gradient(130%_100%_at_50%_24%,black_40%,transparent_82%)]"
               initial={{ opacity: 0, x: 28 }}
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: 28 }}
