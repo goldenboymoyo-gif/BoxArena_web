@@ -202,7 +202,7 @@ export function PugneraPlayer({
             <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-[#0a0a0a]/60 to-black/30" />
           <div className="pointer-events-none absolute left-3 top-3 flex max-w-[calc(100%-1.5rem)] items-center gap-2 sm:left-5 sm:top-5">
               <span className="font-display text-sm font-bold uppercase tracking-[0.22em] text-white">
-                Box<span className="text-[#e31b23]">Arena</span>
+                Pug<span className="text-[#e31b23]">nera</span>
               </span>
               {live && (
                 <span className="inline-flex items-center gap-1.5 rounded-full bg-[#e31b23] px-3 py-1.5 text-[11px] font-bold uppercase tracking-[0.16em] text-white">
@@ -267,7 +267,7 @@ export function PugneraPlayer({
             <p className="truncate text-[10px] font-bold uppercase tracking-[0.12em] text-white/50 sm:text-[11px] sm:tracking-[0.18em]">
               Now {live ? "streaming" : "playing"} on{" "}
               <span className="font-display text-white">
-                Box<span className="text-[#e31b23]">Arena</span>
+                Pug<span className="text-[#e31b23]">nera</span>
               </span>
             </p>
             {live && (
