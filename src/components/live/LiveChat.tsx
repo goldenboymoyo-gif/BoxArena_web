@@ -57,11 +57,11 @@ const fanLines = [
 ];
 
 const reactions = [
-  { emoji: "ðŸ”¥", label: "Fire" },
-  { emoji: "ðŸ‘", label: "Applause" },
-  { emoji: "ðŸ˜‚", label: "Haha" },
-  { emoji: "â¤ï¸", label: "Heart" },
-  { emoji: "ðŸ’€", label: "Knockout" },
+  { emoji: "🔥", label: "Fire" },
+  { emoji: "👏", label: "Applause" },
+  { emoji: "😂", label: "Haha" },
+  { emoji: "❤️", label: "Heart" },
+  { emoji: "💀", label: "Knockout" },
 ];
 
 const pinnedMessage =
@@ -71,7 +71,7 @@ let nextId = 100;
 
 export function LiveChat({ className = "" }: LiveChatProps) {
   const [messages, setMessages] = useState<ChatMessage[]>([
-    { id: 1, name: "Pugnera_Official", text: "Welcome to fight night! Be respectful, no spoilers, and enjoy the show. ðŸ¥Š", mod: true, colorId: 0 },
+    { id: 1, name: "Pugnera_Official", text: "Welcome to fight night! Be respectful, no spoilers, and enjoy the show. 🥊", mod: true, colorId: 0 },
     { id: 2, name: "BigGuyT", text: "What a round!! That jab is landing all night.", colorId: 1 },
     { id: 3, name: "KOQueen88", text: "Inoue is on another level tonight.", colorId: 2 },
   ]);

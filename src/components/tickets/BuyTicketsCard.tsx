@@ -17,13 +17,7 @@ import {
   ShieldCheck,
   Ticket,
 } from "lucide-react";
-import type { IconType } from "react-icons";
-import {
-  FaApplePay,
-  FaCcMastercard,
-  FaGooglePay,
-  FaPaypal,
-} from "react-icons/fa6";
+import { FaCcMastercard } from "react-icons/fa6";
 import type { BoxingEvent, TicketItem } from "@/data/types";
 import { ticketTiers } from "@/data/tickets";
 import { addPurchasedTicket } from "@/lib/ticketStore";
@@ -43,33 +37,7 @@ interface BuyTicketsCardProps {
 
 type PurchaseStatus = "idle" | "processing" | "done";
 
-type PaymentMethodId = "card" | "paypal" | "applepay" | "googlepay";
-
-const paymentMethods: {
-  id: PaymentMethodId;
-  label: string;
-  caption: string;
-  icons: IconType[];
-}[] = [
-  {
-    id: "card",
-    label: "Card",
-    caption: "Mastercard",
-    icons: [FaCcMastercard],
-  },
-  { id: "paypal", label: "PayPal", caption: "Pay with balance", icons: [FaPaypal] },
-  { id: "applepay", label: "Apple Pay", caption: "Touch / Face ID", icons: [FaApplePay] },
-  { id: "googlepay", label: "Google Pay", caption: "Tap to pay", icons: [FaGooglePay] },
-];
-
-const brandColors: Record<PaymentMethodId, string[]> = {
-  card: ["#EB001B"],
-  paypal: ["#003087"],
-  applepay: ["#ffffff"],
-  googlepay: ["#4285F4"],
-};
-
-const cardBrands: IconType[] = [FaCcMastercard];
+const PAYMENT_LABEL = "Mastercard";
 const cardBrandColors = ["#EB001B"];
 
 function formatDate(iso: string) {
@@ -88,7 +56,6 @@ export function BuyTicketsCard({ event }: BuyTicketsCardProps) {
   const [status, setStatus] = useState<PurchaseStatus>("idle");
   const [purchased, setPurchased] = useState<TicketItem[]>([]);
   const [authOpen, setAuthOpen] = useState(false);
-  const [paymentMethod, setPaymentMethod] = useState<PaymentMethodId>("card");
   const [cardValid, setCardValid] = useState(false);
   const [cardError, setCardError] = useState(false);
 
@@ -96,8 +63,6 @@ export function BuyTicketsCard({ event }: BuyTicketsCardProps) {
   const soldOut = event.status === "Sellout";
   const tier = ticketTiers[selected];
   const total = tier.price * qty;
-  const paymentMethodLabel =
-    paymentMethods.find((p) => p.id === paymentMethod)?.label ?? "Card";
 
   function handlePurchase() {
     if (soldOut || status !== "idle") return;
@@ -105,7 +70,7 @@ export function BuyTicketsCard({ event }: BuyTicketsCardProps) {
       setAuthOpen(true);
       return;
     }
-    if (paymentMethod === "card" && !cardValid) {
+    if (!cardValid) {
       setCardError(true);
       return;
     }
@@ -137,7 +102,7 @@ export function BuyTicketsCard({ event }: BuyTicketsCardProps) {
           qr: `BA${eventCode}-${Math.floor(Math.random() * 9999)}`,
           status: "active",
           purchasedAt: new Date().toISOString(),
-          paidWith: paymentMethodLabel,
+          paidWith: PAYMENT_LABEL,
         });
       }
       tickets.forEach(addPurchasedTicket);
@@ -166,7 +131,7 @@ export function BuyTicketsCard({ event }: BuyTicketsCardProps) {
             </div>
           </div>
           <span className="rounded-full border border-emerald-500/30 bg-emerald-500/15 px-3 py-1 text-[11px] font-bold uppercase tracking-[0.16em] text-emerald-400">
-            Paid · {paymentMethodLabel}
+            Paid · {PAYMENT_LABEL}
           </span>
         </div>
 
@@ -223,20 +188,9 @@ export function BuyTicketsCard({ event }: BuyTicketsCardProps) {
             <span className="text-white/75">Paid with</span>
             <span className="flex items-center gap-1.5 text-white/80">
               <span className="grid size-5 place-items-center rounded bg-white">
-                {paymentMethod === "card" && (
-                  <FaCcMastercard className="h-3 w-auto text-[#EB001B]" />
-                )}
-                {paymentMethod === "paypal" && (
-                  <FaPaypal className="h-3 w-auto text-[#003087]" />
-                )}
-                {paymentMethod === "applepay" && (
-                  <FaApplePay className="h-3 w-auto text-black" />
-                )}
-                {paymentMethod === "googlepay" && (
-                  <FaGooglePay className="h-3 w-auto text-[#4285F4]" />
-                )}
+                <FaCcMastercard className="h-3 w-auto text-[#EB001B]" />
               </span>
-              {paymentMethodLabel}
+              {PAYMENT_LABEL}
             </span>
           </div>
           <div className="mt-3 flex items-center justify-between gap-3 rounded-2xl bg-[#e31b23]/10 px-4 py-3">
@@ -289,7 +243,6 @@ export function BuyTicketsCard({ event }: BuyTicketsCardProps) {
               onClick={() => {
                 setQty(1);
                 setPurchased([]);
-                setPaymentMethod("card");
                 setCardValid(false);
                 setCardError(false);
                 setStatus("idle");
@@ -400,97 +353,33 @@ export function BuyTicketsCard({ event }: BuyTicketsCardProps) {
           <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-white/40">
             Payment method
           </p>
-          {paymentMethod === "card" && (
-            <span className="flex items-center gap-1">
-              {cardBrands.map((Icon, idx) => (
-                <span
-                  key={idx}
-                  className="grid h-5 w-8 place-items-center rounded bg-white"
-                >
-                  <Icon
-                    className="h-3 w-auto"
-                    style={{ color: cardBrandColors[idx] }}
-                  />
-                </span>
-              ))}
+          <span className="flex items-center gap-2">
+            <span className="grid h-5 w-8 place-items-center rounded bg-white">
+              <FaCcMastercard
+                className="h-3 w-auto"
+                style={{ color: cardBrandColors[0] }}
+              />
             </span>
+            <span className="text-[11px] font-semibold text-white/70">
+              {PAYMENT_LABEL}
+            </span>
+          </span>
+        </div>
+        <div className="mt-4">
+          <CreditCardForm
+            maskMiddle
+            showSubmit={false}
+            onChange={(_state: CardState, validity: CardValidity) => {
+              setCardValid(validity.allValid);
+              setCardError(false);
+            }}
+          />
+          {cardError && (
+            <p className="mt-2 text-[11px] font-semibold text-[#ff6b6b]">
+              Please complete all card fields to continue.
+            </p>
           )}
         </div>
-        <div className="mt-2 grid grid-cols-2 gap-2">
-          {paymentMethods.map((m) => {
-            const isSelected = paymentMethod === m.id;
-            return (
-              <button
-                key={m.id}
-                type="button"
-                onClick={() => {
-                  setPaymentMethod(m.id);
-                  setCardError(false);
-                  setStatus("idle");
-                }}
-                disabled={soldOut}
-                className={`flex cursor-pointer items-center gap-2.5 rounded-2xl border p-3 text-left transition disabled:cursor-not-allowed disabled:opacity-50 ${
-                  isSelected
-                    ? "border-[#e31b23] bg-[#e31b23]/10"
-                    : "border-white/10 bg-white/[0.03] hover:border-[#e31b23]/50"
-                }`}
-              >
-                <span
-                  className={`grid size-9 shrink-0 place-items-center rounded-xl border transition ${
-                    isSelected
-                      ? "border-[#e31b23] bg-[#e31b23]/15 text-white"
-                      : "border-white/10 bg-white/5 text-white/60"
-                  }`}
-                >
-                  {(() => {
-                    const Single = m.icons[0];
-                    return m.icons.length > 1 ? (
-                      <span className="flex items-center">
-                        {m.icons.map((Icon, idx) => (
-                          <Icon
-                            key={idx}
-                            className={`size-4 rounded bg-white ${idx > 0 ? "-ml-1" : ""}`}
-                            style={{ color: brandColors[m.id][idx] }}
-                          />
-                        ))}
-                      </span>
-                    ) : (
-                      <Single
-                        className="size-4"
-                        style={{ color: brandColors[m.id][0] }}
-                      />
-                    );
-                  })()}
-                </span>
-                <span className="min-w-0">
-                  <span className="block truncate text-sm font-semibold text-white">
-                    {m.label}
-                  </span>
-                  <span className="block truncate text-[11px] text-white/45">
-                    {m.caption}
-                  </span>
-                </span>
-              </button>
-            );
-          })}
-        </div>
-        {paymentMethod === "card" && (
-          <div className="mt-4">
-            <CreditCardForm
-              maskMiddle
-              showSubmit={false}
-              onChange={(_state: CardState, validity: CardValidity) => {
-                setCardValid(validity.allValid);
-                setCardError(false);
-              }}
-            />
-            {cardError && (
-              <p className="mt-2 text-[11px] font-semibold text-[#ff6b6b]">
-                Please complete all card fields to continue.
-              </p>
-            )}
-          </div>
-        )}
         <p className="mt-2 flex items-center gap-1.5 text-[11px] text-white/40">
           <ShieldCheck className="size-3.5 text-emerald-400" /> Your payment
           details are encrypted and never stored.

@@ -51,7 +51,7 @@ export default function DashboardPage() {
                   JD
                 </div>
                 <span className="absolute -right-1 -bottom-1 grid size-5 place-items-center rounded-full bg-emerald-500 text-[10px] text-black">
-                  âœ“
+                  ✓
                 </span>
               </div>
               <div>
