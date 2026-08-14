@@ -14,8 +14,8 @@ export function DivisionRankings({ divisions }: DivisionRankingsProps) {
   const division = divisions[active];
 
   return (
-    <div className="grid gap-8 lg:grid-cols-[280px_1fr]">
-      <div className="lg:sticky lg:top-24 lg:self-start">
+    <div className="grid grid-cols-1 gap-8 lg:grid-cols-[280px_1fr]">
+      <div className="min-w-0 lg:sticky lg:top-24 lg:self-start">
         <p className="text-xs font-bold uppercase tracking-[0.24em] text-white/45">
           Weight Classes
         </p>

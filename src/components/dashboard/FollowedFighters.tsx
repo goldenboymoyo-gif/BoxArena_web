@@ -38,13 +38,13 @@ export function FollowedFighters({ fighters }: FollowedFightersProps) {
   return (
     <div>
       {!hydrated ? (
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
+        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
           {fighters.slice(0, 5).map((fighter) => (
             <FighterCard key={fighter.id} fighter={fighter} />
           ))}
         </div>
       ) : (
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
+        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
           {followed.map((fighter) => (
             <FighterCard key={fighter.id} fighter={fighter} />
           ))}

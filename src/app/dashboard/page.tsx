@@ -41,7 +41,7 @@ export default function DashboardPage() {
 
   return (
     <div className="mx-auto max-w-[1440px] px-4 py-8 sm:px-6 sm:py-10 lg:px-8">
-      <div className="grid gap-8 lg:grid-cols-[300px_1fr]">
+      <div className="grid grid-cols-1 gap-8 lg:grid-cols-[300px_1fr]">
         {/* Left sidebar */}
         <aside className="lg:sticky lg:top-24 lg:self-start">
           <div className="rounded-3xl border border-white/10 bg-[#111111] p-6">
@@ -121,7 +121,7 @@ export default function DashboardPage() {
           </div>
 
           {/* Stats */}
-          <div className="grid gap-4 sm:grid-cols-3">
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
             {[
               { icon: Ticket, label: "Upcoming Fights", value: `${activeTickets.length} tickets`, sub: "Next: Canelo vs Crawford" },
               { icon: Trophy, label: "Rewards Points", value: "12,400", sub: "Redeem for 1 free ticket" },
@@ -171,7 +171,7 @@ export default function DashboardPage() {
             <h2 className="font-display text-3xl font-semibold uppercase tracking-wide text-white">
               Recommended for You
             </h2>
-            <div className="mt-6 grid gap-6 sm:grid-cols-2">
+            <div className="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-2">
               {nextEvents.map((event) => (
                 <EventCard key={event.id} event={event} />
               ))}
