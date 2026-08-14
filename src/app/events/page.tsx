@@ -25,7 +25,7 @@ function formatDate(iso: string) {
 export const metadata = {
   title: "Events & Fight Schedule",
   description:
-    "Every upcoming and completed Pugnera boxing event â€” championship fights, tickets, venues and fight cards.",
+    "Every upcoming and completed Pugnera boxing event — championship fights, tickets, venues and fight cards.",
 };
 
 export default function EventsPage() {
@@ -47,7 +47,7 @@ export default function EventsPage() {
             Fight <span className="text-[#e31b23]">Schedule</span>
           </h1>
           <p className="mt-4 max-w-2xl text-sm leading-7 text-white/55">
-            Every championship night on the Pugnera platform â€” upcoming events,
+            Every championship night on the Pugnera platform — upcoming events,
             full fight cards and results from the biggest nights in boxing.
           </p>
         </div>
@@ -62,7 +62,7 @@ export default function EventsPage() {
             className="absolute inset-0 h-full w-full object-cover opacity-45"
           />
           <div className="absolute inset-0 bg-gradient-to-r from-[#0a0a0a] via-[#0a0a0a]/80 to-[#0a0a0a]/20" />
-          <div className="relative grid gap-8 p-8 lg:grid-cols-[1.4fr_1fr] lg:items-center lg:p-12">
+          <div className="relative grid gap-8 p-5 sm:p-8 lg:grid-cols-[1.4fr_1fr] lg:items-center lg:p-12">
             <div>
               <div className="flex flex-wrap items-center gap-3">
                 <span className="inline-flex items-center gap-2 rounded-full bg-[#e31b23] px-4 py-1.5 text-xs font-bold uppercase tracking-[0.2em] text-white">
@@ -72,14 +72,14 @@ export default function EventsPage() {
                   {featured.weightClass}
                 </span>
               </div>
-              <h2 className="mt-5 font-display text-4xl font-bold uppercase leading-[1.08] tracking-tight text-white sm:text-6xl lg:text-7xl">
+              <h2 className="mt-5 font-display text-3xl font-bold uppercase leading-[1.08] tracking-tight text-white sm:text-5xl lg:text-7xl">
                 {featured.title}
               </h2>
               <p className="mt-3 text-base italic text-white/55">{featured.headline}</p>
               <div className="mt-6 flex flex-wrap items-center gap-5 text-sm text-white/65">
                 <span className="flex items-center gap-2">
                   <CalendarDays className="size-4 text-[#e31b23]" />
-                  {formatDate(featured.date)} Â· {featured.time} {featured.timezone}
+                  {formatDate(featured.date)} · {featured.time} {featured.timezone}
                 </span>
                 <span className="flex items-center gap-2">
                   <MapPin className="size-4 text-[#e31b23]" />
@@ -166,7 +166,7 @@ export default function EventsPage() {
                   </div>
                   <div>
                     <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-white/40">
-                      {formatDate(event.date)} Â· {event.venue}
+                      {formatDate(event.date)} · {event.venue}
                     </p>
                     <h3 className="font-display text-xl font-semibold uppercase tracking-wide text-white group-hover:text-[#ff5a5a]">
                       {event.title}

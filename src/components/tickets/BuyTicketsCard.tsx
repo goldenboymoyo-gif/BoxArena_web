@@ -124,7 +124,7 @@ export function BuyTicketsCard({ event }: BuyTicketsCardProps) {
           orderId,
           eventId: event.id,
           eventTitle: event.title,
-          undercard: event.coMain ?? event.titles.join(" Â· "),
+          undercard: event.coMain ?? event.titles.join(" · "),
           venue: event.venue,
           city: event.city,
           date: event.date,
@@ -166,7 +166,7 @@ export function BuyTicketsCard({ event }: BuyTicketsCardProps) {
             </div>
           </div>
           <span className="rounded-full border border-emerald-500/30 bg-emerald-500/15 px-3 py-1 text-[11px] font-bold uppercase tracking-[0.16em] text-emerald-400">
-            Paid Â· {paymentMethodLabel}
+            Paid · {paymentMethodLabel}
           </span>
         </div>
 
@@ -177,11 +177,11 @@ export function BuyTicketsCard({ event }: BuyTicketsCardProps) {
           </h4>
           <p className="flex items-center gap-1.5 text-xs text-white/50">
             <MapPin className="size-3.5 text-[#e31b23]" />
-            {event.venue} Â· {event.city}
+            {event.venue} · {event.city}
           </p>
           <p className="flex items-center gap-1.5 text-xs text-white/50">
             <CalendarDays className="size-3.5 text-[#e31b23]" />
-            {formatDate(event.date)} Â· {event.time} Â· {event.timezone}
+            {formatDate(event.date)} · {event.time} · {event.timezone}
           </p>
         </div>
 
@@ -192,7 +192,7 @@ export function BuyTicketsCard({ event }: BuyTicketsCardProps) {
           </p>
           <div className="mt-3 flex items-center justify-between gap-3 text-sm">
             <span className="text-white/75">
-              {qty} Ã— {tier.name} ticket{qty > 1 ? "s" : ""}
+              {qty} × {tier.name} ticket{qty > 1 ? "s" : ""}
             </span>
             <span className="font-display font-semibold text-white">
               {formatMoney(tier.price)}
@@ -205,7 +205,7 @@ export function BuyTicketsCard({ event }: BuyTicketsCardProps) {
                 className="flex items-center justify-between gap-3 rounded-xl bg-white/[0.03] px-3 py-2 text-xs"
               >
                 <span className="font-semibold uppercase tracking-wide text-white/80">
-                  {t.section} Â· Row {t.row} Â· Seat {t.seat}
+                  {t.section} · Row {t.row} · Seat {t.seat}
                 </span>
                 <span className="font-mono text-white/45">{t.id}</span>
               </div>
@@ -259,7 +259,7 @@ export function BuyTicketsCard({ event }: BuyTicketsCardProps) {
             <p className="mt-2 text-sm leading-6 text-white/60">
               {qty} active ticket{qty > 1 ? "s" : ""} attached to order{" "}
               <span className="font-mono text-white/80">{order.orderId}</span>.
-              Scan the QR at the gate for entry â€” present it from your device
+              Scan the QR at the gate for entry — present it from your device
               on the day of the event.
             </p>
             <p className="mt-2 flex items-center gap-1.5 text-xs text-white/45">
@@ -305,7 +305,7 @@ export function BuyTicketsCard({ event }: BuyTicketsCardProps) {
   }
 
   return (
-    <div className="rounded-3xl border border-white/10 bg-[#111111] p-8">
+    <div className="rounded-3xl border border-white/10 bg-[#111111] p-5 sm:p-8">
       <div className="flex flex-wrap items-center justify-between gap-2">
         <h3 className="font-display text-2xl font-semibold uppercase tracking-wide text-white">
           Ticket Tiers
@@ -315,7 +315,7 @@ export function BuyTicketsCard({ event }: BuyTicketsCardProps) {
         </span>
       </div>
       <p className="mt-2 text-xs text-white/45">
-        {event.title} Â· Broadcast on {event.broadcaster}
+        {event.title} · Broadcast on {event.broadcaster}
       </p>
 
       <div className="mt-6 space-y-3">
@@ -335,7 +335,7 @@ export function BuyTicketsCard({ event }: BuyTicketsCardProps) {
                   : "border-white/10 bg-white/[0.03] hover:border-[#e31b23]/50"
               }`}
             >
-              <div className="flex items-center gap-3">
+              <div className="flex min-w-0 flex-1 items-center gap-3">
                 <span
                   className={`grid size-5 shrink-0 place-items-center rounded-full border-2 transition ${
                     isSelected ? "border-[#e31b23] bg-[#e31b23]" : "border-white/25"
@@ -343,14 +343,14 @@ export function BuyTicketsCard({ event }: BuyTicketsCardProps) {
                 >
                   {isSelected && <Check className="size-3 text-white" />}
                 </span>
-                <div>
-                  <p className="font-display text-base font-semibold uppercase text-white">
+                <div className="min-w-0">
+                  <p className="truncate font-display text-base font-semibold uppercase text-white">
                     {t.name}
                   </p>
                   <p className="text-xs text-white/45">{t.desc}</p>
                 </div>
               </div>
-              <span className="font-display text-xl font-bold text-white">
+              <span className="shrink-0 font-display text-xl font-bold text-white">
                 {formatMoney(t.price)}
               </span>
             </button>

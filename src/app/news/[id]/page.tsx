@@ -52,7 +52,7 @@ const articleBodies: Record<string, ArticleSection[]> = {
     {
       heading: "The Southpaw Problem",
       paragraphs: [
-        "Usyk has never lost a professional fight, but he's also never shared a ring with someone Zhang's size who can switch a fight off with one shot. At 6'6\" and with a jab that discouraged Wilder from letting his hands go, Zhang is the rare opponent who doesn't need Usyk to make a mistake â€” he just needs one opening.",
+        "Usyk has never lost a professional fight, but he's also never shared a ring with someone Zhang's size who can switch a fight off with one shot. At 6'6\" and with a jab that discouraged Wilder from letting his hands go, Zhang is the rare opponent who doesn't need Usyk to make a mistake — he just needs one opening.",
         "For Usyk's team, the calculation is that footwork and volume beat power over twelve rounds. Riyadh gets to find out which read is right.",
       ],
     },
@@ -61,8 +61,8 @@ const articleBodies: Record<string, ArticleSection[]> = {
     {
       heading: "What Happened at the Podium",
       paragraphs: [
-        "The Madison Square Garden kickoff press conference stayed civil for about four minutes. Then Crawford, sitting a few feet from Canelo, said flatly that Ãlvarez had \"never fought anyone like me,\" and the room's tone changed for good.",
-        "Canelo didn't raise his voice â€” he rarely does â€” but he leaned into the mic and reminded Crawford that he's the one moving up in weight to chase this fight. That line got the loudest reaction of the afternoon.",
+        "The Madison Square Garden kickoff press conference stayed civil for about four minutes. Then Crawford, sitting a few feet from Canelo, said flatly that Álvarez had \"never fought anyone like me,\" and the room's tone changed for good.",
+        "Canelo didn't raise his voice — he rarely does — but he leaned into the mic and reminded Crawford that he's the one moving up in weight to chase this fight. That line got the loudest reaction of the afternoon.",
       ],
     },
     {
@@ -77,14 +77,14 @@ const articleBodies: Record<string, ArticleSection[]> = {
     {
       heading: "The Matchup",
       paragraphs: [
-        "Naoya Inoue will face Junto Nakatani at the Tokyo Dome â€” two undefeated Japanese champions, two different weight classes on paper, and a fight that promoter Bob Arum is already calling the biggest in Asian boxing history.",
+        "Naoya Inoue will face Junto Nakatani at the Tokyo Dome — two undefeated Japanese champions, two different weight classes on paper, and a fight that promoter Bob Arum is already calling the biggest in Asian boxing history.",
         "Nakatani has never lost as a professional and has stopped nearly every fighter who's stood in front of him. He's also never faced anything close to Inoue's hand speed or finishing instinct.",
       ],
     },
     {
       heading: "Why It's Bigger Than a Title Fight",
       paragraphs: [
-        "Japan has produced champions before, but never two active pound-for-pound talents on a collision course at the same time. The Tokyo Dome card is being built as a national event, not just a boxing card â€” expect the kind of crossover attention Naoya's last few fights only hinted at.",
+        "Japan has produced champions before, but never two active pound-for-pound talents on a collision course at the same time. The Tokyo Dome card is being built as a national event, not just a boxing card — expect the kind of crossover attention Naoya's last few fights only hinted at.",
       ],
     },
   ],
@@ -107,7 +107,7 @@ const articleBodies: Record<string, ArticleSection[]> = {
     {
       heading: "The Face-Off",
       paragraphs: [
-        "Anthony Joshua and Tyson Fury stood chest to chest in London on Monday, and Joshua didn't blink first. \"I retired Fury once,\" he said, \"I'll do it again\" â€” a direct callback to their first fight and a line clearly aimed at getting under Fury's skin.",
+        "Anthony Joshua and Tyson Fury stood chest to chest in London on Monday, and Joshua didn't blink first. \"I retired Fury once,\" he said, \"I'll do it again\" — a direct callback to their first fight and a line clearly aimed at getting under Fury's skin.",
         "Fury answered the way he usually does: with volume. He promised a \"Gypsy King reset\" and spent most of his time at the mic talking about the version of himself that beat Wladimir Klitschko, not the one who struggled in recent outings.",
       ],
     },
@@ -123,7 +123,7 @@ const articleBodies: Record<string, ArticleSection[]> = {
       heading: "No Goodbye Yet",
       paragraphs: [
         "Vasiliy Lomachenko shut down retirement talk this week, telling reporters \"I still move like I'm 28\" after his win over Nakatani. The three-division champion says he wants one more meaningful run at lightweight before he's done.",
-        "It's a familiar position for Lomachenko â€” he's been written off before, usually right before a career-best performance.",
+        "It's a familiar position for Lomachenko — he's been written off before, usually right before a career-best performance.",
       ],
     },
     {
@@ -137,8 +137,8 @@ const articleBodies: Record<string, ArticleSection[]> = {
     {
       heading: "The Big Move",
       paragraphs: [
-        "Terence Crawford jumps Canelo Ãlvarez in our pound-for-pound top ten this month, the direct result of his one-sided win over Israil Madrimov and a quiet stretch for Canelo since his last title defense.",
-        "It's the first time Crawford has held the top spot outright since moving up from welterweight, and it puts extra weight on his September 12 date with Canelo â€” a literal chance to settle the argument in the ring.",
+        "Terence Crawford jumps Canelo Álvarez in our pound-for-pound top ten this month, the direct result of his one-sided win over Israil Madrimov and a quiet stretch for Canelo since his last title defense.",
+        "It's the first time Crawford has held the top spot outright since moving up from welterweight, and it puts extra weight on his September 12 date with Canelo — a literal chance to settle the argument in the ring.",
       ],
     },
     {
@@ -159,7 +159,7 @@ const articleBodies: Record<string, ArticleSection[]> = {
     {
       heading: "What It Sets Up",
       paragraphs: [
-        "The result does what everyone expected: it puts Benavidez back in the conversation for a Canelo Ãlvarez unification fight at 168 pounds, a matchup that's been circling for two years without either side committing to a date.",
+        "The result does what everyone expected: it puts Benavidez back in the conversation for a Canelo Álvarez unification fight at 168 pounds, a matchup that's been circling for two years without either side committing to a date.",
       ],
     },
   ],
@@ -167,14 +167,14 @@ const articleBodies: Record<string, ArticleSection[]> = {
     {
       heading: "The Ten-Point Must System",
       paragraphs: [
-        "Every round, each judge scores the fight independently. The winner of the round gets 10 points; the loser gets 9, or fewer if there's a knockdown or a point deduction. Even rounds don't officially exist â€” judges are required to pick a winner every time.",
+        "Every round, each judge scores the fight independently. The winner of the round gets 10 points; the loser gets 9, or fewer if there's a knockdown or a point deduction. Even rounds don't officially exist — judges are required to pick a winner every time.",
         "Three factors matter more than anything else: clean, effective punching; ring generalship (who's controlling distance and pace); and defense. Aggression only counts if it actually lands.",
       ],
     },
     {
       heading: "Where New Fans Get It Wrong",
       paragraphs: [
-        "The most common mistake is scoring for activity instead of effectiveness â€” a fighter throwing more punches isn't automatically winning the round if most of them are blocked or miss. Judges are watching for what connects clean, not what looks busy.",
+        "The most common mistake is scoring for activity instead of effectiveness — a fighter throwing more punches isn't automatically winning the round if most of them are blocked or miss. Judges are watching for what connects clean, not what looks busy.",
         "A single knockdown usually decides a round outright (10-8), even if the fighter who scored it did little else for the other two minutes.",
       ],
     },
@@ -183,7 +183,7 @@ const articleBodies: Record<string, ArticleSection[]> = {
     {
       heading: "How the New System Works",
       paragraphs: [
-        "Pugnera's new entry system pairs every ticket to a facial scan taken at purchase, checked again at the gate. If the face at the door doesn't match the name on the ticket, that ticket doesn't get in â€” no exceptions, no reselling around it.",
+        "Pugnera's new entry system pairs every ticket to a facial scan taken at purchase, checked again at the gate. If the face at the door doesn't match the name on the ticket, that ticket doesn't get in — no exceptions, no reselling around it.",
         "It launches with Canelo vs Crawford at Madison Square Garden, one of the most scalped tickets of the year before this rule existed.",
       ],
     },
@@ -198,14 +198,14 @@ const articleBodies: Record<string, ArticleSection[]> = {
     {
       heading: "Thirty Years Later",
       paragraphs: [
-        "Mike Tyson turns 60 this year, three decades removed from the version of him that ended fights in under two minutes. And yet no heavyweight since â€” not Klitschko, not Fury, not Usyk â€” has managed to take his spot as the sport's most recognizable face.",
+        "Mike Tyson turns 60 this year, three decades removed from the version of him that ended fights in under two minutes. And yet no heavyweight since — not Klitschko, not Fury, not Usyk — has managed to take his spot as the sport's most recognizable face.",
         "Part of it is the highlight reel. Part of it is that Tyson's rise and fall happened entirely in public, in a way that made him feel less like an athlete and more like a character everyone had an opinion about.",
       ],
     },
     {
       heading: "The Mark He Left",
       paragraphs: [
-        "Every heavyweight who's come up since has been measured against him in some way â€” for power, for aura, for the ability to end a night with one punch. Whatever era boxing is in now, it's still partly being narrated in reference to his.",
+        "Every heavyweight who's come up since has been measured against him in some way — for power, for aura, for the ability to end a night with one punch. Whatever era boxing is in now, it's still partly being narrated in reference to his.",
       ],
     },
   ],
@@ -213,7 +213,7 @@ const articleBodies: Record<string, ArticleSection[]> = {
     {
       heading: "Two Undefeated Records, One Ring",
       paragraphs: [
-        "Shakur Stevenson and Gervonta Davis meet at Allegiant Stadium in what's shaping up to be the most-discussed lightweight fight in years â€” a boxer's boxer against a puncher who ends careers early.",
+        "Shakur Stevenson and Gervonta Davis meet at Allegiant Stadium in what's shaping up to be the most-discussed lightweight fight in years — a boxer's boxer against a puncher who ends careers early.",
         "Trainer \"Bam Bam\" Roach broke down the styles clash at the press conference: Stevenson's jab and lateral movement against Davis's ability to close distance and land in bursts. \"Whoever solves the other guy's first minute wins the fight,\" Roach said.",
       ],
     },
@@ -234,7 +234,7 @@ const articleBodies: Record<string, ArticleSection[]> = {
     {
       heading: "What Changed",
       paragraphs: [
-        "It's not one breakout star â€” it's depth. Multiple weight classes now have two or three fighters capable of headlining on their own, which means promoters finally have real matchups to sell instead of one-off spectacles. That's the difference between a moment and a trend, and 2026 has made the case for the latter.",
+        "It's not one breakout star — it's depth. Multiple weight classes now have two or three fighters capable of headlining on their own, which means promoters finally have real matchups to sell instead of one-off spectacles. That's the difference between a moment and a trend, and 2026 has made the case for the latter.",
       ],
     },
   ],
@@ -242,14 +242,14 @@ const articleBodies: Record<string, ArticleSection[]> = {
     {
       heading: "The Comeback",
       paragraphs: [
-        "Errol Spence Jr. returns after three years away to face Vergil Ortiz Jr. in a 154-pound eliminator â€” a fight that answers one question immediately: is there anything left of the fighter who used to be the most avoided man in the welterweight division?",
+        "Errol Spence Jr. returns after three years away to face Vergil Ortiz Jr. in a 154-pound eliminator — a fight that answers one question immediately: is there anything left of the fighter who used to be the most avoided man in the welterweight division?",
         "Ortiz isn't the kind of opponent you pick for an easy return. He's heavy-handed, comes forward, and has stopped almost everyone who's shared a ring with him.",
       ],
     },
     {
       heading: "What's Really Being Tested",
       paragraphs: [
-        "Spence's chin and reflexes took a beating in his last two fights before the layoff. This isn't really about whether \"The Truth\" can still box â€” it's about whether his body will let him prove it against someone who won't give him a slow round to find out.",
+        "Spence's chin and reflexes took a beating in his last two fights before the layoff. This isn't really about whether \"The Truth\" can still box — it's about whether his body will let him prove it against someone who won't give him a slow round to find out.",
       ],
     },
   ],

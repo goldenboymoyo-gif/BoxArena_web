@@ -65,7 +65,7 @@ const reactions = [
 ];
 
 const pinnedMessage =
-  "Round 12 â€” judges scorecards are in. All three see it 115-113.";
+  "Round 12 — judges scorecards are in. All three see it 115-113.";
 
 let nextId = 100;
 
@@ -233,7 +233,7 @@ export function LiveChat({ className = "" }: LiveChatProps) {
           </button>
         ))}
         <span className="ml-auto flex items-center gap-1 text-[10px] font-bold uppercase tracking-[0.14em] text-white/35">
-          Slow mode Â· 1 msg / {SLOW_MODE_SECONDS}s
+          Slow mode · 1 msg / {SLOW_MODE_SECONDS}s
         </span>
       </div>
 
@@ -246,7 +246,7 @@ export function LiveChat({ className = "" }: LiveChatProps) {
           onChange={(e) => setDraft(e.target.value)}
           placeholder={
             cooldown > 0
-              ? `Slow mode â€” wait ${cooldown}s...`
+              ? `Slow mode — wait ${cooldown}s...`
               : "Join the conversation..."
           }
           className="h-11 flex-1 rounded-full border border-white/10 bg-white/5 px-4 text-sm text-white outline-none placeholder:text-white/35 focus:border-[#e31b23]/60"

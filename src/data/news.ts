@@ -20,7 +20,7 @@ export const newsArticles: NewsArticle[] = [
   {
     id: "canelo-crawford-presser",
     title: "Canelo vs Crawford press conference erupts: 'He's never fought anyone like me'",
-    excerpt: "Tempers flared at the Madison Square Garden kickoff presser as Canelo Ãlvarez and Terence Crawford traded barbs ahead of their September 12 superfight.",
+    excerpt: "Tempers flared at the Madison Square Garden kickoff presser as Canelo Álvarez and Terence Crawford traded barbs ahead of their September 12 superfight.",
     category: "News",
     breaking: true,
     featured: true,
@@ -67,7 +67,7 @@ export const newsArticles: NewsArticle[] = [
   },
   {
     id: "joshua-fury-presser",
-    title: "Joshua: 'I retired Fury once, I'll do it again' â€” rematch press conference live from London",
+    title: "Joshua: 'I retired Fury once, I'll do it again' — rematch press conference live from London",
     excerpt: "Anthony Joshua and Tyson Fury faced off in London ahead of their December 5 rematch at Tottenham Hotspur Stadium. Fury promised a 'Gypsy King reset'.",
     category: "News",
     breaking: true,
@@ -116,7 +116,7 @@ export const newsArticles: NewsArticle[] = [
   {
     id: "benavidez-morrell-review",
     title: "Benavidez vs Morrell fight report: 'The Mexican Monster' is a middleweight nightmare",
-    excerpt: "Full analysis from the 168lb showdown â€” Benavidez's pressure, Morrell's jab, and what it means for a Canelo unification.",
+    excerpt: "Full analysis from the 168lb showdown — Benavidez's pressure, Morrell's jab, and what it means for a Canelo unification.",
     category: "Fight Reports",
     breaking: false,
     featured: true,

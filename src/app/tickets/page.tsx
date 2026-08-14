@@ -81,21 +81,21 @@ export default async function TicketsPage({
               className="img-zoom h-full min-h-[380px] w-full object-cover"
             />
             <div className="absolute inset-0 bg-gradient-to-r from-[#0a0a0a] via-[#0a0a0a]/80 to-transparent" />
-            <div className="absolute inset-0 flex flex-col justify-end p-8">
+            <div className="absolute inset-0 flex flex-col justify-end p-5 sm:p-8">
               <span className="inline-flex w-fit items-center gap-2 rounded-full bg-[#e31b23] px-4 py-1.5 text-xs font-bold uppercase tracking-[0.2em] text-white">
                 <Ticket className="size-4" /> Featured
               </span>
-              <h2 className="mt-4 max-w-xl font-display text-4xl font-semibold uppercase leading-tight tracking-wide text-white sm:text-5xl">
+              <h2 className="mt-4 max-w-xl font-display text-3xl font-semibold uppercase leading-tight tracking-wide text-white sm:text-4xl lg:text-5xl">
                 {featured.title}
               </h2>
               <p className="mt-2 max-w-lg text-sm text-white/60">{featured.headline}</p>
-              <div className="mt-4 flex flex-wrap gap-5 text-sm text-white/70">
+              <div className="mt-4 flex flex-wrap gap-x-5 gap-y-2 text-sm text-white/70">
                 <span className="flex items-center gap-2">
-                  <CalendarDays className="size-4 text-[#e31b23]" />
+                  <CalendarDays className="size-4 shrink-0 text-[#e31b23]" />
                   {formatDate(featured.date)}
                 </span>
                 <span className="flex items-center gap-2">
-                  <MapPin className="size-4 text-[#e31b23]" />
+                  <MapPin className="size-4 shrink-0 text-[#e31b23]" />
                   {featured.venue}, {featured.city}
                 </span>
               </div>

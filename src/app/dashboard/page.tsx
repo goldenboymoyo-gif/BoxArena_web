@@ -23,7 +23,7 @@ import { fighters } from "@/data/fighters";
 export const metadata = {
   title: "My Dashboard",
   description:
-    "Your Pugnera dashboard â€” tickets, favorite fighters, watchlist and account.",
+    "Your Pugnera dashboard — tickets, favorite fighters, watchlist and account.",
 };
 
 const sidebarNav = [

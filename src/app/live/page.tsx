@@ -12,7 +12,7 @@ const LIVE_YOUTUBE_ID = "wvYrvXEvnhc";
 export const metadata = {
   title: "Live Fights",
   description:
-    "Watch live boxing â€” the current main event, live scorecards, commentary and the full upcoming broadcast schedule.",
+    "Watch live boxing — the current main event, live scorecards, commentary and the full upcoming broadcast schedule.",
 };
 
 const scorecardRounds = [
@@ -27,9 +27,9 @@ const scorecardRounds = [
 ];
 
 const commentary = [
-  { time: "R8 Â· 1:12", text: "Big left hook from the champion catches the challenger clean â€” crowd is on its feet at the Tokyo Dome." },
-  { time: "R8 Â· 2:05", text: "Body work from Nakatani slowing the pace, but Inoue answers with a sharp 1-2." },
-  { time: "R7 Â· 0:48", text: "Beautiful counter right down the middle. Inoue closing the distance beautifully." },
+  { time: "R8 · 1:12", text: "Big left hook from the champion catches the challenger clean — crowd is on its feet at the Tokyo Dome." },
+  { time: "R8 · 2:05", text: "Body work from Nakatani slowing the pace, but Inoue answers with a sharp 1-2." },
+  { time: "R7 · 0:48", text: "Beautiful counter right down the middle. Inoue closing the distance beautifully." },
 ];
 
 export default function LivePage() {
@@ -57,7 +57,7 @@ export default function LivePage() {
             <span className="relative flex size-2">
               <span className="live-dot inline-flex size-2 rounded-full bg-white" />
             </span>
-            On air Â· {liveEvent.title}
+            On air · {liveEvent.title}
           </span>
         </div>
       </section>
@@ -68,7 +68,7 @@ export default function LivePage() {
           <div className="min-w-0">
             <PugneraPlayer
               videoId={LIVE_YOUTUBE_ID}
-              title={`${liveEvent.title} â€” live stream`}
+              title={`${liveEvent.title} — live stream`}
               live
               autoplay
               label={liveEvent.weightClass}
@@ -83,7 +83,7 @@ export default function LivePage() {
                   {liveEvent.title}
                 </h2>
                 <p className="text-xs leading-5 text-white/45">
-                  {liveEvent.venue} Â· {liveEvent.city} Â· Demo stream on Pugnera
+                  {liveEvent.venue} · {liveEvent.city} · Demo stream on Pugnera
                 </p>
               </div>
               <div className="flex flex-wrap items-center gap-2">
@@ -164,7 +164,7 @@ export default function LivePage() {
           <SectionHeading
             subtitle="Coming up next"
             title="Broadcast Schedule"
-            description="Every live event on the Pugnera platform â€” mark your calendar."
+            description="Every live event on the Pugnera platform — mark your calendar."
             actionLabel="All events"
             actionHref="/events"
           />

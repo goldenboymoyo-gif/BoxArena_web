@@ -6,7 +6,7 @@ import { divisions } from "@/data/rankings";
 export const metadata = {
   title: "Rankings & Weight Divisions",
   description:
-    "Official Pugnera rankings across all 17 professional weight divisions â€” champions, contenders, points and movement.",
+    "Official Pugnera rankings across all 17 professional weight divisions — champions, contenders, points and movement.",
 };
 
 export default function RankingsPage() {
@@ -24,7 +24,7 @@ export default function RankingsPage() {
             Rankings & <span className="text-[#e31b23]">Divisions</span>
           </h1>
           <p className="mt-4 max-w-2xl text-sm leading-7 text-white/55">
-            All 17 professional weight divisions ranked by our editorial panel â€”
+            All 17 professional weight divisions ranked by our editorial panel —
             champions, contenders, points and week-to-week movement.
           </p>
         </div>
@@ -46,7 +46,7 @@ export default function RankingsPage() {
         <div className="mx-auto max-w-[1440px] px-4 sm:px-6 py-16 lg:px-8">
           <div className="relative overflow-hidden rounded-3xl border border-white/10">
             <div className="absolute inset-0 bg-[radial-gradient(80%_120%_at_50%_0%,rgba(227,27,35,0.25),transparent_60%)]" />
-            <div className="relative grid gap-8 p-8 lg:grid-cols-2 lg:p-12">
+            <div className="relative grid gap-8 p-5 sm:p-8 lg:grid-cols-2 lg:p-12">
               <div>
                 <p className="text-xs font-bold uppercase tracking-[0.32em] text-[#e31b23]">
                   Pound-for-Pound
@@ -64,7 +64,7 @@ export default function RankingsPage() {
                   { name: "Oleksandr Usyk", div: "Heavyweight", record: "25-1 (16 KO)" },
                   { name: "Terence Crawford", div: "Welterweight", record: "41-0 (31 KO)" },
                   { name: "Naoya Inoue", div: "Super Bantamweight", record: "30-0 (26 KO)" },
-                  { name: "Canelo Ãlvarez", div: "Super Middleweight", record: "63-3-2 (40 KO)" },
+                  { name: "Canelo Álvarez", div: "Super Middleweight", record: "63-3-2 (40 KO)" },
                   { name: "Dmitry Bivol", div: "Light Heavyweight", record: "23-1 (12 KO)" },
                 ].map((f, i) => (
                   <div
@@ -79,7 +79,7 @@ export default function RankingsPage() {
                         {f.name}
                       </p>
                       <p className="text-xs text-white/45">
-                        {f.div} Â· {f.record}
+                        {f.div} · {f.record}
                       </p>
                     </div>
                   </div>

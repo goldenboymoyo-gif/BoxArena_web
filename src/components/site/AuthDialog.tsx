@@ -176,7 +176,7 @@ export function AuthDialog({
             )}
           </p>
           <p className="text-[11px] leading-4 text-white/35">
-            Demo site â€” no real account is created.
+            Demo site — no real account is created.
           </p>
         </div>
       </DialogContent>
