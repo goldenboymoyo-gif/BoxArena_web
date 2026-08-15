@@ -106,6 +106,12 @@ class BoxerProfile(TimeStampedModel):
     biography = models.TextField(blank=True)
     social_links = models.JSONField(default=dict, blank=True)
     profile_image_key = models.CharField(max_length=255, blank=True)
+    # Set by the boxer themselves via MyBoxerProfileView; only actually
+    # displayed on the public fighter directory while the account has an
+    # active PREMIUM subscription (see apps.fighters.services.annotate_boosted
+    # and FighterSerializer) — a boxer can fill this in any time, but it's
+    # gated at read time, not write time.
+    highlight_video_url = models.URLField(blank=True)
 
     # A boxer can never set this themselves — only an authorized backend
     # verification workflow may change it (spec §9).

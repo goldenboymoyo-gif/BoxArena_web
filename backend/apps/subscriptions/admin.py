@@ -6,6 +6,10 @@ from .models import Plan, Subscription
 @admin.register(Plan)
 class PlanAdmin(admin.ModelAdmin):
     list_display = ["tier", "billing_interval", "price", "currency", "is_active"]
+    fields = [
+        "tier", "billing_interval", "price", "currency", "trial_days", "is_active",
+        "fan_description", "boxer_description",
+    ]
 
 
 @admin.register(Subscription)

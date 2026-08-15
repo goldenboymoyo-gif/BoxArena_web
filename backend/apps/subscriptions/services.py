@@ -5,7 +5,33 @@ from django.utils import timezone
 
 from apps.audit.services import record_audit_event
 
-from .models import SubscriptionStatus
+from .models import Subscription, SubscriptionStatus
+
+
+@transaction.atomic
+def start_subscription(user, plan):
+    """Create the Subscription row a payment intent will point at. Status
+    is INCOMPLETE unless the plan itself grants a free trial — this row
+    must never be entitlement-granting before a webhook confirms payment
+    (see SubscriptionStatus.INCOMPLETE docstring, has_active_premium)."""
+    if not plan.is_active:
+        raise ValueError("This plan is not currently available.")
+
+    if plan.trial_days > 0:
+        status = SubscriptionStatus.TRIALING
+        period_end = timezone.now() + timedelta(days=plan.trial_days)
+    else:
+        status = SubscriptionStatus.INCOMPLETE
+        period_end = None
+
+    subscription = Subscription.objects.create(
+        user=user, plan=plan, status=status, current_period_end=period_end,
+    )
+    record_audit_event(
+        action="subscription.started", actor=user, object_type="subscription", object_id=subscription.id,
+        metadata={"plan_id": str(plan.id), "tier": plan.tier, "billing_interval": plan.billing_interval},
+    )
+    return subscription
 
 
 @transaction.atomic

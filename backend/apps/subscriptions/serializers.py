@@ -3,10 +3,17 @@ from rest_framework import serializers
 from .models import Plan, Subscription
 
 
+class StartSubscriptionSerializer(serializers.Serializer):
+    plan_id = serializers.UUIDField()
+
+
 class PlanSerializer(serializers.ModelSerializer):
     class Meta:
         model = Plan
-        fields = ["id", "tier", "billing_interval", "price", "currency", "trial_days"]
+        fields = [
+            "id", "tier", "billing_interval", "price", "currency", "trial_days",
+            "fan_description", "boxer_description",
+        ]
         read_only_fields = fields
 
 

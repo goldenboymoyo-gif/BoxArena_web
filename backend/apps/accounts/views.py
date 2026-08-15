@@ -15,6 +15,8 @@ from . import services
 from .models import AccountDeletionRequest, DeviceSession
 from .serializers import (
     AccountDeletionRequestSerializer,
+    BoxerProfileInputSerializer,
+    BoxerProfilePublicSerializer,
     ChangePasswordSerializer,
     DeviceSessionSerializer,
     MeSerializer,
@@ -226,6 +228,31 @@ class MeView(APIView):
             action="account.profile_updated", actor=request.user, object_type="user", object_id=request.user.id
         )
         return Response(MeSerializer(request.user).data)
+
+
+class MyBoxerProfileView(APIView):
+    """Lets a BOXER account edit their own gym/bio/social links/highlight
+    reel post-registration — there was previously no way to do this at all
+    (registration only). Ownership enforced the same way as MeView: only
+    request.user.boxer_profile, never an id from the URL/body (spec §8).
+    Record fields (wins/losses/etc.) here are self-reported account-profile
+    stats, distinct from the editorial Fighter directory record which only
+    staff can write (see apps.fighters.models.Fighter docstring).
+    """
+
+    permission_classes = [IsAuthenticated]
+
+    def patch(self, request):
+        profile = getattr(request.user, "boxer_profile", None)
+        if profile is None:
+            return Response({"detail": "This account does not have a boxer profile."}, status=404)
+        serializer = BoxerProfileInputSerializer(profile, data=request.data, partial=True)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        record_audit_event(
+            action="account.boxer_profile_updated", actor=request.user, object_type="user", object_id=request.user.id
+        )
+        return Response(BoxerProfilePublicSerializer(profile).data)
 
 
 class ProfileImageUploadView(APIView):

@@ -18,7 +18,7 @@ class LiveFeedView(APIView):
 
     def get(self, request):
         events = services.get_live_feed()
-        return Response(LiveEventSerializer(events, many=True).data)
+        return Response(LiveEventSerializer(events, many=True, context={"request": request}).data)
 
 
 class UpcomingEventsView(APIView):
@@ -31,7 +31,7 @@ class UpcomingEventsView(APIView):
         events = LiveEvent.objects.filter(
             is_verified=True, status=LiveEventStatus.UPCOMING, start_time__gte=timezone.now()
         ).order_by("start_time")
-        return Response(LiveEventSerializer(events, many=True).data)
+        return Response(LiveEventSerializer(events, many=True, context={"request": request}).data)
 
 
 class CompletedEventsView(APIView):
@@ -39,7 +39,7 @@ class CompletedEventsView(APIView):
 
     def get(self, request):
         events = LiveEvent.objects.filter(is_verified=True, status=LiveEventStatus.COMPLETED).order_by("-start_time")
-        return Response(LiveEventSerializer(events, many=True).data)
+        return Response(LiveEventSerializer(events, many=True, context={"request": request}).data)
 
 
 class StreamSourceAdminViewSet(ModelViewSet):

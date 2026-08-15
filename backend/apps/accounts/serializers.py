@@ -11,6 +11,7 @@ class BoxerProfileInputSerializer(serializers.ModelSerializer):
             "gym", "coach_name", "organization", "is_professional", "weight_class",
             "current_weight_kg", "height_cm", "reach_cm", "stance", "years_boxing",
             "wins", "losses", "draws", "knockouts", "biography", "social_links",
+            "highlight_video_url",
         ]
 
 
@@ -83,7 +84,7 @@ class BoxerProfilePublicSerializer(serializers.ModelSerializer):
             "gym", "coach_name", "organization", "is_professional", "weight_class",
             "current_weight_kg", "height_cm", "reach_cm", "stance", "years_boxing",
             "wins", "losses", "draws", "knockouts", "biography", "social_links",
-            "verification_status", "profile_image_key",
+            "verification_status", "profile_image_key", "highlight_video_url",
         ]
         read_only_fields = ["verification_status"]
 

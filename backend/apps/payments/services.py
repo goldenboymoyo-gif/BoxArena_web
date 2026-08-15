@@ -107,6 +107,57 @@ def create_payment_intent_for_order(*, user, order, idempotency_key: str | None 
 
 
 @transaction.atomic
+def create_payment_intent_for_subscription(*, user, subscription, idempotency_key: str | None = None):
+    """Mirrors create_payment_intent_for_order above, for the subscribe
+    flow. Amount/currency always come from the server-side plan price —
+    never from the client (spec §15, §35)."""
+    from apps.subscriptions.models import SubscriptionStatus
+
+    if subscription.user_id != user.id:
+        raise PermissionError("You do not own this subscription.")
+    if subscription.status not in {SubscriptionStatus.INCOMPLETE, SubscriptionStatus.PAST_DUE}:
+        raise PaymentError("This subscription is not payable in its current state.")
+
+    amount, currency = subscription.plan.price, subscription.plan.currency
+    idempotency_key = idempotency_key or f"subscription:{subscription.id}"
+
+    existing = PaymentIntent.objects.filter(idempotency_key=idempotency_key).first()
+    if existing:
+        return existing, {}
+
+    config, adapter = get_active_provider()
+    result = adapter.create_intent(
+        amount=amount,
+        currency=currency,
+        order_reference=str(subscription.id),
+        customer_id=str(user.id),
+        idempotency_key=idempotency_key,
+    )
+
+    try:
+        intent = PaymentIntent.objects.create(
+            id=uuid.uuid4(),
+            idempotency_key=idempotency_key,
+            user=user,
+            provider=config,
+            subscription=subscription,
+            amount=amount,
+            currency=currency,
+            status=PaymentStatus.REQUIRES_PAYMENT,
+            provider_intent_id=result.provider_intent_id,
+            provider_reference=result.provider_reference,
+        )
+    except IntegrityError:
+        intent = PaymentIntent.objects.get(idempotency_key=idempotency_key)
+
+    record_audit_event(
+        action="payment.intent_created", actor=user, object_type="payment_intent", object_id=intent.id,
+        metadata={"subscription_id": str(subscription.id), "amount": str(amount), "currency": currency},
+    )
+    return intent, result.client_payload
+
+
+@transaction.atomic
 def process_webhook(*, provider_key: str, raw_body: bytes, headers: dict):
     """Verify → validate → idempotency-check → atomically update →
     grant entitlement → audit (spec §9)."""

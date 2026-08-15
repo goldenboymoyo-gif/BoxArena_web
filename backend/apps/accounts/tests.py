@@ -145,3 +145,51 @@ class LogoutTests(APITestCase):
 
         refresh_response = self.client.post(reverse("token-refresh"), {"refresh": self.refresh})
         self.assertEqual(refresh_response.status_code, 401)
+
+
+class MyBoxerProfileTests(APITestCase):
+    """Previously a boxer had no way to edit gym/bio/social/highlight
+    fields after registration at all. Ownership follows the same pattern
+    as MeView: only request.user.boxer_profile, never an id from the
+    request (spec §8)."""
+
+    def setUp(self):
+        self.client.post(
+            reverse("register"),
+            {
+                "email": "boxer@example.com", "password": "Str0ng!Passw0rd",
+                "first_name": "Terence", "last_name": "Crawford",
+                "country": "US", "city": "Omaha", "role": "BOXER",
+                "boxer_profile": {"weight_class": "Welterweight", "stance": "ORTHODOX"},
+            },
+            format="json",
+        )
+        self.user = User.objects.get(email="boxer@example.com")
+        self.user.is_email_verified = True
+        self.user.save(update_fields=["is_email_verified"])
+        self.client.force_authenticate(self.user)
+
+    def test_boxer_can_set_own_highlight_video_url(self):
+        response = self.client.patch(
+            reverse("my-boxer-profile"),
+            {"highlight_video_url": "https://youtube.com/watch?v=abc", "biography": "Undefeated."},
+            format="json",
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.data["highlight_video_url"], "https://youtube.com/watch?v=abc")
+        self.user.boxer_profile.refresh_from_db()
+        self.assertEqual(self.user.boxer_profile.biography, "Undefeated.")
+
+    def test_fan_without_boxer_profile_gets_404_not_error(self):
+        _register(self.client, email="fan-only@example.com")
+        fan_user = User.objects.get(email="fan-only@example.com")
+        fan_user.is_email_verified = True
+        fan_user.save(update_fields=["is_email_verified"])
+        self.client.force_authenticate(fan_user)
+        response = self.client.patch(reverse("my-boxer-profile"), {"biography": "x"}, format="json")
+        self.assertEqual(response.status_code, 404)
+
+    def test_unauthenticated_request_is_rejected(self):
+        self.client.force_authenticate(user=None)
+        response = self.client.patch(reverse("my-boxer-profile"), {"biography": "x"}, format="json")
+        self.assertEqual(response.status_code, 401)

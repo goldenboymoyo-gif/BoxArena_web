@@ -1,12 +1,15 @@
+import uuid
 from datetime import timedelta
 
 from django.urls import reverse
 from django.utils import timezone
 from rest_framework.test import APITestCase
 
+from apps.accounts.models import FanProfile, Role, User
 from apps.streams.adapters.base import RawStreamEvent
-from apps.streams.models import LiveEvent, LiveEventStatus, StreamSource
+from apps.streams.models import LiveEvent, LiveEventStatus, LiveEventStream, StreamSource
 from apps.streams.services import get_live_feed, ingest_from_source, reclassify_event_statuses
+from apps.subscriptions.models import Plan, Subscription, SubscriptionStatus
 
 
 def _make_source(**overrides):
@@ -141,3 +144,51 @@ class PriorityOrderingTests(APITestCase):
         feed = get_live_feed()
         self.assertEqual(feed[0].id, free.id)
         self.assertEqual(feed[1].id, paid.id)
+
+
+class SubscriptionGatedStreamTests(APITestCase):
+    """spec ask: a fan's PREMIUM subscription = free access to otherwise
+    gated live fights. A stream flagged requires_subscription must hide its
+    watch URL from anyone without an active premium subscription, and
+    reveal it once they have one — never trusting a client-side flag."""
+
+    def setUp(self):
+        source = _make_source()
+        event = LiveEvent.objects.create(
+            dedup_key="gated-event", title="Gated fight", fighter_1="A", fighter_2="B", organization="X",
+            event_date=timezone.now().date(), start_time=timezone.now(),
+            status=LiveEventStatus.LIVE, is_verified=True, is_free=False,
+        )
+        LiveEventStream.objects.create(
+            id=uuid.uuid4(), event=event, source=source,
+            source_url="https://legit.example.com/watch/gated", embed_url="",
+            requires_subscription=True,
+        )
+        self.plan = Plan.objects.get(tier="PREMIUM", billing_interval="MONTHLY")
+        self.user = User.objects.create(email="fan@example.com", first_name="F", last_name="An", role=Role.FAN, is_email_verified=True)
+        self.user.set_password("Str0ng!Passw0rd")
+        self.user.save()
+        FanProfile.objects.create(user=self.user)
+
+    def test_anonymous_viewer_cannot_see_gated_stream_url(self):
+        response = self.client.get(reverse("live-feed"))
+        stream = response.data[0]["streams"][0]
+        self.assertTrue(stream["locked"])
+        self.assertIsNone(stream["source_url"])
+
+    def test_viewer_without_premium_cannot_see_gated_stream_url(self):
+        self.client.force_authenticate(self.user)
+        response = self.client.get(reverse("live-feed"))
+        stream = response.data[0]["streams"][0]
+        self.assertTrue(stream["locked"])
+        self.assertIsNone(stream["source_url"])
+
+    def test_premium_subscriber_can_see_gated_stream_url(self):
+        Subscription.objects.create(
+            id=uuid.uuid4(), user=self.user, plan=self.plan, status=SubscriptionStatus.ACTIVE,
+        )
+        self.client.force_authenticate(self.user)
+        response = self.client.get(reverse("live-feed"))
+        stream = response.data[0]["streams"][0]
+        self.assertFalse(stream["locked"])
+        self.assertEqual(stream["source_url"], "https://legit.example.com/watch/gated")
