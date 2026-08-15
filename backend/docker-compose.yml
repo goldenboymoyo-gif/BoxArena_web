@@ -1,0 +1,63 @@
+# Local development stack only. Production uses managed Postgres/Redis and
+# a secret manager instead of these plaintext env values.
+services:
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: pugnera
+      POSTGRES_USER: pugnera
+      POSTGRES_PASSWORD: pugnera_dev_only
+    ports:
+      - "5432:5432"
+    volumes:
+      - pugnera_pgdata:/var/lib/postgresql/data
+    # Not exposed beyond localhost/the compose network in any shared environment.
+
+  redis:
+    image: redis:7-alpine
+    command: ["redis-server", "--requirepass", "pugnera_dev_only"]
+    ports:
+      - "6379:6379"
+    # Redis must never be reachable from the public internet; this port
+    # mapping is for local development only.
+
+  web:
+    build: .
+    command: python manage.py runserver 0.0.0.0:8000
+    env_file: .env
+    environment:
+      DJANGO_SETTINGS_MODULE: pugnera.settings.dev
+    volumes:
+      - .:/app
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+      - redis
+
+  worker:
+    build: .
+    command: celery -A pugnera worker -l info
+    env_file: .env
+    environment:
+      DJANGO_SETTINGS_MODULE: pugnera.settings.dev
+    volumes:
+      - .:/app
+    depends_on:
+      - db
+      - redis
+
+  beat:
+    build: .
+    command: celery -A pugnera beat -l info
+    env_file: .env
+    environment:
+      DJANGO_SETTINGS_MODULE: pugnera.settings.dev
+    volumes:
+      - .:/app
+    depends_on:
+      - db
+      - redis
+
+volumes:
+  pugnera_pgdata:
