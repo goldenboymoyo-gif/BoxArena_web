@@ -45,6 +45,9 @@ SECURE_CONTENT_TYPE_NOSNIFF = True
 SECURE_REFERRER_POLICY = "same-origin"
 X_FRAME_OPTIONS = "DENY"
 
+# --- Admin MFA is mandatory in production, no opt-out (spec §18) ----------
+ADMIN_MFA_REQUIRED = True
+
 # --- Payments: refuse to boot on a non-mock provider without live creds ----
 if ACTIVE_PAYMENT_PROVIDER != "mock" and not env("PAYMENT_PROVIDER_SECRET_KEY", default=None):  # noqa: F405
     raise RuntimeError(

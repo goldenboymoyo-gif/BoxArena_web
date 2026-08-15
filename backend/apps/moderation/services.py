@@ -16,6 +16,17 @@ def take_action(*, target_user, moderator, action_type: str, reason: str, expire
     if action_type in {"SUSPEND", "BAN"}:
         target_user.is_active = False
         target_user.save(update_fields=["is_active"])
+        # djangorestframework-simplejwt>=5.5.1 already rejects is_active=False
+        # users on every authenticated request and on refresh (see
+        # PYSEC-2026-1305), so this isn't the only thing standing between a
+        # banned user and continued access — but revoking immediately, not
+        # just waiting for that check, means there's no window where a
+        # still-open device session looks "active" in apps/accounts session
+        # listings, and it's consistent with how password reset/change
+        # already force full re-authentication.
+        from apps.accounts.services import revoke_all_sessions
+
+        revoke_all_sessions(target_user)
 
     record_audit_event(
         action=f"moderation.{action_type.lower()}", actor=moderator, object_type="user", object_id=target_user.id,

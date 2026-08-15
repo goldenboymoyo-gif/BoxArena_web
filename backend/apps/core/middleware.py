@@ -29,7 +29,13 @@ class SecurityHeadersMiddleware:
         response.setdefault(
             "Content-Security-Policy",
             "default-src 'self'; frame-ancestors 'none'; base-uri 'self'; "
-            "object-src 'none'",
+            "object-src 'none'; img-src 'self' data:; "
+            # Django's own admin templates use a small number of inline
+            # <style> blocks (e.g. the calendar/time widgets) that a
+            # stricter policy would silently break; this is a deliberate,
+            # narrow exception scoped to styles only — script-src still
+            # has no 'unsafe-inline'.
+            "style-src 'self' 'unsafe-inline'",
         )
         response.setdefault("X-Content-Type-Options", "nosniff")
         response.setdefault("Referrer-Policy", "same-origin")

@@ -89,7 +89,11 @@ ROOT_URLCONF = "pugnera.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [],
+        # Checked before any app's own templates dir, so our
+        # templates/admin/login.html (adding the OTP field) wins over
+        # django.contrib.admin's stock login template without needing to
+        # reorder INSTALLED_APPS.
+        "DIRS": [BASE_DIR / "templates"],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -193,7 +197,15 @@ REST_FRAMEWORK = {
     ),
     "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.LimitOffsetPagination",
     "PAGE_SIZE": 20,
+    # Every endpoint gets a baseline anon/user rate cap even if it doesn't
+    # set a throttle_scope — a view I forgot to scope (or a new one added
+    # later) must never end up completely unthrottled. Endpoints that need
+    # a tighter, endpoint-specific limit (login, register, payments,
+    # refunds, webhooks) additionally set throttle_scope and get the
+    # stricter rate from ScopedRedisRateThrottle on top of this baseline.
     "DEFAULT_THROTTLE_CLASSES": (
+        "rest_framework.throttling.AnonRateThrottle",
+        "rest_framework.throttling.UserRateThrottle",
         "apps.core.throttling.ScopedRedisRateThrottle",
     ),
     "DEFAULT_THROTTLE_RATES": {
@@ -258,7 +270,14 @@ CHANNEL_LAYERS = {
 # CORS — explicit allow-list only, never wildcard in any environment
 # ---------------------------------------------------------------------------
 CORS_ALLOWED_ORIGINS = env.list("CORS_ALLOWED_ORIGINS", default=[])
-CORS_ALLOW_CREDENTIALS = True
+# False because this API is Bearer-token (JWT) authenticated, not
+# cookie/session authenticated — the browser never needs to send
+# credentials (cookies) cross-origin to use it. Leaving this True would
+# needlessly widen the CORS attack surface (it permits cross-origin
+# requests to include cookies) for no functional benefit. If a future
+# feature genuinely needs cookie-based cross-origin requests, turn this on
+# deliberately for that case rather than globally.
+CORS_ALLOW_CREDENTIALS = False
 CORS_ALLOW_ALL_ORIGINS = False
 
 # ---------------------------------------------------------------------------
@@ -284,6 +303,17 @@ DEFAULT_FROM_EMAIL = env("DEFAULT_FROM_EMAIL", default="Pugnera <no-reply@pugner
 EMAIL_VERIFICATION_TOKEN_TTL_HOURS = 24
 PASSWORD_RESET_TOKEN_TTL_MINUTES = 30
 FRONTEND_URL = env("FRONTEND_URL", default="http://localhost:3000")
+
+# ---------------------------------------------------------------------------
+# Admin MFA (spec §18: "Implement... MFA for administrators")
+# ---------------------------------------------------------------------------
+# When True, apps.core.apps.CoreConfig.ready() requires every staff user to
+# have a verified OTP device (django_otp) before the Django admin will let
+# them in — see apps/core/apps.py for the enforcement and
+# apps/accounts/management/commands/enroll_admin_totp.py for how a staff
+# member gets a device in the first place. Off by default in dev so local
+# work isn't blocked on setting up TOTP; production.py forces it on.
+ADMIN_MFA_REQUIRED = env.bool("ADMIN_MFA_REQUIRED", default=False)
 
 # ---------------------------------------------------------------------------
 # Sentry (error + security monitoring) — DSN supplied per-environment

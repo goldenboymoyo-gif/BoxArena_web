@@ -2,7 +2,7 @@ import { CalendarDays, ExternalLink, MapPin, Radio } from "lucide-react";
 import type { LiveEvent } from "@/shared/live";
 import { LiveChat } from "./LiveChat";
 import { PugneraPlayer } from "@/components/media/PugneraPlayer";
-import { formatEventDate, formatEventTime, thumbOrFallback, videoIdFromEmbed } from "@/lib/live-client";
+import { formatEventDate, formatEventTime, isEmbeddableUrl, thumbOrFallback, videoIdFromEmbed } from "@/lib/live-client";
 import { AccessBadge, StatusBadge, TierBadge } from "./badges";
 
 interface LiveEventHeroProps {
@@ -11,7 +11,10 @@ interface LiveEventHeroProps {
 
 export function LiveEventHero({ event }: LiveEventHeroProps) {
   const primary = event.streams.find((stream) => stream.isPrimary) ?? event.streams[0];
-  const embeddable = Boolean(primary?.embeddable && primary.embedUrl);
+  // embeddable is only trusted once the URL is on the known-host allowlist
+  // (see isEmbeddableUrl) — source config is admin-gated but still untrusted
+  // input as far as the browser's iframe is concerned.
+  const embeddable = Boolean(primary?.embeddable && primary.embedUrl && isEmbeddableUrl(primary.embedUrl));
   const youTubeId = embeddable && primary?.embedUrl ? videoIdFromEmbed(primary.embedUrl) : null;
   const thumbnail = thumbOrFallback(event.thumbnail);
 
